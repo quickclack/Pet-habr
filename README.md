@@ -13,3 +13,12 @@
 {%project_folder%}: php artisan serve
 http://127.0.0.1:8000
 ```
+
+## Если у вас веб сервер apache
+```
+- в корне каталога создать файл .htaccess
+- добавить туда:
+
+RewriteEngine On
+RewriteRule (.*) public/$1 
+```
