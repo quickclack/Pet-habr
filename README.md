@@ -2,15 +2,15 @@
 
 ### Чистый запуск
 ```
-{%project_folder%}: cp ./env.example ./.env
-{%project_folder%}: composer install
-{%project_folder%}: npm install
-{%project_folder%}: php artisan project:install
+- cp ./env.example ./.env
+- composer install
+- npm install
+- php artisan project:install
 ```
 
 ### Для локального запуска
 ```
-{%project_folder%}: php artisan serve
+- php artisan serve
 http://127.0.0.1:8000
 ```
 
@@ -21,4 +21,10 @@ http://127.0.0.1:8000
 
 RewriteEngine On
 RewriteRule (.*) public/$1 
+```
+
+## Источники
+```
+- Тз проекта https://docs.google.com/document/d/1AOXgSPmhXQb33l063dsfqOudUA9_GBW1aVCVRuH_950/edit#
+- Доска по задачам в команде https://trello.com/w/gbfinalproject
 ```
