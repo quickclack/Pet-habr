@@ -4,7 +4,6 @@
 ```
 - cp ./env.example ./.env
 - composer install
-- npm install
 - php artisan project:install
 ```
 
