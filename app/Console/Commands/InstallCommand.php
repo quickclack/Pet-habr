@@ -12,6 +12,7 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
+        $this->call('key:generate');
         $this->call('storage:link');
         $this->call('migrate', [
             '--seed' => true
