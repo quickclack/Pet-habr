@@ -27,9 +27,6 @@ jobs:
       - name: Set required directory permissions
         run: chmod -R 775 storage bootstrap/cache
 
-      - name: Generate encryption key
-        run: php artisan key:generate
-
       - name: Create deployment artifacts
         env:
           GITHUB_SHA: ${{ github.sha }}
