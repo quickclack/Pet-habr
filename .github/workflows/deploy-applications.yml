@@ -18,6 +18,15 @@ jobs:
           php-version: 8.1
           extensions: mbstring, ctype, fileinfo, openssl, PDO, bcmath, json, tokenizer, xml
 
+      - name: Copy .env.example.testing to .env.testing
+        run: php -r "file_exists('.env.testing') || copy('.env.example.testing', '.env.testing');"
+
+      - name: Set required directory permissions
+        run: chmod -R 775 storage bootstrap/cache
+
+      - name: Generate encryption key
+        run: php artisan key:generate
+
       - name: Install composer dependencies
         run: composer install
 
