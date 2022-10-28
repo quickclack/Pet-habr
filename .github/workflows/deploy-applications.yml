@@ -1,0 +1,22 @@
+name: Deploy Applications
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-deployment-artifacts:
+    name: Create deployment artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - users: actions/checkout@v2
+
+      - name: Configure PHP 8.1
+        users: shivammathur/setup-php@master
+        with:
+          php-version: 8.1
+          extensions: mbstring, ctype, fileinfo, openssh, PDO, bcmath, json, tokenizer, xml
+
+      - name: Install composer dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist
