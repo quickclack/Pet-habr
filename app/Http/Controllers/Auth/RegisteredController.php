@@ -6,13 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
 class RegisteredController extends Controller
 {
-    public function store(RegisteredRequest $request): JsonResponse
+    public function show(): Application|Factory|View
+    {
+        return view('');
+    }
+
+    public function store(RegisteredRequest $request): RedirectResponse
     {
         $user = User::create([
             'nickName' => $request->nickName,
@@ -22,15 +29,13 @@ class RegisteredController extends Controller
         ]);
 
         if ($user) {
-            //event(new Registered($user));
+            event(new Registered($user));
 
             auth()->login($user);
 
-            // TODO вернуть на форму подтверждения email
+            return to_route('verification.notice');
         }
 
-        return response()->json([
-            'status' => Response::HTTP_CREATED
-        ]);
+        return to_route('login');
     }
 }

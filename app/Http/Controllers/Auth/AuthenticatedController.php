@@ -4,24 +4,29 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AuthenticatedController extends Controller
 {
-    public function store(LoginRequest $request): JsonResponse
+    public function show(): Application|Factory|View
+    {
+        return view('');
+    }
+
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return response()->json([
-            'status' => Response::HTTP_OK
-        ]);
+        return to_route('home');
     }
 
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request): RedirectResponse
     {
         auth()->logout();
 
@@ -29,8 +34,6 @@ class AuthenticatedController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'status' => Response::HTTP_OK
-        ]);
+        return to_route('auth.show');
     }
 }
