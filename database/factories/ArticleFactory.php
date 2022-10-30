@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
             'category_id' => Category::query()
                 ->inRandomOrder()
                 ->value('id'),
-            'status' => 0
+            'status' => 5
         ];
     }
 }

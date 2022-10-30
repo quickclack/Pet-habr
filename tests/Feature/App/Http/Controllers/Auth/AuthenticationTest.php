@@ -3,7 +3,7 @@
 namespace Tests\Feature\App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthenticatedController;
-use App\Models\User;
+use Database\Factories\Domain\User\Models\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class AuthenticationTest extends TestCase
 
     public function test_can_user_auth(): void
     {
-        User::factory()->create([
+        UserFactory::new()->create([
             'id' => 1,
             'nickName' => 'Test1',
             'email' => 'test1@mail.com',
@@ -36,7 +36,7 @@ class AuthenticationTest extends TestCase
 
     public function test_can_user_logout(): void
     {
-        $user = User::factory()->create([
+        $user = UserFactory::new()->create([
             'id' => 2,
             'nickName' => 'Test2',
             'email' => 'test12@mail.com',

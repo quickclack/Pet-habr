@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Domain\User\Models;
 
+use App\Models\Article;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -20,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'lastName',
         'email',
         'password',
+        'remember_token'
     ];
 
     protected $hidden = [
