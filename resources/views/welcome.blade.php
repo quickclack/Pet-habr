@@ -4,14 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>GB-Habr</title>
 
         @viteReactRefresh
-        @vite('resources/js/app.jsx')
+        @vite([
+                'resources/sass/app.scss',
+                'resources/js/app.jsx',
+            ])
     </head>
-    <body class="antialiased">
-        <div id="app">
-
-        </div>
+    <body>
+        <div id="app"></div>
     </body>
 </html>
