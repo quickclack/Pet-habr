@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class VerificationController extends Controller
 {
     public function getVerifyForm(): Application|Factory|View
     {
+        // TODO возможно будет spa
         return view('');
     }
 

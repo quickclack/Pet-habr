@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,11 @@ class AuthenticatedController extends Controller
 {
     public function show(): Application|Factory|View
     {
+        // TODO возможно будет spa
         return view('');
     }
 
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse|JsonResponse
     {
         $request->authenticate();
 
@@ -26,7 +28,7 @@ class AuthenticatedController extends Controller
         return to_route('home');
     }
 
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request): RedirectResponse|JsonResponse
     {
         auth()->logout();
 

@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
@@ -16,10 +17,11 @@ class RegisteredController extends Controller
 {
     public function show(): Application|Factory|View
     {
+        // TODO возможно будет spa
         return view('');
     }
 
-    public function store(RegisteredRequest $request): RedirectResponse
+    public function store(RegisteredRequest $request): RedirectResponse|JsonResponse
     {
         $user = User::create([
             'nickName' => $request->nickName,
