@@ -1,0 +1,21 @@
+.header{
+   background-color: rgb(42, 83, 94);
+   
+}
+.navbar{
+   max-width: 1200px;
+   height: 48px;
+   margin: 0 auto 0 auto;
+   padding: 0 20px 0 20px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   color: azure;
+}
+.navbar h1{
+   font-weight: bold;
+
+}
+.nav-btn{
+   color: azure;
+}

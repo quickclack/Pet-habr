@@ -1,0 +1,29 @@
+.cont{
+   background-color: #9bd3d3;
+}
+.wrapper{
+   max-width: 1200px;
+   position: relative;
+   margin: 0 auto 0 auto;
+   
+}
+a {
+   text-decoration: none;
+ }
+ 
+.menu {
+   background-color: #9bd3d3;
+   display: flex;
+   justify-content: flex-start;
+   padding-left: 30px;
+   color: #3c4346;
+ }
+.menu li {
+   list-style-type: none;
+   text-decoration: none;
+   padding: 10px;
+ }
+ 
+.menu a:hover {
+   text-decoration: underline;
+ }
