@@ -2,7 +2,7 @@
 
 namespace Domain\User\Queries;
 
-use Domain\User\Queries\Contract\QueryBuilder;
+use App\Contracts\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Model;

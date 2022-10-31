@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Enums\ArticleStatus;
 use App\Models\Article;
-use App\Models\Category;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Application|Factory|View
     {
         return view('welcome');
     }
@@ -18,21 +20,12 @@ class HomeController extends Controller
     {
         $articles = Article::query()
             ->where('status', ArticleStatus::APPROVED)
+            ->orderByDesc('created_at')
             ->get();
 
         return response()->json([
             'status' => Response::HTTP_OK,
             'articles' => $articles
-        ]);
-    }
-
-    public function getAllCategories()
-    {
-        $categories = Category::query()->get();
-
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'articles' => $categories
         ]);
     }
 }

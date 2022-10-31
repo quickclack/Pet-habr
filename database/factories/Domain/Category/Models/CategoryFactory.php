@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Domain\Category\Models;
 
-use App\Models\Category;
+use Domain\Category\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CategoryFactory extends Factory
 {
+    protected $model = Category::class;
+
     public function definition(): array
     {
         return [

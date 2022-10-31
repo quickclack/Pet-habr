@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Auth\RegisteredController;
+use App\Http\Controllers\Api\Auth\RegisteredController;
 use Domain\User\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;

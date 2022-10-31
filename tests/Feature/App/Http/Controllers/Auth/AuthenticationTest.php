@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Auth\AuthenticatedController;
+use App\Http\Controllers\Api\Auth\AuthenticatedController;
 use Database\Factories\Domain\User\Models\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

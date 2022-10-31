@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Category\Models;
 
+use App\Models\Article;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -17,7 +17,6 @@ class AppRegistrar implements RouteRegistrar
 
         Route::middleware('api')->prefix('api')->group(function () {
             Route::post('/articles', [HomeController::class, 'getAllArticles']);
-            Route::post('/categories', [HomeController::class, 'getAllCategories']);
         });
     }
 }

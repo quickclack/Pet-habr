@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User\Queries\Contract;
+namespace App\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 

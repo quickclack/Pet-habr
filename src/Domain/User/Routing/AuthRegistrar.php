@@ -3,9 +3,9 @@
 namespace Domain\User\Routing;
 
 use App\Contracts\RouteRegistrar;
-use App\Http\Controllers\Auth\AuthenticatedController;
-use App\Http\Controllers\Auth\RegisteredController;
-use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Api\Auth\AuthenticatedController;
+use App\Http\Controllers\Api\Auth\RegisteredController;
+use App\Http\Controllers\Api\Auth\VerificationController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
