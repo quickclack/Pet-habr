@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredRequest;
 use Domain\User\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class RegisteredController extends Controller
@@ -19,10 +20,12 @@ class RegisteredController extends Controller
             'remember_token' => Str::random(40)
         ]);
 
-        event(new Registered($user));
+        //event(new Registered($user));
 
         auth()->login($user);
 
-        return response()->json($user);
+        return response()->json([
+            'status' => Response::HTTP_CREATED
+        ]);
     }
 }

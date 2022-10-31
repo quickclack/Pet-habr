@@ -19,10 +19,11 @@ class AuthenticatedController extends Controller
 
         return response()->json([
             'status' => Response::HTTP_OK,
+            '_token' => auth()->user()->getRememberToken()
         ]);
     }
 
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request): JsonResponse
     {
         auth()->logout();
 
@@ -30,6 +31,9 @@ class AuthenticatedController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => 'Вы успешно вышли'
+        ]);
     }
 }

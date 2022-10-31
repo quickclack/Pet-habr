@@ -13,7 +13,7 @@ class VerificationController extends Controller
     {
         $request->fulfill();
 
-        return redirect('/');
+        return redirect()->to('/');
     }
 
     public function repeatSendToMail(Request $request): RedirectResponse

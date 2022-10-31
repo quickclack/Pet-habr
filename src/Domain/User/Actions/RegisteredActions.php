@@ -11,6 +11,7 @@ final class RegisteredActions implements RegisteredContract
 {
     public function handle(string $name, string $email, string $password): void
     {
+        // TODO make DTO latters, maybe no)
         $user = User::create([
             'name' => $name,
             'email' => $email,
