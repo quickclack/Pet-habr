@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Routing\AppRegistrar;
 use Domain\Category\Routing\CategoryRegistrar;
+use Domain\User\Routing\SocialiteRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     protected array $registrars = [
         AppRegistrar::class,
         AuthRegistrar::class,
+        SocialiteRegistrar::class,
         CategoryRegistrar::class,
     ];
 
