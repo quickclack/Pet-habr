@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Category;
-use App\Models\User;
+use Domain\Category\Models\Category;
+use Domain\User\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -31,6 +31,7 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->integer('status')
+                ->index()
                 ->default(0);
 
             $table->timestamps();
