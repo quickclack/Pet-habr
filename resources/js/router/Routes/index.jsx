@@ -5,8 +5,8 @@ import Design  from '../../pages/Design';
 import WebDevelopment from '../../pages/WebDevelopment';
 import MobileDevelopment from '../../pages/MobileDevelopment';
 import Marketing from '../../pages/Marketing';
-import { LogIn } from '../../components/Login';
-import { SignUp } from '../../components/SignUp';
+import { LogIn } from '../../pages/Login';
+import { SignUp } from '../../pages/SignUp';
 
 const Router = () => {
    return (

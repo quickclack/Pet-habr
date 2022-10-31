@@ -1,13 +1,14 @@
-import './bootstrap';
-// import './sass/app.acss'
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-
-import App from './components/App';
-
-ReactDOM.createRoot(document.getElementById('app')).render(
-   <BrowserRouter>
-      <App />
-   </BrowserRouter>
-)
+import React from 'react'
+import Router from './router/Routes'
+import {Header} from "./components/Header/Header"
+import {Layout} from "./router/Layout"
+const App = () => {
+   return (
+      <div>
+         <Header />
+         <Layout />
+         <Router />  
+      </div>
+   )
+}
+export default App
