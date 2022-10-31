@@ -28,4 +28,19 @@ class HomeController extends Controller
             'articles' => $articles
         ]);
     }
+
+    public function getArticleById(int $id)
+    {
+        $article = Article::query()
+            ->where('id', $id)
+            ->first();
+
+        $article->views += 1;
+
+        $article->update();
+
+        return response()->json([
+            'article' => $article
+        ]);
+    }
 }

@@ -24,8 +24,11 @@ class Article extends Model
 
     protected $casts = [
         'status' => ArticleStatus::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'created_at' => 'date:Y-m-d'
+    ];
+
+    protected $hidden = [
+        'updated_at'
     ];
 
     public function user(): BelongsTo

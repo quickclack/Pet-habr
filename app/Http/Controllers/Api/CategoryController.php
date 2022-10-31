@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Domain\Category\Queries\CategoryBuilder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    public function getAllCategories(CategoryBuilder $builder)
+    public function getAllCategories(CategoryBuilder $builder): JsonResponse
     {
         $categories = $builder->getAllCategories();
 
@@ -18,7 +19,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function getCategoryBySlug(CategoryBuilder $builder, string $slug)
+    public function getCategoryBySlug(CategoryBuilder $builder, string $slug): JsonResponse
     {
         $category = $builder->getCategoryBySlug($slug);
 

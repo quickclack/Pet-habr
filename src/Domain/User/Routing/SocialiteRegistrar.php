@@ -11,7 +11,7 @@ class SocialiteRegistrar implements RouteRegistrar
 {
     public function map(Registrar $registrar): void
     {
-        Route::middleware('api')->group(function () {
+        Route::middleware('api')->prefix('api')->group(function () {
             Route::middleware('guest')->group(function () {
 
                 Route::controller(SocialiteController::class)->group(function () {
