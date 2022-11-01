@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ArticleStatus;
+use App\Http\Resources\Api\Article\ArticleCollection;
+use App\Http\Resources\Api\Article\ArticleRelationResource;
 use App\Models\Article;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -23,10 +24,7 @@ class HomeController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'articles' => $articles
-        ]);
+        return new ArticleCollection($articles);
     }
 
     public function getArticleById(int $id)
@@ -40,7 +38,7 @@ class HomeController extends Controller
         $article->update();
 
         return response()->json([
-            'article' => $article
+            'article' => new ArticleRelationResource($article)
         ]);
     }
 }

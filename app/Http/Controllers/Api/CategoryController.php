@@ -3,41 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Category\CategoryCollection;
+use App\Http\Resources\Api\Category\CategoryArticleResource;
 use Domain\Category\Queries\CategoryBuilder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    public function getAllCategories(CategoryBuilder $builder): JsonResponse
+    public function getAllCategories(CategoryBuilder $builder): CategoryCollection
     {
-        $categories = $builder->getAllCategories();
-
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'category' => $categories
-        ]);
+        return new CategoryCollection($builder->getAllCategories());
     }
 
     public function getCategoryBySlug(CategoryBuilder $builder, string $slug): JsonResponse
     {
         $category = $builder->getCategoryBySlug($slug);
 
-        $articles = $category->articles()
-            ->orderByDesc('id')
-            ->get();
-
-        if (!$category) {
+        try {
             return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => 'Такой категории нет'
+                'category' => new CategoryArticleResource($category)
             ]);
-        }
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'category' => $category,
-            'articles' => $articles
-        ]);
+        } catch (\Throwable $exception) {
+            throw new \DomainException('Такой категории нет');
+        }
     }
 }

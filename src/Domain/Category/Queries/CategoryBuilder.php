@@ -3,6 +3,7 @@
 namespace Domain\Category\Queries;
 
 use App\Contracts\QueryBuilder;
+use App\Models\Article;
 use Domain\Category\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +22,7 @@ final class CategoryBuilder implements QueryBuilder
             ->get();
     }
 
-    public function getCategoryBySlug(string $slug): ?Model
+    public function getCategoryBySlug(string $slug)
     {
         return $this->getBuilder()
             ->where('slug', $slug)
