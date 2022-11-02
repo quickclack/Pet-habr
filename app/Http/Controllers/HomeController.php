@@ -22,7 +22,7 @@ class HomeController extends Controller
         $articles = Article::query()
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(20);
 
         return new ArticleCollection($articles);
     }

@@ -5,6 +5,7 @@ namespace Domain\User\Queries;
 use App\Contracts\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class UserBuilder implements QueryBuilder
@@ -25,5 +26,11 @@ final class UserBuilder implements QueryBuilder
     {
         return $this->getBuilder()
             ->findOrFail($id);
+    }
+
+    public function getAllUsers(): Collection
+    {
+        return $this->getBuilder()
+            ->all();
     }
 }

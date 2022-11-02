@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\Article;
 
 use App\Http\Resources\Api\Category\CategoryResource;
 use App\Http\Resources\Api\Tag\TagResource;
+use App\Http\Resources\Api\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleRelationResource extends JsonResource
@@ -15,7 +16,7 @@ class ArticleRelationResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'views' => $this->views,
-            'user' => $this->user, // later Resource
+            'user' => new UserResource($this->user),
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
             'status' => $this->status,
