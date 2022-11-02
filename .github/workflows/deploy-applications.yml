@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+      - dev_front
+      - dev_back
 
 jobs:
   create-deployment-artifacts:

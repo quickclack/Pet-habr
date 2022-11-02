@@ -12,7 +12,7 @@ class ArticleTagSeeder extends Seeder
         for ($i = 1; $i <= 40; $i++) {
 
             $data[] = [
-                'article_id' => rand(1, 65),
+                'article_id' => rand(1, 30),
                 'tag_id' => rand(1, 10),
             ];
         }
