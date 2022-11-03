@@ -3,9 +3,11 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage} from "../../store/articles"
-import Article from './Article.jsx';
+import Article from './Article.jsx.jsx';
 import './ArticlesList.scss'
 
+
+import './ArticlesList.scss'
 
 function ArticlesList() {
   const dispatch = useDispatch(); 
@@ -16,13 +18,14 @@ function ArticlesList() {
   // const [articles, setArticles] = useState([]);
 
   console.log('pagination', paginationArray)
+  console.log(articles)
 
   useEffect(()=> {
     console.log("articles dispatch")
     dispatch( getDbArticlesAll());
   },[])
 
-   console.log('articles - ', articles)
+   console.log('articles - ', articles,[])
 
   const paginate = (page) =>{
     
@@ -45,6 +48,9 @@ function ArticlesList() {
       default:{
         setCurrentPage(page)
         curent = page 
+        setArticles(data.articles)
+        console.log(articles)
+        
       }
     }
     dispatch( getDbArticlesPage(curent));

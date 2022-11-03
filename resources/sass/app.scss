@@ -47,9 +47,12 @@ code {
   letter-spacing: 0.24px;
   color: var(--color-dark);
   
+  
   cursor: nw-default;
 }
 
+ul {margin-top: 0;
+  margin-bottom: 0;}
 ul {margin-top: 0;
   margin-bottom: 0;}
 .form {
@@ -177,7 +180,7 @@ textarea:hover,
   background-color: #dcdde5;
   padding-top: 20px;
    &-container{
-     min-height: 300px;
+     
      
    }
    
