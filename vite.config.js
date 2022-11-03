@@ -9,6 +9,9 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/js/index.jsx',
+                'resources/assets/admin/css/bootstrap.min.css',
+                'resources/assets/admin/css/dashboard.css',
+                'resources/assets/admin/js/bootstrap.bundle.min.js',
             ],
             refresh: true,
         }),

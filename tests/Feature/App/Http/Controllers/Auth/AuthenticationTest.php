@@ -48,4 +48,18 @@ class AuthenticationTest extends TestCase
 
         $this->assertGuest();
     }
+
+    public function test_failed_auth(): void
+    {
+        $request = [
+            'email' => 'not_found@mail.ru',
+            'password' => '12345'
+        ];
+
+        $response = $this->post(action([AuthenticatedController::class, 'store']), $request);
+
+        $this->assertDatabaseMissing('users', $request);
+
+        $response->assertStatus(302);
+    }
 }

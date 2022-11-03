@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Routing\AdminRegistrar;
 use App\Routing\AppRegistrar;
 use Domain\Category\Routing\CategoryRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
@@ -26,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
 
     protected array $registrars = [
+        AdminRegistrar::class,
         AppRegistrar::class,
         AuthRegistrar::class,
         SocialiteRegistrar::class,

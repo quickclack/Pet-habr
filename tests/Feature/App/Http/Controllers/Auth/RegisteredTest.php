@@ -68,4 +68,20 @@ class RegisteredTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
     }
+
+    public function test_failed_registered(): void
+    {
+        $request = [
+            'nickName' => '',
+            'email' => '',
+            'password' => '',
+            'password_confirmation' => ''
+        ];
+
+        $response = $this->post(
+            action([RegisteredController::class, 'store']),
+            $request);
+
+        $response->assertInvalid();
+    }
 }
