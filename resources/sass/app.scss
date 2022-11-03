@@ -46,9 +46,12 @@ code {
   font-weight: 300;
   letter-spacing: 0.24px;
   color: var(--color-dark);
+  
   cursor: nw-default;
 }
 
+ul {margin-top: 0;
+  margin-bottom: 0;}
 .form {
   display: flex;
   flex-direction: column;
@@ -171,12 +174,23 @@ textarea:hover,
 }
 // pages
 .pages{
+  background-color: #dcdde5;
+  padding-top: 20px;
    &-container{
-      padding: 20px;
+     
+     
    }
+   
    &-header{
-      font-size: 1.24375rem;
-      font-weight: 700;
-      line-height: 1.75rem;
+      padding: 15px;
+      
+      background-color:rgb(255, 255, 255);
+      margin-bottom: 5px;
+      h3{
+        font-size: 1.24375rem;
+        font-weight: 700;
+        line-height: 1.75rem;
+        margin-bottom: 0;
+      }
    }
 };

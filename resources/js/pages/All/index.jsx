@@ -5,8 +5,10 @@ function All() {
    
   return (
       <>
-      <h3 className='pages-header'>ALL</h3> 
-      <ArticlesList />
+        <div className="pages-header">
+          <h3 >ALL</h3> 
+        </div>
+        <ArticlesList />
       </>
            
        
