@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
@@ -14,10 +19,13 @@ return new class extends Migration
         });
     }
 
-    public function down(): void
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
-        if (app()->isLocal()) {
-            Schema::dropIfExists('comments');
-        }
+        Schema::dropIfExists('comments');
     }
 };
