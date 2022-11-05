@@ -3,9 +3,11 @@ import './Header.scss'
 import { Link } from "react-router-dom";
 
 export const Header = () => {
+    
+    
     return (
         <>
-            <div className="header">
+            <div className= "header">
                 <div className="navbar">
                     <div>
                         <a href="/">

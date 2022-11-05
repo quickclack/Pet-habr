@@ -11,3 +11,7 @@ export const getPaginationLinks = (state) => {
     // console.log(state.articles.articles.meta.links)
     return state.articles.length == 0 ? [] :state.articles.articles.meta.links
 };
+
+export const getArticle = (state) => {
+         console.log(state.articles.article)
+    return state.articles.article};
