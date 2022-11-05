@@ -1,10 +1,21 @@
-import React from 'react';
+import React ,{ useState} from 'react';
 import {Link} from "react-router-dom";
 import  './Layout.scss'
 
 export const Layout = () => {
+  const [menuFix, setmenuFix] = useState(false);
+    window.addEventListener('scroll', function (){
+        let scrollY =window.pageYOffset;
+        if(scrollY > 68) {
+            setmenuFix(true);
+           } else {
+            setmenuFix(false);
+           }
+    })
+
   return (
-    <div className="cont">
+    <div className={menuFix ? "cont cont_fixed" : "cont"}>
+      {/* <div className={menuFix ? "cont cont_fixed" : "cont"}></div> */}
       <div className="wrapper">
         
         <ul className="menu">
