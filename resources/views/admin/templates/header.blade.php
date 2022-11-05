@@ -42,7 +42,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @if(request()->routeIs('admin.articles.*')) active @endif"
-                               href="{{-- route('admin.articles.index') --}}">
+                               href="{{ route('admin.articles.index') }}">
                                 <span data-feather="shopping-cart" class="align-text-bottom"></span>
                                 Статьи
                             </a>

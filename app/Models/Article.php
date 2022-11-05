@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ArticleStatus;
+use Carbon\Carbon;
 use Domain\Category\Models\Category;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +47,12 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class)
             ->withTimestamps();
+    }
+
+    public function setArticleDate(): string
+    {
+        return Carbon::parse($this->created_at)
+            ->subDay()
+            ->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);
     }
 }

@@ -28,4 +28,11 @@ final class CategoryBuilder implements QueryBuilder
             ->orderByDesc('id')
             ->first();
     }
+
+    public function getCategoryByPlug()
+    {
+        return $this->getBuilder()
+            ->pluck('title', 'id')
+            ->all();
+    }
 }

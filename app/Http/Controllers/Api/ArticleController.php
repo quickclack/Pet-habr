@@ -14,7 +14,9 @@ class ArticleController extends Controller
 {
     public function getAllArticles(): ArticleCollection
     {
+        // TODO вынести в query builder
         $articles = Article::query()
+            ->with('user')
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')
             ->paginate(20);
@@ -24,6 +26,7 @@ class ArticleController extends Controller
 
     public function getArticleById(int $id): JsonResponse
     {
+        // TODO вынести в query builder
         $article = Article::query()
             ->with(['user', 'category', 'tags'])
             ->where('id', $id)
