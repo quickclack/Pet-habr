@@ -1,7 +1,7 @@
 .articleId{
    background-color:rgb(255, 255, 255);
    padding: 15px;
-   margin-top: 3px;
+   min-height: 400px;
    &__header{
       display: flex;
       align-items: center;
@@ -32,11 +32,6 @@
       a{
          color: #9bd3d3;
         
-      }
-   }
-   &__tags{
-      &-span{
-         font-weight: 700;
       }
    }
 

@@ -1,43 +1,32 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { Await } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { getDbArticlesAll, getArticlesAll} from "../../store/articles"
 import Article from './Article.jsx';
 import './ArticlesList.scss'
 
 function ArticlesList() {
-  const [articles, setArticles] = useState([]);
+  const dispatch = useDispatch(); 
+  const articles = useSelector(getArticlesAll);
+  // const [articles, setArticles] = useState([]);
 
   console.log(articles)
 
   useEffect(()=> {
-      getArticles()
+    dispatch( getDbArticlesAll());
   },[])
 
-  const getArticles = async () => {
-    await axios.post("/api/articles")
-      .then(({data})=>{
-        console.log('data', data)
-        setArticles(data.articles)
-        console.log(articles)
-        
-      }
-
-      )
-      
-  }
+  console.log(articles)
    
   return (
-      <>
+    <>
       {
         articles.length > 0 ? articles.map((item, key) =>(
-         
           <Article key={key} item={item}/>
-       )) : <h2>Статей нет</h2>
+        )) : <h2>Статей нет</h2>
       } 
-      </>
-           
-       
-    );
-  }
+    </>
+  );
+}
   
 export default ArticlesList;

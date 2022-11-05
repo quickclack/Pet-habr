@@ -20,7 +20,7 @@ export const getDbArticlesAll = () => async (dispatch) => {
             .then(({data})=>{
                 console.log('data', data)
                 // return data.data.articles
-                dispatch(setArticlesAll(data));
+                dispatch(setArticlesAll(data.data.articles));
             })
         // console.log('articles', articles);
         // dispatch(setArticlesAll(articles));
@@ -37,23 +37,6 @@ export const getDbArticle = (articleId) => async (dispatch) => {
                 console.log('data', data)
                 // return data.data.articles
                 dispatch(setArticle(data.article));
-            })
-        // console.log('articles', articles);
-        // dispatch(setArticlesAll(articles));
-    } catch (e) {
-        console.log(e.message);
-    }
-}
-
-
-export const getDbArticlesPage = (page) => async (dispatch) => {
-    console.log("getDbArticlesPage")
-    try{
-        const articles = await axios.post(`api/articles?page=${page}`)
-            .then(({data})=>{
-                console.log('data', data)
-                // return data.data.articles
-                dispatch(setArticlesAll(data));
             })
         // console.log('articles', articles);
         // dispatch(setArticlesAll(articles));
