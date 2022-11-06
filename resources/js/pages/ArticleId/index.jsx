@@ -7,6 +7,11 @@ import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
 import getArticleDate from '../../hook/articleDate.js'
 
 function ArticleId() {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f1401cc (просмотры комментарии рейтинг)
   const dispatch = useDispatch(); 
   const { articleId } = useParams();
   let article = useSelector(getArticle);
@@ -20,8 +25,12 @@ function ArticleId() {
     
   },[])
 
+<<<<<<< HEAD
   const articleDate = !(article.created_at === undefined) ? getArticleDate(article.created_at) : new Date
 
+=======
+  const articleDate = getArticleDate(article.created_at)
+>>>>>>> f1401cc (просмотры комментарии рейтинг)
   return (
     <>
       {  article !== undefined ? <>
@@ -45,11 +54,23 @@ function ArticleId() {
           <p><span className='articleId__tags-span'>Теги:&ensp;</span>
             {
               article.tags.length > 0 ? article.tags.map((item, key) =>(
+<<<<<<< HEAD
                 <span key = { key }>{item.title}{key<article.tags.length - 1 ? ',' : '' } </span>
+=======
+                <>{item.title}{key<article.tags.length - 1 ? ',' : '' } </>
+>>>>>>> f1401cc (просмотры комментарии рейтинг)
               )) : ''
             }
           </p>
         </div>  
+<<<<<<< HEAD
+=======
+      </div>
+      
+      
+      <div className="articleId">
+        <ArticleStatsIcons articleId="true"/>
+>>>>>>> f1401cc (просмотры комментарии рейтинг)
       </div>
       
       
