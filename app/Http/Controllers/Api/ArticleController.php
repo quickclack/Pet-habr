@@ -15,6 +15,7 @@ class ArticleController extends Controller
     public function getAllArticles(): ArticleCollection
     {
         $articles = Article::query()
+            ->with('user')
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')
             ->paginate(20);

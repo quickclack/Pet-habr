@@ -1,0 +1,22 @@
+.article-stats-icons{
+   display: flex;
+   justify-content: flex-start;
+   margin: 20px 0;
+   width: 100%;
+   &__block{
+      display: flex;
+      margin-left: 30px;
+      &:first-child{
+         margin-left: 0;
+      }
+   }
+   &__elem{
+      &:nth-child(2){
+         margin-left: 10px;
+      }
+      &.hover{
+         cursor: pointer;
+      }
+   }
+
+}

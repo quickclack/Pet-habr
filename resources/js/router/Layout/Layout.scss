@@ -25,13 +25,17 @@ a {
    justify-content: flex-start;
    padding: 10px 0px 10px 0;
    color: #3c4346;
- }
-.menu li {
+   & li {
    list-style-type: none;
    text-decoration: none;
    padding: 10px;
- }
- 
-.menu a:hover {
+   }
+   & a:hover {
    text-decoration: underline;
+   }
+   & a:active {
+      color: rgb(67, 34, 185);
+   }
  }
+
+ 
