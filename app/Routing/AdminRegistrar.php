@@ -3,6 +3,7 @@
 namespace App\Routing;
 
 use App\Contracts\RouteRegistrar;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IndexController;
 use Illuminate\Contracts\Routing\Registrar;
@@ -20,6 +21,12 @@ class AdminRegistrar implements RouteRegistrar
 
                 Route::resource('/category', CategoryController::class)
                     ->names('admin.category');
+
+                Route::resource('/article', ArticleController::class)
+                    ->names('admin.articles');
+
+                Route::get('/article/new', [ArticleController::class, 'show'])
+                    ->name('admin.articles.new');
             });
         });
     }
