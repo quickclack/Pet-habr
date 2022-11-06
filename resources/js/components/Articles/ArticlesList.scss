@@ -34,8 +34,27 @@
       }
       a{
          color: #9bd3d3;
-        
       }
    }
-
+}
+.articles{
+   &__pagination{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &-element{
+         padding: 5px 10px;
+         border: 1px solid rgb(20, 126, 112);
+         margin: 0 5px;
+         min-width: 10px;
+         &.active {
+            border-color: rgb(45, 56, 207);
+         }
+         &:hover{
+            cursor: pointer;
+            border-color: rgb(45, 207, 186);
+            background-color: #d7e9e9;
+         }
+      }
+   }
 }
