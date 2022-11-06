@@ -19,12 +19,9 @@ function ArticleId() {
     dispatch( getDbArticle(articleId) );
   },[])
 
-<<<<<<< HEAD
   const articleDate = !(article.created_at === undefined) ? getArticleDate(article.created_at) : new Date
 
-=======
-  const articleDate = getArticleDate(article.created_at)
->>>>>>> f1401cc (просмотры комментарии рейтинг)
+  
   return (
     <>
       {  article !== undefined ? <>
@@ -53,20 +50,17 @@ function ArticleId() {
             }
           </p>
         </div>  
-<<<<<<< HEAD
-=======
-      </div>
-      
-      
-      <div className="articleId">
-        <ArticleStatsIcons articleId="true"/>
->>>>>>> f1401cc (просмотры комментарии рейтинг)
       </div>
       
       
       <div className="articleId">
         <ArticleStatsIcons articleId="true"/>
       </div>
+      
+      
+      <div className="articleId">
+        <ArticleStatsIcons articleId="true"/>
+      </div></>:''}
     </>
   );
 }
