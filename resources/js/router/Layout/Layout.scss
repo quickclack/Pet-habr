@@ -1,5 +1,13 @@
 .cont{
    background-color: #9bd3d3;
+   &_fixed {position: fixed;
+      z-index: 100;
+      top: 0;
+      
+      border-bottom: 1px solid rgb(218, 215, 215);
+      width: 100%;
+   }
+      
 }
 .wrapper{
    max-width: 1200px;
@@ -15,15 +23,19 @@ a {
    background-color: #9bd3d3;
    display: flex;
    justify-content: flex-start;
-   padding-left: 30px;
+   padding: 10px 0px 10px 0;
    color: #3c4346;
- }
-.menu li {
+   & li {
    list-style-type: none;
    text-decoration: none;
    padding: 10px;
- }
- 
-.menu a:hover {
+   }
+   & a:hover {
    text-decoration: underline;
+   }
+   & a:active {
+      color: rgb(67, 34, 185);
+   }
  }
+
+ 
