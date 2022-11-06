@@ -18,7 +18,7 @@ class ArticleController extends Controller
             ->with('user')
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')
-            ->paginate(20);
+            ->paginate(5);
 
         return new ArticleCollection($articles);
     }
