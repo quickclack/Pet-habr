@@ -16,7 +16,7 @@ class ArticleResource extends JsonResource
             'user' => new UserResource($this->user),
             'views' => $this->views,
             'status' => $this->status,
-            'created_at' => $this->created_at->format('Y-m-d')
+            'created_at' => "{$this->setArticleDate()} в {$this->created_at->format('h:m')}",
         ];
     }
 }
