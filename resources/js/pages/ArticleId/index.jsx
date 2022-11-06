@@ -7,21 +7,24 @@ import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
 import getArticleDate from '../../hook/articleDate.js'
 
 function ArticleId() {
-
-
   const dispatch = useDispatch(); 
   const { articleId } = useParams();
-  const article = useSelector(getArticle);
+  let article = useSelector(getArticle);
   
+
   console.log('article - ',article)
   
   useEffect(()=> {
+    console.log('article dispatch - ',articleId)
     dispatch( getDbArticle(articleId) );
+    
   },[])
 
-  const articleDate = getArticleDate(article.created_at)
+  const articleDate = !(article.created_at === undefined) ? getArticleDate(article.created_at) : new Date
+
   return (
     <>
+      {  article !== undefined ? <>
       <div className="pages-header">
         <h3 >articleId { articleId } </h3> 
       </div>
@@ -42,7 +45,7 @@ function ArticleId() {
           <p><span className='articleId__tags-span'>Теги:&ensp;</span>
             {
               article.tags.length > 0 ? article.tags.map((item, key) =>(
-                <>{item.title}{key<article.tags.length - 1 ? ',' : '' } </>
+                <span key = { key }>{item.title}{key<article.tags.length - 1 ? ',' : '' } </span>
               )) : ''
             }
           </p>
@@ -53,7 +56,8 @@ function ArticleId() {
       <div className="articleId">
         <ArticleStatsIcons articleId="true"/>
       </div>
-    </>
+    </>: ''}
+    </> 
   );
 }
   

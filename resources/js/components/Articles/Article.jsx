@@ -5,12 +5,12 @@ import getArticleDate from '../../hook/articleDate.js'
 
 
 
-function Article({item}) {
+function Article({item, key}) {
   
   const articleDate = getArticleDate(item.created_at)
 
   return (
-      <div className="article">
+      <div className="article" >
         <div className="article__header ">
           <h4> {item.user.nickName}</h4>
           <h5> &emsp;{articleDate.dayWriting}&ensp;</h5>
