@@ -13,5 +13,10 @@ export const getPaginationLinks = (state) => {
 };
 
 export const getArticle = (state) => {
-         console.log(state.articles.article)
+        //  console.log(state)
     return state.articles.article};
+
+export const getPaginationLinks = (state) => {
+    // console.log(state.articles.articles.meta.links)
+    return state.articles.articles.meta.links
+};

@@ -5,7 +5,7 @@ import getArticleDate from '../../hook/articleDate.js'
 
 
 
-function Article({item}) {
+function Article({item, key}) {
   
   const articleDate = getArticleDate(item.created_at)
 
