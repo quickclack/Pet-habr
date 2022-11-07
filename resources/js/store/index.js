@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
 import {articlesReducer} from "./articles";
+import { userAuthReducer } from "./userAuth/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
    articles: articlesReducer,
+   auth: userAuthReducer,
  });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

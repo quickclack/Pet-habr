@@ -40,7 +40,8 @@ export const SignUp = () => {
 
   async function signUpHandler(event) {
     event.preventDefault();
-    // await dispatch(signUpUserThunk(name, email, password, confirmation));
+    
+    await dispatch(signUpUser(name, email, password, confirmation));
     navigate("/");
     clearForm();
   }
