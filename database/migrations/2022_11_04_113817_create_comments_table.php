@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Article;
+use Domain\User\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +18,16 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text('comment');
+            $table->foreignIdFor(Article::class)
+                ->nullable()
+                ->constrained();
+
+            $table->foreignIdFor(User::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
         });
     }
 
