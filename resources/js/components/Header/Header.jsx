@@ -1,9 +1,12 @@
 import React from 'react'
 import './Header.scss'
 import { Link } from "react-router-dom";
+import { getIsAuth, logOutUserAction } from "../../store/userAuth";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Header = () => {
-    
+    const authed = useSelector(getIsAuth); 
+    const dispatch = useDispatch();
     
     return (
         <>
@@ -14,6 +17,7 @@ export const Header = () => {
                             <h1>Хабр</h1>
                         </a>
                     </div>
+                    {authed ? (
                     <div>
                         <Link to="/login" className="nav-btn">
                             Войти
@@ -21,7 +25,14 @@ export const Header = () => {
                         <Link to="/signup" className="nav-btn ms-3">
                             Регистрация
                         </Link>
+                    </div> ) : (
+                    <div>
+                        <Link className="nav-btn"  onClick = {()=>dispatch(logOutUserAction)}>
+                            Выйти
+                        </Link>
+                        
                     </div>
+                    )}
                 </div>
             </div>
         </>

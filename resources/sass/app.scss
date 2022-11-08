@@ -71,6 +71,10 @@ ul {margin-top: 0;
   font-weight: 500;
   display: block;
   margin-bottom: 0.25rem;
+  &.checkbox{
+    display: flex;
+    align-items: center;
+  }
 }
 
 .text-field__input,
@@ -178,7 +182,7 @@ textarea:hover,
 // pages
 .pages{
   background-color: #dcdde5;
-  padding-top: 20px;
+  padding: 20px;
    &-container{
      min-height: 300px;
      
