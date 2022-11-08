@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AuthenticatedController extends Controller
 {
@@ -18,7 +16,7 @@ class AuthenticatedController extends Controller
         $request->session()->regenerate();
 
         return response()->json([
-            'status' => Response::HTTP_OK,
+            'message' => 'Вы успешно вошли',
             '_token' => auth()->user()->getRememberToken()
         ]);
     }
@@ -32,7 +30,6 @@ class AuthenticatedController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json([
-            'status' => Response::HTTP_OK,
             'message' => 'Вы успешно вышли'
         ]);
     }

@@ -13,7 +13,8 @@ class AppRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('web')->group(function () {
-            Route::get('/', HomeController::class);
+            Route::get('/{view?}', HomeController::class)
+                ->where('view', '(.*)');
         });
 
         Route::middleware('api')->prefix('api')->group(function () {

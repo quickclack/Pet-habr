@@ -20,7 +20,7 @@ class ArticleRelationResource extends JsonResource
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
             'status' => $this->status,
-            'created_at' => $this->created_at->format('Y-m-d')
+            'created_at' => "{$this->setArticleDate()} в {$this->created_at->format('h:m')}",
         ];
     }
 }
