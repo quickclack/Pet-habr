@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ArticleStatus;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Domain\Category\Models\Category;
 use Domain\User\Models\User;
