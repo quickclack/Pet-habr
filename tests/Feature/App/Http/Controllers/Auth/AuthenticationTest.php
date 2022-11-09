@@ -11,6 +11,12 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_auth_page_status(): void
+    {
+        $this->get('/login')
+            ->assertOk();
+    }
+
     public function test_can_user_auth(): void
     {
         UserFactory::new()->create([
@@ -32,21 +38,6 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertRedirect('/');
-    }
-
-    public function test_can_user_logout(): void
-    {
-        $user = UserFactory::new()->create([
-            'id' => 2,
-            'nickName' => 'Test2',
-            'email' => 'test12@mail.com',
-            'password' => 12345
-        ]);
-
-        $this->actingAs($user)
-            ->get(action([AuthenticatedController::class, 'logout']));
-
-        $this->assertGuest();
     }
 
     public function test_failed_auth(): void

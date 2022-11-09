@@ -3,11 +3,13 @@
 namespace Services\Socialite;
 
 use Domain\User\Models\User;
+use Illuminate\Http\JsonResponse;
+use Services\Socialite\Contract\Socialite;
 use Laravel\Socialite\Contracts\User as SocialUser;
 
-final class SocialiteService implements Contract\Socialite
+final class SocialiteService implements Socialite
 {
-    public function loginSocial(SocialUser $socialUser): string
+    public function loginSocial(SocialUser $socialUser): JsonResponse
     {
         $user = User::create([
             'nickName' => $socialUser->getNickname(),
@@ -19,6 +21,8 @@ final class SocialiteService implements Contract\Socialite
 
         auth()->login($user);
 
-        return url('/');
+        return response()->json([
+            'message' => 'Вы успешно авторизовались'
+        ]);
     }
 }

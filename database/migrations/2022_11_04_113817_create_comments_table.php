@@ -8,20 +8,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->text('comment');
+
             $table->foreignIdFor(Article::class)
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->foreignIdFor(User::class)
                 ->nullable()
@@ -31,13 +29,10 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('comments');
+        if (app()->isLocal()) {
+            Schema::dropIfExists('comments');
+        }
     }
 };

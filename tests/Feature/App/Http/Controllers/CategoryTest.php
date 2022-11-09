@@ -10,6 +10,18 @@ class CategoryTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_category_page_status(): void
+    {
+        Category::factory()->create([
+            'id' => 6,
+            'title' => 'test',
+            'slug' => 'test'
+        ]);
+
+        $this->get('/test')
+            ->assertOk();
+    }
+
     public function test_get_categories(): void
     {
         $this->markTestIncomplete();

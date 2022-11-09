@@ -16,6 +16,12 @@ class RegisteredTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_auth_page_status(): void
+    {
+        $this->get('/signup')
+            ->assertOk();
+    }
+
     public function test_add_user_in_database(): void
     {
         User::factory()->create([

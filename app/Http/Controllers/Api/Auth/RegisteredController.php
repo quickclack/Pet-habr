@@ -19,7 +19,7 @@ class RegisteredController extends Controller
             'remember_token' => Str::random(40)
         ]);
 
-        //event(new Registered($user));
+        // event(new Registered($user));
 
         auth()->login($user);
 
