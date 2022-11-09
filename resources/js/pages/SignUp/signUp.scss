@@ -1,0 +1,12 @@
+.github {
+   width: 36px;
+   height: 36px;
+   background-image: url(../../../image/git.png);
+   &:hover{
+      background-image: url(../../../image/git_blak.png);
+      cursor: pointer;
+   }
+   border-radius: var(--radius);
+}
+ 
+
