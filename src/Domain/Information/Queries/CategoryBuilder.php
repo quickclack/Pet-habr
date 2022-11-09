@@ -30,7 +30,7 @@ final class CategoryBuilder implements QueryBuilder
             ->first();
     }
 
-    public function getCategoryByPlug(): Model
+    public function getCategoryByPlug(): array
     {
         return $this->getBuilder()
             ->pluck('title', 'id')
