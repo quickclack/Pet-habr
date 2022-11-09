@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ArticleStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
 use Domain\Information\Models\Article;
@@ -19,14 +20,14 @@ class ArticleController extends Controller
     {
         return view('admin.article.index', [
             'countNewArticle' => $builder->getCountNewArticles(),
-            'articles' => $builder->getArticlesWithPaginate()
+            'articles' => $builder->getArticlesWithPaginate(ArticleStatus::APPROVED)
         ]);
     }
 
     public function show(ArticleBuilder $builder): Application|Factory|View
     {
         return view('admin.article.new', [
-            'articles' => $builder->getAllNewArticles()
+            'articles' => $builder->getArticlesWithPaginate(ArticleStatus::NEW)
         ]);
     }
 

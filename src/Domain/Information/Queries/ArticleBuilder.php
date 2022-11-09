@@ -25,17 +25,10 @@ final class ArticleBuilder implements QueryBuilder
             ->paginate(5);
     }
 
-    public function getAllNewArticles(): LengthAwarePaginator
+    public function getArticlesWithPaginate(ArticleStatus $status): LengthAwarePaginator
     {
         return $this->getBuilder()
-            ->where('status', ArticleStatus::NEW)
-            ->paginate(20);
-    }
-
-    public function getArticlesWithPaginate(): LengthAwarePaginator
-    {
-        return $this->getBuilder()
-            ->where('status', ArticleStatus::APPROVED)
+            ->where('status', $status)
             ->paginate(20);
     }
 
