@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Category\Routing;
+namespace Domain\Information\Routing;
 
 use App\Contracts\RouteRegistrar;
 use App\Http\Controllers\Api\CategoryController;

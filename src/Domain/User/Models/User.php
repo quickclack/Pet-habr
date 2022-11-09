@@ -2,8 +2,7 @@
 
 namespace Domain\User\Models;
 
-use App\Models\Article;
-use App\Models\Comment;
+use Domain\Information\Models\Article;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

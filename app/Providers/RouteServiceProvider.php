@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use App\Routing\AdminRegistrar;
 use App\Routing\AppRegistrar;
-use Domain\Category\Routing\CategoryRegistrar;
+use Domain\Information\Routing\ArticleRegistrar;
+use Domain\Information\Routing\CategoryRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -32,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         AuthRegistrar::class,
         SocialiteRegistrar::class,
         CategoryRegistrar::class,
+        ArticleRegistrar::class,
     ];
 
     /**

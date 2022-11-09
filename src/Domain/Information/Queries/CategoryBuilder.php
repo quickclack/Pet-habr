@@ -1,11 +1,12 @@
 <?php
 
-namespace Domain\Category\Queries;
+namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
-use Domain\Category\Models\Category;
+use Domain\Information\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 final class CategoryBuilder implements QueryBuilder
 {
@@ -20,7 +21,7 @@ final class CategoryBuilder implements QueryBuilder
             ->get();
     }
 
-    public function getCategoryBySlug(string $slug)
+    public function getCategoryBySlug(string $slug): Model
     {
         return $this->getBuilder()
             ->with('articles')
@@ -29,7 +30,7 @@ final class CategoryBuilder implements QueryBuilder
             ->first();
     }
 
-    public function getCategoryByPlug()
+    public function getCategoryByPlug(): Model
     {
         return $this->getBuilder()
             ->pluck('title', 'id')

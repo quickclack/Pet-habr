@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Article;
-use App\Models\Tag;
+use Domain\Information\Models\Article;
+use Domain\Information\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

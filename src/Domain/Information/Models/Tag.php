@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Information\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

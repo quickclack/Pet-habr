@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Domain\Information\Models;
 
-use App\Models\Article;
-use Domain\Category\Models\Category;
+use Domain\Information\Models\Category;
+use Domain\Information\Models\Article;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ArticleFactory extends Factory
 {
+    protected $model = Article::class;
+
     public function definition(): array
     {
         return [

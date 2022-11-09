@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Domain\Category\Models;
+namespace Database\Factories\Domain\Information\Models;
 
-use Domain\Category\Models\Category;
+use Domain\Information\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

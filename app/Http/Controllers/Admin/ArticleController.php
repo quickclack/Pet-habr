@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\ArticleStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
-use App\Models\Article;
-use Domain\Category\Queries\CategoryBuilder;
+use Domain\Information\Models\Article;
+use Domain\Information\Queries\ArticleBuilder;
+use Domain\Information\Queries\CategoryBuilder;
 use Domain\User\Queries\UserBuilder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -15,22 +15,18 @@ use Illuminate\Http\RedirectResponse;
 
 class ArticleController extends Controller
 {
-    public function index(): Application|Factory|View
+    public function index(ArticleBuilder $builder): Application|Factory|View
     {
-        // TODO вынести в query builder
-        $countNewArticle = Article::where('status', ArticleStatus::NEW)->count();
-        $articles = Article::where('status', ArticleStatus::APPROVED)->paginate(20);
-
-        return view('admin.article.index', compact('countNewArticle', 'articles'));
+        return view('admin.article.index', [
+            'countNewArticle' => $builder->getCountNewArticles(),
+            'articles' => $builder->getArticlesWithPaginate()
+        ]);
     }
 
-    public function show(): Application|Factory|View
+    public function show(ArticleBuilder $builder): Application|Factory|View
     {
-        // TODO вынести в query builder
-        $articles = Article::where('status', ArticleStatus::NEW)->paginate(20);
-
         return view('admin.article.new', [
-            'articles' => $articles
+            'articles' => $builder->getAllNewArticles()
         ]);
     }
 

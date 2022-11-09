@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Article;
+use Domain\Information\Models\Article;
 use Domain\User\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

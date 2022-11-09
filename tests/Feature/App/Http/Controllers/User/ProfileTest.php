@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\App\Http\Controllers\User;
 
-use Domain\Category\Models\Category;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
