@@ -15,12 +15,12 @@ class TagController extends Controller
 
     }
 
-    public function show(): Application|Factory|View
+    public function create(): Application|Factory|View
     {
 
     }
 
-    public function create(): Application|Factory|View
+    public function store(): RedirectResponse
     {
 
     }
