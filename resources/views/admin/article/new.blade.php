@@ -32,12 +32,12 @@
                         <td>{{ $article->id }}</td>
                         <td>{{ $article->title }}</td>
                         <td>{{ $article->description }}</td>
-                        <td>{{ $article->user_id }}</td>
-                        <td>{{ $article->category_id }}</td>
+                        <td>{{ $article->user->nickName ?? '-' }}</td>
+                        <td>{{ $article->category->title ?? '-' }}</td>
                         <td>{{ $article->status }}</td>
 
                         <td>
-                            <form action="{{ route('admin.articles.approve', ['id' => $article->id]) }}"
+                            <form action="{{ route('admin.article.approve', ['id' => $article->id]) }}"
                                   method="post">
                                 @csrf
 
@@ -45,7 +45,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('admin.articles.reject', ['id' => $article->id]) }}"
+                            <form action="{{ route('admin.article.reject', ['id' => $article->id]) }}"
                                   method="post">
                                 @csrf
 

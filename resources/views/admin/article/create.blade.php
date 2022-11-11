@@ -12,7 +12,7 @@
             @csrf
 
             <div class="mb-3 w-50">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label">Название</label>
                 <x-forms.text-input
                     name="title"
                     :isInvalid="$errors->has('title')"
@@ -21,7 +21,7 @@
             </div>
 
             <div class="mb-3 w-50">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label">Описание</label>
                 <x-forms.text-input
                     name="description"
                     :isInvalid="$errors->has('description')"
@@ -29,9 +29,16 @@
                 </x-forms.text-input>
             </div>
 
-            <label class="form-label" for="category_id">Category</label>
+            <label class="form-label" for="category_id">Категории</label>
             <select class="form-control mb-2 w-50" id="category_id" name="category_id">
                 @foreach($categories as $key => $values)
+                    <option value="{{ $key }}">{{ $values }}</option>
+                @endforeach
+            </select>
+
+            <label class="form-label" for="tags">Теги</label>
+            <select class="form-control mb-2 w-50" multiple="multiple" id="tags" name="tags[]">
+                @foreach($tags as $key => $values)
                     <option value="{{ $key }}">{{ $values }}</option>
                 @endforeach
             </select>

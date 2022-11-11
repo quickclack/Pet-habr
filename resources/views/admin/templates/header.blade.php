@@ -48,6 +48,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('admin.tags.*')) active @endif"
+                               href="{{ route('admin.tags.index') }}">
+                                <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                                Тэги
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link @if(request()->routeIs('admin.users.*')) active @endif"
                                href="{{-- route('admin.users.index') --}}">
                                 <span data-feather="users" class="align-text-bottom"></span>

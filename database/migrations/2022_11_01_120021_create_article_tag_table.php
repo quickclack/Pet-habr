@@ -15,11 +15,15 @@ return new class extends Migration
 
             $table->foreignIdFor(Article::class)
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->foreignIdFor(Tag::class)
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
             $table->timestamps();
         });

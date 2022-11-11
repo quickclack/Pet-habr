@@ -9,12 +9,15 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Services\Socialite\Contract\Socialite;
 use Services\Socialite\SocialiteService;
+use Services\Uploads\Contract\Upload;
+use Services\Uploads\UploadService;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(Socialite::class, SocialiteService::class);
+        $this->app->bind(Upload::class, UploadService::class);
     }
 
     public function boot(): void

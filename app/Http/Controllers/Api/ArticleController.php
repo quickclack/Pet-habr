@@ -9,25 +9,28 @@ use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
     public function getAllArticles(ArticleBuilder $builder): ArticleCollection
     {
-        return new ArticleCollection(Cache::remember('articles', 60*60*12,
-            fn() => $builder->getAllApprovedArticles()));
+        return new ArticleCollection($builder->getAllApprovedArticles());
     }
 
     public function getArticleById(ArticleBuilder $builder, int $id): JsonResponse
     {
         $article = $builder->getArticleById($id);
 
+        if (!$article) {
+            return response()->json([
+                'message' => 'Такой статьи нет'
+            ]);
+        }
+
         $this->addViews($article);
 
         return response()->json([
-            'article' => new ArticleRelationResource(Cache::remember('article', 60*60*12,
-                fn() => $article))
+            'article' => new ArticleRelationResource($article)
         ]);
     }
 

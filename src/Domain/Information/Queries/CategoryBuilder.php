@@ -21,7 +21,7 @@ final class CategoryBuilder implements QueryBuilder
             ->get();
     }
 
-    public function getCategoryBySlug(string $slug): Model
+    public function getCategoryBySlug(string $slug): ?Model
     {
         return $this->getBuilder()
             ->with('articles')

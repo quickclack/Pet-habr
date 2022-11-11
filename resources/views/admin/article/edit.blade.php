@@ -38,14 +38,21 @@
                 @endforeach
             </select>
 
+            <label class="form-label" for="tags">Теги</label>
+            <select class="form-control mb-2 w-50" multiple="multiple" id="tags" name="tags[]">
+                @foreach($tags as $key => $values)
+                    <option value="{{ $key }}">{{ $values }}</option>
+                @endforeach
+            </select>
+
             <div class="mb-3 w-50">
                 <label for="image" class="form-label">Изображение</label>
                 <input type="file" class="form-control" name="image">
             </div>
             <div class="mb-3 w-50">
-                {{--@if($article->image)
-                    <img src="{{ Storage::url($news->image) }}" alt="image" class="w-50 h-25">
-                @endif--}}
+                @if($article->image)
+                    <img src="{{ Storage::url($article->image) }}" alt="image" class="w-50 h-25">
+                @endif
             </div>
 
             <x-forms.primary-button>Изменить</x-forms.primary-button>

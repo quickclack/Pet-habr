@@ -6,6 +6,7 @@ use App\Contracts\RouteRegistrar;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,19 @@ class AdminRegistrar implements RouteRegistrar
                 Route::resource('/article', ArticleController::class)
                     ->names('admin.articles');
 
-                Route::get('/article/new', [ArticleController::class, 'show'])
-                    ->name('admin.articles.new');
+                Route::controller(ArticleController::class)->group(function () {
+                    Route::get('/article/new','show')
+                        ->name('admin.articles.new');
+
+                    Route::post('/article/{id}/approved', 'approve')
+                        ->name('admin.article.approve');
+
+                    Route::post('/article/{id}/reject', 'reject')
+                        ->name('admin.article.reject');
+                });
+
+                Route::resource('/tags', TagController::class)
+                    ->names('admin.tags');
             });
         });
     }

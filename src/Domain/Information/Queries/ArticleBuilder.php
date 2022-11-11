@@ -32,7 +32,7 @@ final class ArticleBuilder implements QueryBuilder
             ->paginate(20);
     }
 
-    public function getArticleById(int $id): Model
+    public function getArticleById(int $id): ?Model
     {
         return $this->getBuilder()
             ->with(['user', 'category', 'tags'])

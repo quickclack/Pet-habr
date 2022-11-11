@@ -32,16 +32,14 @@
 
                         <td class="d-flex justify-content-end">
                             <a href="{{ route('admin.category.edit', ['category' => $category]) }}"
-                               class="btn btn-primary btn-sm text-white">Edit</a>
-                                {{--<forms action="{{ route('admin.category.destroy', ['category' => $category]) }}"
-                                      method="post">
-                                    @csrf
-                                    @method('DELETE')
+                               class="btn btn-primary btn-sm text-white">Изменить</a>
+                            <forms action="{{ route('admin.category.destroy', ['category' => $category]) }}"
+                                  method="post">
+                                @csrf
+                                @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger ms-3 btn-sm"
-                                            onclick="return confirm('Подтвердите удаление')">Delete
-                                    </button>
-                                </forms>--}}
+                                <x-forms.delete-button>Удалить</x-forms.delete-button>
+                            </forms>
                         </td>
                     </tr>
                 @endforeach

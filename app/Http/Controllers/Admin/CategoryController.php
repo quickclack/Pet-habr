@@ -50,8 +50,18 @@ class CategoryController extends Controller
         return to_route('admin.category.index');
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
-        // TODO реализовать
+        if (count($category->articles)) {
+            flash()->message('Невозможно, у категории есть статьи');
+
+            return to_route('admin.category.index');
+        }
+
+        $category->delete();
+
+        flash()->success('Категория успешно удалена');
+
+        return to_route('admin.category.index');
     }
 }
