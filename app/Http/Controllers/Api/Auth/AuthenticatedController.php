@@ -5,32 +5,58 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => 'store']);
+    }
+
     public function store(LoginRequest $request): JsonResponse
     {
-        $request->authenticate();
+        $credentials = $request->validated();
 
-        $request->session()->regenerate();
+        $token = Auth::attempt($credentials);
+
+        if (!$token) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Не авторизованный',
+            ], 401);
+        }
+
+        Auth::user();
 
         return response()->json([
-            'message' => 'Вы успешно вошли',
-            '_token' => auth()->user()->getRememberToken()
+            'status' => 'success',
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
         ]);
     }
 
-    public function logout(Request $request): JsonResponse
+    public function refresh(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => Auth::refresh(),
+                'type' => 'bearer',
+            ]
+        ]);
+    }
+
+    public function logout(): JsonResponse
     {
         auth()->logout();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
         return response()->json([
-            'message' => 'Вы успешно вышли'
+            'status' => 'success',
+            'message' => 'Вы успешно вышли',
         ]);
     }
 }
