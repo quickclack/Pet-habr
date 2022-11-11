@@ -8,6 +8,7 @@ import Marketing from '../../pages/Marketing';
 import ArticleId from '../../pages/ArticleId'
 import { LogIn } from '../../pages/Login';
 import { SignUp } from '../../pages/SignUp';
+import { ProtectedRoute } from "../ProtectedRoute";
 
 const Router = () => {
    return (
@@ -20,8 +21,11 @@ const Router = () => {
                <Route exact path='/web_development' element={<WebDevelopment/>}/>
                <Route exact path='/mobile_development' element={<MobileDevelopment/>}/>
                <Route exact path='/marketing' element={<Marketing/>}/>
-               <Route exact path='/login' element={ <LogIn/>}/>
-               <Route exact path='/signup' element={<SignUp/>}/>
+               <Route element={<ProtectedRoute />}>
+                  <Route exact path='/login' element={<LogIn/>}/>
+                  <Route exact path='/signup' element={<SignUp/>}/>
+               </Route>
+               
                <Route exact path='/article/:articleId' element={<ArticleId/>}/>
             </Routes>
             </div>

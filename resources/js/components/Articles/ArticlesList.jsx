@@ -16,14 +16,13 @@ function ArticlesList() {
   // const [articles, setArticles] = useState([]);
 
   console.log('pagination', paginationArray)
-  console.log(articles)
-
+ 
   useEffect(()=> {
     console.log("articles dispatch")
     dispatch( getDbArticlesAll());
   },[])
 
-   console.log('articles - ', articles,[])
+  console.log('articles - ', articles)
 
   const paginate = (page) =>{
     
@@ -46,9 +45,6 @@ function ArticlesList() {
       default:{
         setCurrentPage(page)
         curent = page 
-        setArticles(data.articles)
-        console.log(articles)
-        
       }
     }
     dispatch( getDbArticlesPage(curent));

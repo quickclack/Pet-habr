@@ -18,12 +18,8 @@ export const getDbArticlesAll = () => async (dispatch) => {
     try{
         const articles = await axios.post("/api/articles")
             .then(({data})=>{
-                console.log('data', data)
-                // return data.data.articles
                 dispatch(setArticlesAll(data));
             })
-        // console.log('articles', articles);
-        // dispatch(setArticlesAll(articles));
     } catch (e) {
         console.log(e.message);
     }
@@ -34,12 +30,8 @@ export const getDbArticle = (articleId) => async (dispatch) => {
     try{
         const articles = await axios.post(`/api/article/${articleId}`)
             .then(({data})=>{
-                console.log('data', data)
-                // return data.data.articles
                 dispatch(setArticle(data.article));
             })
-        // console.log('articles', articles);
-        // dispatch(setArticlesAll(articles));
     } catch (e) {
         console.log(e.message);
     }
@@ -47,16 +39,12 @@ export const getDbArticle = (articleId) => async (dispatch) => {
 
 
 export const getDbArticlesPage = (page) => async (dispatch) => {
-    console.log("getDbArticlesPage")
+    console.log("getDbArticlesPage",page)
     try{
         const articles = await axios.post(`api/articles?page=${page}`)
             .then(({data})=>{
-                console.log('data', data)
-                // return data.data.articles
                 dispatch(setArticlesAll(data));
             })
-        // console.log('articles', articles);
-        // dispatch(setArticlesAll(articles));
     } catch (e) {
         console.log(e.message);
     }

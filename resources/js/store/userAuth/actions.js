@@ -34,6 +34,7 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
       console.log('data', data)
       const userUp = {
         email: user.email,
+        token: data.authorisation.token,
       };
       dispatch(logInUser(userUp));
       dispatch(setErrorAction(null))
@@ -61,7 +62,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
               
       const userIn = {
         email: user.email,
-        token: data._token,
+        token: data.authorisation.token,
       };
       dispatch(logInUser(userIn));
       dispatch(setErrorAction(null))
@@ -75,10 +76,14 @@ export const logInUserTrunk = (user) => async (dispatch) => {
   }
 }
 //выход 
-export const logOutUserAction = async (dispatch) => {
+export const logOutUserAction =(token) => async (dispatch) => {
   console.log("logOutUserAction")
   try{
-    await axios.get("api/auth/logout")
+    await axios.get("api/auth/logout",{
+       "headers": {
+        "Authorization": `Bearer ${token}`
+       }
+    })
     .then(({data})=>{
       console.log('data', data)
       dispatch(logOutUser());

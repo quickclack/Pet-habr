@@ -13,15 +13,6 @@
 http://127.0.0.1:8000
 ```
 
-## Если у вас веб сервер apache
-```
-- в корне каталога создать файл .htaccess
-- добавить туда:
-
-RewriteEngine On
-RewriteRule (.*) public/$1 
-```
-
 ## Источники
 ```
 - Тз проекта https://docs.google.com/document/d/1AOXgSPmhXQb33l063dsfqOudUA9_GBW1aVCVRuH_950/edit#

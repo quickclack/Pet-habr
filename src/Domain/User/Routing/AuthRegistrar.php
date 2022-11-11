@@ -14,13 +14,15 @@ class AuthRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('api')->prefix('api')->group(function () {
-            Route::middleware('guest')->group(function () {
 
-                Route::post('/auth/login', [AuthenticatedController::class, 'store'])
-                    ->middleware('throttle:auth');
-                Route::post('/auth/registered', [RegisteredController::class, 'store'])
-                    ->middleware('throttle:auth');
-            });
+            Route::post('/auth/login', [AuthenticatedController::class, 'store'])
+                ->middleware('throttle:auth');
+
+            Route::post('/auth/registered', [RegisteredController::class, 'store'])
+                ->middleware('throttle:auth');
+
+            Route::post('/auth/logout', [AuthenticatedController::class, 'logout']);
+            Route::post('/auth/refresh', [AuthenticatedController::class, 'refresh']);
 
             Route::controller(VerificationController::class)->group(function () {
                 Route::get('/email/verify/{id}/{hash}', 'verificationRequest')
@@ -30,10 +32,6 @@ class AuthRegistrar implements RouteRegistrar
                 Route::post('/email/verification-notification', 'repeatSendToMail')
                     ->middleware(['auth', 'throttle:6,1'])
                     ->name('verification.send');
-            });
-
-            Route::middleware('auth')->group(function () {
-                Route::get('/auth/logout', [AuthenticatedController::class, 'logout']);
             });
         });
     }

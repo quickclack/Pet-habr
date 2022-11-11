@@ -20,13 +20,4 @@ class LoginRequest extends FormRequest
             'password' => ['required'],
         ];
     }
-
-    public function authenticate(): void
-    {
-        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed')
-            ]);
-        }
-    }
 }
