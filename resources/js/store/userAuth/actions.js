@@ -38,18 +38,41 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
       };
       dispatch(logInUser(userUp));
       dispatch(setErrorAction(null))
+
       return false
     })
   } catch (e) {
-    console.log(e);
-    console.log("ошибка - ",e.response.data.message)
+    // console.log(e);
+    // console.log("ошибка - ",e.response.data.message)
+    dispatch(setErrorAction(e.response.data.message))
+    return true
+  }
+}
+//повторная отправка email 
+export const resendingUserEmailTrunk = async (dispatch) => {
+  console.log("resendingUserEmailTrunk")
+  try{
+    await axios.post("/api/email/verification-notification")
+    .then(({data})=>{
+      console.log('data', data)
+      const userUp = {
+        email: user.email,
+        token: data.authorisation.token,
+      };
+      // dispatch(logInUser(userUp));
+      dispatch(setErrorAction(null))
+      return false
+    })
+  } catch (e) {
+    // console.log(e);
+    // console.log("ошибка - ",e.response.data.message)
     dispatch(setErrorAction(e.response.data.message))
     return true
   }
 }
 //авторизация
 export const logInUserTrunk = (user) => async (dispatch) => {
-  console.log("signUpUser")
+  console.log("logInUserTrunk")
   console.log(user)
   try{
     await axios.post("api/auth/login",{

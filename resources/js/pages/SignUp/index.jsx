@@ -43,7 +43,7 @@ export const SignUp = () => {
     if (signUperror) {
       return
     } else {
-      navigate("/");
+      navigate("/confirm_email");
       clearForm();
     }
   }

@@ -8,6 +8,7 @@ import Marketing from '../../pages/Marketing';
 import ArticleId from '../../pages/ArticleId'
 import { LogIn } from '../../pages/Login';
 import { SignUp } from '../../pages/SignUp';
+import { ConfirmEmail } from '../../pages/ConfirmEmail';
 import { ProtectedRoute } from "../ProtectedRoute";
 
 const Router = () => {
@@ -17,6 +18,7 @@ const Router = () => {
             <div className="pages-container">
             <Routes>
                <Route exact path='/' element={<All/>}/>
+               
                <Route exact path='/design' element={<Design/>}/>
                <Route exact path='/web_development' element={<WebDevelopment/>}/>
                <Route exact path='/mobile_development' element={<MobileDevelopment/>}/>
@@ -24,8 +26,9 @@ const Router = () => {
                <Route element={<ProtectedRoute />}>
                   <Route exact path='/login' element={<LogIn/>}/>
                   <Route exact path='/signup' element={<SignUp/>}/>
+                 
                </Route>
-               
+                <Route exact path='/confirm_email' element={<ConfirmEmail/>}/>
                <Route exact path='/article/:articleId' element={<ArticleId/>}/>
             </Routes>
             </div>
