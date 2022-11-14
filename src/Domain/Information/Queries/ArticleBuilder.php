@@ -3,7 +3,7 @@
 namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
-use App\Enums\ArticleStatus;
+use Domain\Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

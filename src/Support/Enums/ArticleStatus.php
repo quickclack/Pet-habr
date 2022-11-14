@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace Domain\Support\Enums;
 
 enum ArticleStatus: int
 {

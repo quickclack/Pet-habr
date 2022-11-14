@@ -2,8 +2,8 @@
 
 namespace Domain\Information\Models;
 
-use App\Enums\ArticleStatus;
 use Carbon\Carbon;
+use Domain\Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

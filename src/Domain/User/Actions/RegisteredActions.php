@@ -19,10 +19,8 @@ final class RegisteredActions implements RegisteredContract
             'remember_token' => Str::random(40)
         ]);
 
-        if ($user) {
-            event(new Registered($user));
+        event(new Registered($user));
 
-            auth()->login($user);
-        }
+        auth()->login($user);
     }
 }

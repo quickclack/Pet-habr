@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedController extends Controller
 {
@@ -16,15 +17,12 @@ class AuthenticatedController extends Controller
 
     public function store(LoginRequest $request): JsonResponse
     {
-        $credentials = $request->validated();
-
-        $token = Auth::attempt($credentials);
+        $token = Auth::attempt($request->validated());
 
         if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Не авторизованный',
-            ], 401);
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed')
+            ]);
         }
 
         Auth::user();

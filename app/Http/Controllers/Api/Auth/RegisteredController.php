@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredRequest;
 use Domain\User\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class RegisteredController extends Controller
@@ -15,7 +16,7 @@ class RegisteredController extends Controller
         $this->middleware('auth:api', ['except' => 'store']);
     }
 
-    public function store(RegisteredRequest $request)
+    public function store(RegisteredRequest $request): JsonResponse
     {
         $user = User::create([
             'nickName' => $request->nickName,
