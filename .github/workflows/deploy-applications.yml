@@ -1,39 +1,41 @@
-name: Laravel
+name: Deploy Applications
 
 on:
   push:
     branches:
       - master
+      - dev_front
+      - dev_back
 
 jobs:
-  laravel-tests:
-
+  create-deployment-artifacts:
+    name: Create deployment artifacts
     runs-on: ubuntu-latest
-
     steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      - uses: actions/checkout@v2
+
+      - name: Configure PHP 8.1
+        uses: shivammathur/setup-php@master
         with:
-          php-version: '8.1'
-      - uses: actions/checkout@v3
+          php-version: 8.1
+          extensions: mbstring, ctype, fileinfo, openssl, PDO, bcmath, json, tokenizer, xml
 
-      - name: Set up MySQL
+      - name: Install composer dependencies
+        run: composer install
+
+      - name: Copy .env.example.testing to .env.testing
+        run: php -r "file_exists('.env.testing') || copy('.env.example.testing', '.env.testing');"
+
+      - name: Set required directory permissions
+        run: chmod -R 775 storage bootstrap/cache
+
+      - name: Create deployment artifacts
         env:
-          DB_USERNAME: root
-          DB_PASSWORD: root
-          DB_DATABASE: laravel
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+          GITHUB_SHA: ${{ github.sha }}
+        run: tar -czf "${GITHUB_SHA}".tar.gz --exclude=*.git --exclude=node_modules *
 
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Generate Application Key
-        run: php artisan key:generate
-
-      - name: Execute Feature test via PHPUnit
-        env:
-          DB_PASSWORD: root
-        run: vendor/bin/phpunit
+      - name: Store artifact for distribution
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-build
+          path: ${{ github.sha }}.tar.gz
