@@ -23,7 +23,7 @@ function Article({item}) {
             Читать далее
           </Link>
         </div>
-        <ArticleStatsIcons />
+        <ArticleStatsIcons item={item}/>
       </div>
     );
   }
