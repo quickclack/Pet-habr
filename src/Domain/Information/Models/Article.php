@@ -3,7 +3,7 @@
 namespace Domain\Information\Models;
 
 use Carbon\Carbon;
-use Domain\Support\Enums\ArticleStatus;
+use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

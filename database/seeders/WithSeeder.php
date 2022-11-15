@@ -5,14 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ArticleTagSeeder extends Seeder
+class WithSeeder extends Seeder
 {
     public function run(): void
     {
         for ($i = 1; $i <= 40; $i++) {
 
             $data[] = [
-                'article_id' => rand(1, 30),
+                'article_id' => rand(1, 40),
                 'tag_id' => rand(1, 10),
             ];
         }

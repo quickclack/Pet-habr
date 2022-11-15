@@ -26,7 +26,7 @@ class RegisteredController extends Controller
 
         $token = Auth::login($user);
 
-        // event(new Registered($user));
+        event(new Registered($user));
 
         return response()->json([
             'status' => 'success',

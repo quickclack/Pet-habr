@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
-use Domain\Support\Enums\ArticleStatus;
+use Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\Information\Queries\CategoryBuilder;

@@ -1,18 +1,19 @@
 <?php
 
-namespace Tests\Feature\App\Http\Controllers\User;
+namespace Tests\Feature\App\Http\Controllers\Api\User;
 
+use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ProfileTest extends TestCase
+class ProfilePageTest extends TestCase
 {
     use RefreshDatabase;
 
     public function test_can_user_update_profile(): void
     {
-        User::factory()->create([
+        UserFactory::new()->create([
             'nickName' => 'Test',
             'email' => 'testt@mail.com',
             'password' => '123456'

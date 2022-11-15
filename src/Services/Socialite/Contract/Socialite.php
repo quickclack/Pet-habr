@@ -7,5 +7,5 @@ use Laravel\Socialite\Contracts\User;
 
 interface Socialite
 {
-    public function loginSocial(User $socialUser): JsonResponse;
+    public function loginSocial(User $socialUser): string;
 }

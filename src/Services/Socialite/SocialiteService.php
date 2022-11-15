@@ -3,26 +3,31 @@
 namespace Services\Socialite;
 
 use Domain\User\Models\User;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Services\Socialite\Contract\Socialite;
 use Laravel\Socialite\Contracts\User as SocialUser;
 
-final class SocialiteService implements Socialite
+class SocialiteService implements Socialite
 {
-    public function loginSocial(SocialUser $socialUser): JsonResponse
+    public function loginSocial(SocialUser $socialUser): string
     {
-        $user = User::create([
-            'nickName' => $socialUser->getNickname(),
-            'firstName' => $socialUser->getName(),
-            'email' => $socialUser->getEmail(),
-            'password' => bcrypt('password'),
-            'email_verified_at' => now(),
-        ]);
+        $password = str()->random(10);
 
-        auth()->login($user);
+        try {
+            $user = User::updateOrCreate([
+                'nickName' => $socialUser->getNickname(),
+                'email' => $socialUser->getEmail(),
+                'firstName' => $socialUser->getName(),
+                'password' => bcrypt($password),
+                'email_verified_at' => now(),
+            ]);
 
-        return response()->json([
-            'message' => 'Вы успешно авторизовались'
-        ]);
+            auth()->login($user);
+
+            return url('/');
+
+        } catch (ModelNotFoundException $exception) {
+            throw new ModelNotFoundException($exception->getMessage());
+        }
     }
 }
