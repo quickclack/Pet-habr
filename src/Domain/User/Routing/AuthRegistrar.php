@@ -5,7 +5,6 @@ namespace Domain\User\Routing;
 use App\Contracts\RouteRegistrar;
 use App\Http\Controllers\Api\Auth\AuthenticatedController;
 use App\Http\Controllers\Api\Auth\RegisteredController;
-use App\Http\Controllers\Api\Auth\VerificationController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
@@ -23,16 +22,6 @@ class AuthRegistrar implements RouteRegistrar
 
             Route::post('/auth/logout', [AuthenticatedController::class, 'logout']);
             Route::post('/auth/refresh', [AuthenticatedController::class, 'refresh']);
-
-            Route::controller(VerificationController::class)->group(function () {
-                Route::get('/email/verify/{id}/{hash}', 'verificationRequest')
-                    ->middleware(['auth', 'signed'])
-                    ->name('verification.verify');
-
-                Route::post('/email/verification-notification', 'repeatSendToMail')
-                    ->middleware(['auth', 'throttle:6,1'])
-                    ->name('verification.send');
-            });
         });
     }
 }

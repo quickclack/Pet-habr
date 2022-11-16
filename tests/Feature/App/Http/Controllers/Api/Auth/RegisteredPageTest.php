@@ -92,16 +92,6 @@ class RegisteredPageTest extends TestCase
             ->assertInvalid();
     }
 
-    public function test_it_registered_event_and_listeners_dispatched(): void
-    {
-        Event::fake();
-
-        $this->request();
-
-        Event::assertDispatched(Registered::class);
-        Event::assertListening(Registered::class, SendEmailVerificationNotification::class);
-    }
-
     public function test_it_user_authenticated_after_registered(): void
     {
         $this->request()

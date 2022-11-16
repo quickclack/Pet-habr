@@ -3,21 +3,31 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Domain\User\Models\UserVerify;
 
 class VerificationController extends Controller
 {
-    public function verificationRequest(EmailVerificationRequest $request)
+    public function verify(string $token)
     {
-        $request->fulfill();
-    }
+        $verifyUser = UserVerify::where('token', $token)->first();
 
-    public function repeatSendToMail(Request $request): JsonResponse
-    {
-        $request->user()->sendEmailVerificationNotification();
+        $message = 'К сожалению, ваш адрес электронной почты не может быть идентифицирован.';
 
-        return response()->json(['message' => 'Письмо отправлено повторно']);
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+                $message = 'Ваш адрес электронной почты подтвержден.';
+
+            } else {
+                $message = 'Ваш адрес электронной почты уже подтвержден.';
+            }
+        }
+
+        return response()->json([
+            'message' => $message
+        ]);
     }
 }

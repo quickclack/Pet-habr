@@ -3,7 +3,6 @@
 namespace Domain\User\Models;
 
 use Domain\Information\Models\Article;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmail, JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'lastName',
         'email',
         'password',
-        'remember_token'
+        'is_email_verified'
     ];
 
     protected $hidden = [
@@ -31,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'is_email_verified' => 'boolean'
     ];
 
     public function articles(): HasMany

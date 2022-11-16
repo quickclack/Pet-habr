@@ -3,24 +3,34 @@
 namespace Domain\User\Actions;
 
 use Domain\User\Actions\Contract\RegisteredContract;
+use Domain\User\DTO\NewUserDTO;
 use Domain\User\Models\User;
-use Illuminate\Auth\Events\Registered;
+use Domain\User\Models\UserVerify;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 final class RegisteredActions implements RegisteredContract
 {
-    public function handle(string $name, string $email, string $password): void
+    public function __invoke(NewUserDTO $data): User
     {
-        // TODO make DTO latters, maybe no)
         $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'remember_token' => Str::random(40)
+            'nickName' => $data->nickName,
+            'email' => $data->email,
+            'password' => bcrypt($data->password),
         ]);
 
-        event(new Registered($user));
+        $token = Str::random(64);
 
-        auth()->login($user);
+        UserVerify::create([
+            'user_id' => $user->id,
+            'token' => $token
+        ]);
+
+        Mail::send('emails.email-verification', ['token' => $token], function ($message) use ($data) {
+            $message->to($data->email);
+            $message->subject('Email Verification Mail');
+        });
+
+        return $user;
     }
 }
