@@ -25,7 +25,7 @@ function ArticleStatsIcons({articleId, item}) {
                   <img src={ voices } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  10
+                  0
                </div>
             </div>
             <div className="article-stats-icons__block">
@@ -41,7 +41,7 @@ function ArticleStatsIcons({articleId, item}) {
                   <img src={ bookmarks } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  10
+                  0
                </div>
             </div>
             <div className="article-stats-icons__block">

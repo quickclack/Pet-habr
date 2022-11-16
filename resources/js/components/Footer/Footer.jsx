@@ -3,11 +3,23 @@ import { useSelector, useDispatch } from "react-redux";
 import './Footer.scss'
 import { Link } from "react-router-dom";
 
-import { getDbCategoriesAll, getCategoriesAll} from "../../store/categories"
+import { getDbCategoriesAll, getCategoriesAll, getLinksCategoriesAll} from "../../store/categories"
+
+function up() {
+	var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+  if(top > 0) {
+	window.scrollBy(0,((top+100)/-10));
+	t = setTimeout('up()',20);
+  } else clearTimeout(t);
+  return false;
+}
+
+
 
 export const Footer = () => {
     const dispatch = useDispatch(); 
     const categories = useSelector(getCategoriesAll)
+    const categoriesLinks = useSelector(getLinksCategoriesAll)
     console.log("categories - ", categories)
     useEffect(()=> {
         console.log("categories dispatch")
@@ -35,7 +47,7 @@ export const Footer = () => {
                                {
                                 categories.length > 0 ? categories.map((item, key) => (
                                     <div key = { key } className="categories__item">
-                                        <Link to="/login" className="nav-btn mb-3">
+                                        <Link to={categoriesLinks[key] || '/'} className="nav-btn mb-3">
                                             {item.title}
                                         </Link>
                                         
