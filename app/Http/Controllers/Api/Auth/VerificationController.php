@@ -13,7 +13,7 @@ class VerificationController extends Controller
 
         $message = 'К сожалению, ваш адрес электронной почты не может быть идентифицирован.';
 
-        if(!is_null($verifyUser) ){
+        if(!is_null($verifyUser)) {
             $user = $verifyUser->user;
 
             if(!$user->is_email_verified) {

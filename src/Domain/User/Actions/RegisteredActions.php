@@ -26,10 +26,10 @@ final class RegisteredActions implements RegisteredContract
             'token' => $token
         ]);
 
-        Mail::send('emails.email-verification', ['token' => $token], function ($message) use ($data) {
+        /*Mail::send('emails.email-verification', ['token' => $token], function ($message) use ($data) {
             $message->to($data->email);
             $message->subject('Email Verification Mail');
-        });
+        });*/
 
         return $user;
     }
