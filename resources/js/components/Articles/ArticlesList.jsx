@@ -17,10 +17,7 @@ function ArticlesList() {
 
   console.log('pagination', paginationArray)
  
-  useEffect(()=> {
-    console.log("articles dispatch")
-    dispatch( getDbArticlesAll());
-  },[])
+  
 
   console.log('articles - ', articles)
 

@@ -13,6 +13,11 @@ export const setArticle = (payload) => ({
     payload: payload
 })
 
+export const setArticleNull = (payload) => ({
+    type: SET_ARTICLES_ALL,
+    payload: []
+})
+
 export const getDbArticlesAll = () => async (dispatch) => {
     console.log("getDbArticlesAll")
     try{
@@ -56,3 +61,17 @@ export const getDbArticlesPage = (page) => async (dispatch) => {
     }
 }
 
+export const getDbArticlesSearch = (value) => async (dispatch) => {
+    console.log("getDbArticlesSearch ")
+    try{
+        await axios.post("api/search",{
+            search: value,
+        })
+            .then(({data})=>{
+                console.log(data);
+                dispatch(setArticlesAll(data));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
