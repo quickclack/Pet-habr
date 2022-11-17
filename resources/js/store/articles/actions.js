@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const SET_ARTICLES_ALL = 'SET_ARTICLES_ALL';
 export const SET_ARTICLE = 'SET_ARTICLE';
+export const SET_ARTICLES_NULL = 'SET_ARTICLES_NULL';
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
@@ -13,9 +14,8 @@ export const setArticle = (payload) => ({
     payload: payload
 })
 
-export const setArticleNull = (payload) => ({
-    type: SET_ARTICLES_ALL,
-    payload: []
+export const setArticleNull = () => ({
+    type: SET_ARTICLES_NULL,
 })
 
 export const getDbArticlesAll = () => async (dispatch) => {
