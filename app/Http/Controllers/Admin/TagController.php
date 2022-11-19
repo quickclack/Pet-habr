@@ -7,36 +7,63 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Domain\Information\Queries\TagBuilder;
+use App\Http\Requests\Admin\TagRequest;
+use Domain\Information\Models\Tag;
 
 class TagController extends Controller
 {
-    public function index(): Application|Factory|View
+    public function index(TagBuilder $builder): Application|Factory|View
     {
-
+        return view('admin.tag.index', [
+            'tags' => $builder->getAllTags()
+        ]);
     }
 
     public function create(): Application|Factory|View
     {
-
+        return view('admin.tag.create');
     }
 
-    public function store(): RedirectResponse
+    public function store(TagRequest $request, Tag $tag): RedirectResponse
     {
+        $tag->create($request->validated());
 
+        flash()->success('Тэг успешно добавлен');
+
+        return to_route('admin.tags.index');
     }
 
-    public function edit(): Application|Factory|View
+    public function edit(Tag $tag): Application|Factory|View
     {
-
+        return view('admin.tag.edit', [
+            'tag' => $tag
+        ]);
     }
 
-    public function update(): RedirectResponse
+    public function update(TagRequest $request, Tag $tag): RedirectResponse
     {
+        $tag->update($request->validated());
 
+        flash()->success('Изменения сохранены');
+
+        return to_route('admin.tags.index');
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(Tag $tag): RedirectResponse
     {
+        $tag->articles()->sync([]);
 
+        if (count($tag->articles)) {
+            flash()->message('Невозможно, у тэга есть статьи');
+
+            return to_route('admin.tags.index');
+        }
+
+        $tag->delete();
+
+        flash()->success('Тэг успешно удалена');
+
+        return to_route('admin.tags.index');
     }
 }

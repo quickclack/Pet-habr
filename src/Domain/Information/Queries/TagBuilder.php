@@ -5,6 +5,9 @@ namespace Domain\Information\Queries;
 use App\Contracts\QueryBuilder;
 use Domain\Information\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
 
 final class TagBuilder implements QueryBuilder
 {
@@ -12,6 +15,14 @@ final class TagBuilder implements QueryBuilder
     {
         return Tag::query();
     }
+
+    public function getAllTags(): Collection
+    {
+        return $this->getBuilder()
+            ->select('id', 'title', 'slug')
+            ->get();
+    }
+
 
     public function getTagByPluck(): array
     {
