@@ -69,7 +69,7 @@ export const Search = () => {
            
          </form>
       </div>
-      { articlesVisible && <ArticlesList />}
+      { articlesVisible && <ArticlesList  search = {true} value = {search}/>}
     </section>
   );
 };

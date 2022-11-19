@@ -50,7 +50,7 @@ export const getDbArticle = (articleId) => async (dispatch) => {
 
 
 export const getDbArticlesPage = (page) => async (dispatch) => {
-    console.log("getDbArticlesPage",page)
+    console.log("getDbArticlesPage",page,' - ')
     try{
         const articles = await axios.post(`api/articles?page=${page}`)
             .then(({data})=>{
@@ -65,6 +65,20 @@ export const getDbArticlesSearch = (value) => async (dispatch) => {
     console.log("getDbArticlesSearch ")
     try{
         await axios.post("api/search",{
+            search: value,
+        })
+            .then(({data})=>{
+                console.log(data);
+                dispatch(setArticlesAll(data));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+export const getDbArticlesSearchPage = ({value, page}) => async (dispatch) => {
+    console.log("getDbArticlesSearch ")
+    try{
+        await axios.post(`api/search?page=${page}`,{
             search: value,
         })
             .then(({data})=>{

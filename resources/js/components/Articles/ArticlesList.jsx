@@ -2,12 +2,12 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage} from "../../store/articles"
+import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage, getDbArticlesSearchPage} from "../../store/articles"
 import Article from './Article.jsx';
 import './ArticlesList.scss'
 
 
-function ArticlesList() {
+function ArticlesList({search, value}) {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
   const [currentPage, setCurrentPage] = useState(1)
@@ -44,7 +44,10 @@ function ArticlesList() {
         curent = page 
       }
     }
-    dispatch( getDbArticlesPage(curent));
+    console.log(search)
+    search ? dispatch( getDbArticlesSearchPage({page:curent, value}) ):
+            dispatch( getDbArticlesPage(curent) );
+    
   }
    
   return (
