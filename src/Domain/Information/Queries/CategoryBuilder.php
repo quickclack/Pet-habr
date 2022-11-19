@@ -18,6 +18,7 @@ final class CategoryBuilder implements QueryBuilder
     public function getAllCategories(): Collection
     {
         return $this->getBuilder()
+            ->select('id', 'title', 'slug')
             ->get();
     }
 

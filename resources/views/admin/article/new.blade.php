@@ -34,14 +34,14 @@
                         <td>{{ $article->description }}</td>
                         <td>{{ $article->user->nickName ?? '-' }}</td>
                         <td>{{ $article->category->title ?? '-' }}</td>
-                        <td>{{ $article->status }}</td>
+                        <td>{{ $article->status->name }}</td>
 
                         <td>
                             <form action="{{ route('admin.article.approve', ['id' => $article->id]) }}"
                                   method="post">
                                 @csrf
 
-                                <button type="submit" class="btn btn-primary btn-sm text-white">Approve</button>
+                                <button type="submit" class="btn btn-primary btn-sm text-white">Принять</button>
                             </form>
                         </td>
                         <td>
@@ -49,7 +49,7 @@
                                   method="post">
                                 @csrf
 
-                                <button type="submit" class="btn btn-danger ms-3 btn-sm">Reject</button>
+                                <button type="submit" class="btn btn-danger ms-3 btn-sm">Отклонить</button>
                             </form>
                         </td>
                         @endforeach

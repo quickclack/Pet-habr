@@ -31,15 +31,15 @@
                         <td>{{ $category->slug }}</td>
 
                         <td class="d-flex justify-content-end">
-                            <a href="{{ route('admin.category.edit', ['category' => $category]) }}"
+                            <a href="{{ route('admin.category.edit', ['category' => $category->id]) }}"
                                class="btn btn-primary btn-sm text-white">Изменить</a>
-                            <forms action="{{ route('admin.category.destroy', ['category' => $category]) }}"
+                            <form action="{{ route('admin.category.destroy', ['category' => $category->id]) }}"
                                   method="post">
                                 @csrf
                                 @method('DELETE')
 
                                 <x-forms.delete-button>Удалить</x-forms.delete-button>
-                            </forms>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

@@ -33,13 +33,13 @@
                         <td>{{ $article->id }}</td>
                         <td>{{ $article->title }}</td>
                         <td>{{ $article->description }}</td>
-                        <td>{{ $article->user_id }}</td>
+                        <td>{{ $article->user->email ?? '-' }}</td>
                         <td>{{ $article->category_id }}</td>
-                        <td>{{ $article->status }}</td>
+                        <td>{{ $article->status->name }}</td>
 
                         <td>
                             <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}"
-                               class="btn btn-primary btn-sm text-white">Edit</a>
+                               class="btn btn-primary btn-sm text-white">Изменить</a>
                         </td>
                         <td>
                             <form action="{{ route('admin.articles.destroy', ['article' => $article->id]) }}"

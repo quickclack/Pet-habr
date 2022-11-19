@@ -41,13 +41,11 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function store(ArticleRequest $request, UserBuilder $builder): RedirectResponse
+    public function store(ArticleRequest $request): RedirectResponse
     {
-        /*$user = $builder->getUserById(auth()->user()->id);
-
-        $user->articles()->create($request->validated());*/
-
         $article = Article::create($request->validated());
+
+        $article->user_id = auth()->id() ?? null;
 
         $article->tags()->sync($request->tags);
 
