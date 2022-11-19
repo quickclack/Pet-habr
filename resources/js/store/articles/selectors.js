@@ -1,5 +1,5 @@
 export const getArticlesAll = (state) => {
-    //  console.log(state.articles.articles.data.articles)
+    //   console.log(state)
     return state.articles.length == 0 ? [] : state.articles.articles.data.articles
 };
 

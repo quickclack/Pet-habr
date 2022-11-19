@@ -3,8 +3,9 @@ import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
-import {articlesReducer} from "./articles";
-import { userAuthReducer } from "./userAuth/reducer";
+import { articlesReducer } from "./articles";
+import { userAuthReducer } from "./userAuth";
+import { categoriesReducer } from "./categories";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,6 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
    articles: articlesReducer,
    auth: userAuthReducer,
+   categories: categoriesReducer,
  });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

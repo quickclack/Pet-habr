@@ -30,8 +30,14 @@
     margin-top: 50px;
 }
 
-.categories div {
+.categories{ 
+    &__blok {
     margin: 20px;
+    }
+    &__item{
+        margin: 0px 0px 1rem 0px;
+    }
+    
 }
 
 .information p {

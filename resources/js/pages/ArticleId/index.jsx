@@ -44,7 +44,7 @@ function ArticleId() {
           </div>  
         </div>
         <div className="articleId">
-          <ArticleStatsIcons articleId="true"/>
+          <ArticleStatsIcons articleId="true" item={article}/>
         </div> </> : ''
       }
     </>

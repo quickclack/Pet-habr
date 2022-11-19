@@ -7,7 +7,7 @@ import comments from "../../../image/comments.png"
 import views from "../../../image/views.png"
 import toShare from "../../../image/to_share.png"
 import toShareH from "../../../image/to_share_h.png"
-function ArticleStatsIcons({articleId}) {
+function ArticleStatsIcons({articleId, item}) {
  
    const [isBooped, setIsBooped] = useState(false);
    const handleMouseOver = () => {
@@ -25,7 +25,7 @@ function ArticleStatsIcons({articleId}) {
                   <img src={ voices } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  10
+                  0
                </div>
             </div>
             <div className="article-stats-icons__block">
@@ -33,7 +33,7 @@ function ArticleStatsIcons({articleId}) {
                   <img src={ views } alt="" />
                </div>
                <div className="article-stats-icons__elem ">
-                  10
+                  { item.views || 0 }
                </div>
             </div>
             <div className="article-stats-icons__block ">
@@ -41,7 +41,7 @@ function ArticleStatsIcons({articleId}) {
                   <img src={ bookmarks } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  10
+                  0
                </div>
             </div>
             <div className="article-stats-icons__block">
@@ -49,12 +49,12 @@ function ArticleStatsIcons({articleId}) {
                   <img src={ comments  } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  10
+               { item.count_comments || 0 }
                </div>
             </div>
             { articleId ? <div className="article-stats-icons__block">
                <div className="article-stats-icons__elem hover" title="Поделиться" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                  <img src={ isBooped ? toShareH :toShare  } alt="" />
+                  <img src={ isBooped ? toShareH : toShare  } alt="" />
                </div>
                
             </div>: ''}

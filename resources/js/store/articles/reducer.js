@@ -1,4 +1,4 @@
-import {SET_ARTICLES_ALL, SET_ARTICLE} from "./actions";
+import {SET_ARTICLES_ALL, SET_ARTICLE, SET_ARTICLES_NULL} from "./actions";
 
 
 let dateTransition = new Date()  // текущая дата для изменения
@@ -22,6 +22,13 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 article:payload
+            }
+        }
+        case SET_ARTICLES_NULL: {
+            console.log("articlesNullReducer", payload)
+            return {
+                ...state,
+                ...[]
             }
         }
         default:{
