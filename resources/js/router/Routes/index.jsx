@@ -14,7 +14,7 @@ import { PublicRoute } from "../PublicRoute/Index"
 import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
-import {UserSettingsProfile} from '../../pages/UserSettings/Profile/Index';
+import {UserSettingsProfile} from '../../pages/UserSettings/Profile';
 
 const Router = () => {
     const dispatch = useDispatch();
