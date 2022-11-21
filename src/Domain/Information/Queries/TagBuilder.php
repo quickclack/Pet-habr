@@ -30,4 +30,11 @@ final class TagBuilder implements QueryBuilder
             ->pluck('title', 'id')
             ->all();
     }
+
+    public function getTagById(int $id): ?Model
+    {
+        return $this->getBuilder()
+            ->where('id', $id)
+            ->first();
+    }
 }
