@@ -17,13 +17,13 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
 
             $table->foreignIdFor(Tag::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
 
             $table->timestamps();
         });

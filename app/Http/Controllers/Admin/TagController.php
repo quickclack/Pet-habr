@@ -36,10 +36,7 @@ class TagController extends Controller
 
     public function edit(TagBuilder $builder, int $id): Application|Factory|View
     {
-        $tag = $builder->getTagById($id);
-        return view('admin.tag.edit', [
-            'tag' => $tag
-        ]);
+        return view('admin.tag.edit', [ 'tag' => $builder->getTagById($id) ]);
     }
 
     public function update(TagRequest $request, Tag $tag): RedirectResponse
@@ -55,7 +52,7 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        flash()->success('Тэг успешно удалена');
+        flash()->success('Тэг успешно удален');
 
         return to_route('admin.tags.index');
     }
