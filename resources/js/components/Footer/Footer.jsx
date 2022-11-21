@@ -2,6 +2,8 @@ import React , {useEffect}from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import './Footer.scss'
 import { Link } from "react-router-dom";
+import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
+
 
 import { getDbCategoriesAll, getCategoriesAll, getLinksCategoriesAll} from "../../store/categories"
 
@@ -17,7 +19,9 @@ function up() {
 
 
 export const Footer = () => {
-    const dispatch = useDispatch(); 
+    const authed = useSelector(getIsAuth); 
+    const token = useSelector(getToken); 
+    const dispatch = useDispatch();
     const categories = useSelector(getCategoriesAll)
     const categoriesLinks = useSelector(getLinksCategoriesAll)
     console.log("categories - ", categories)
@@ -32,14 +36,21 @@ export const Footer = () => {
                     <div className="content d-flex justify-content-between">
                         <div className="account">
                             <p>Ваш аккаунт</p>
-                            <div className="d-flex flex-column">
+                            {authed ? <div className="d-flex flex-column">
                                 <Link to="/login" className="nav-btn mb-3">
                                     Войти
                                 </Link>
                                 <Link to="/signup" className="nav-btn">
                                     Регистрация
                                 </Link>
-                            </div>
+                            </div> : <div className="d-flex flex-column">
+                                <Link to="/auth/settigs/profile" className="nav-btn mb-3">
+                                    Настройки
+                                </Link>
+                                <Link to="" className="nav-btn" onClick={()=>dispatch(logOutUserAction(token))}>
+                                    Выход
+                                </Link>
+                            </div>}
                         </div>
                         <div className="categories">
                             <p>Категории</p>

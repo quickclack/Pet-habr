@@ -24,7 +24,8 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
   console.log("signUpUser")
   console.log(user)
   try{
-    await axios.post("/api/auth/registered",{
+    await axios.get('/sanctum/csrf-cookie').then(()=>{
+     axios.post("/api/auth/registered",{
       email: user.email,
       password: user.password,
       nickName: user.name, 
@@ -41,12 +42,14 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
 
       return false
     })
+     })
   } catch (e) {
     // console.log(e);
     // console.log("ошибка - ",e.response.data.message)
     dispatch(setErrorAction(e.response.data.message))
     return true
   }
+ 
 }
 //повторная отправка email 
 export const resendingUserEmailTrunk = async (dispatch) => {
@@ -75,22 +78,24 @@ export const logInUserTrunk = (user) => async (dispatch) => {
   console.log("logInUserTrunk")
   console.log(user)
   try{
-    await axios.post("api/auth/login",{
-      email: user.email,
-      password: user.password,
-      remember: user.remember, 
-    })
-    .then(({data})=>{
-      console.log('data', data)
-              
-      const userIn = {
+    await axios.get('/sanctum/csrf-cookie').then(()=>{
+      axios.post("api/auth/login",{
         email: user.email,
-        token: data.authorisation.token,
-      };
-      dispatch(logInUser(userIn));
-      dispatch(setErrorAction(null))
-      return false
-    })
+        password: user.password,
+        remember: user.remember, 
+      })
+      .then(({data})=>{
+        console.log('data', data)
+                
+        const userIn = {
+          email: user.email,
+          token: data.authorisation.token,
+        };
+        dispatch(logInUser(userIn));
+        dispatch(setErrorAction(null))
+        return false
+      })
+  })
   } catch (e) {
     console.log(e);
     console.log("ошибка - ",e.response.data.message)

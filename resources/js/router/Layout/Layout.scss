@@ -44,15 +44,15 @@ a {
    &__search{
       padding: 10px;
       &:hover &-block{
-         background-image: url(../../../image/search_hov.png);
+         fill: #0a58ca;
+         transform: scale(1.25);
          cursor: pointer;
-        }
-      &-block{
-        height: 19px; 
-        width: 18px;
-        margin: auto;
-        background-image: url(../../../image/search.png);
+      }
        
+      &-block{
+         fill: #0d6efd;
+         width: 1.7em;
+         height: 1.7em;
       }
    }
  }
