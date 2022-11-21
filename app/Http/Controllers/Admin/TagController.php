@@ -29,40 +29,30 @@ class TagController extends Controller
     {
         $tag->create($request->validated());
 
-        flash()->success('Тэг успешно добавлен');
+        flash()->success('РўСЌРі СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ');
 
         return to_route('admin.tags.index');
     }
 
-    public function edit(Tag $tag): Application|Factory|View
+    public function edit(TagBuilder $builder, int $id): Application|Factory|View
     {
-        return view('admin.tag.edit', [
-            'tag' => $tag
-        ]);
+        return view('admin.tag.edit', [ 'tag' => $builder->getTagById($id) ]);
     }
 
     public function update(TagRequest $request, Tag $tag): RedirectResponse
     {
         $tag->update($request->validated());
 
-        flash()->success('Изменения сохранены');
+        flash()->success('РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹');
 
         return to_route('admin.tags.index');
     }
 
     public function destroy(Tag $tag): RedirectResponse
     {
-        $tag->articles()->sync([]);
-
-        if (count($tag->articles)) {
-            flash()->message('Невозможно, у тэга есть статьи');
-
-            return to_route('admin.tags.index');
-        }
-
         $tag->delete();
 
-        flash()->success('Тэг успешно удалена');
+        flash()->success('РўСЌРі СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ');
 
         return to_route('admin.tags.index');
     }
