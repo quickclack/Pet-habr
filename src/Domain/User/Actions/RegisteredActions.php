@@ -6,7 +6,6 @@ use Domain\User\Actions\Contract\RegisteredContract;
 use Domain\User\DTO\NewUserDTO;
 use Domain\User\Models\User;
 use Domain\User\Models\UserVerify;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 final class RegisteredActions implements RegisteredContract
@@ -25,11 +24,6 @@ final class RegisteredActions implements RegisteredContract
             'user_id' => $user->id,
             'token' => $token
         ]);
-
-        /*Mail::send('emails.email-verification', ['token' => $token], function ($message) use ($data) {
-            $message->to($data->email);
-            $message->subject('Email Verification Mail');
-        });*/
 
         return $user;
     }

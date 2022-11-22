@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
         'lastName',
         'email',
         'password',
-        'is_email_verified'
+        'email_verified_at'
     ];
 
     protected $hidden = [
@@ -30,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $casts = [
-        'is_email_verified' => 'boolean'
+        'email_verified_at' => 'datetime'
     ];
 
     public function articles(): HasMany
@@ -46,15 +45,5 @@ class User extends Authenticatable implements JWTSubject
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
-    }
-
-    public function getJWTIdentifier(): mixed
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims(): array
-    {
-        return [];
     }
 }

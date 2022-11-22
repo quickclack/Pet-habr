@@ -46,8 +46,8 @@ code {
   font-weight: 300;
   letter-spacing: 0.24px;
   color: var(--color-dark);
-  
-  
+
+
   cursor: nw-default;
 }
 
@@ -67,8 +67,8 @@ ul {margin-top: 0;
 }
 
 .text-field__label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   display: block;
   margin-bottom: 0.25rem;
   &.checkbox{
@@ -185,12 +185,12 @@ textarea:hover,
   padding: 20px;
    &-container{
      min-height: 300px;
-     
+
    }
-   
+
    &-header{
       padding: 15px;
-      
+
       background-color:rgb(255, 255, 255);
       margin-bottom: 5px;
       h3{

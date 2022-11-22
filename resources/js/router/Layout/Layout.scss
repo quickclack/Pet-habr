@@ -3,22 +3,22 @@
    &_fixed {position: fixed;
       z-index: 100;
       top: 0;
-      
+
       border-bottom: 1px solid rgb(218, 215, 215);
       width: 100%;
    }
-      
+
 }
 .wrapper{
    max-width: 1200px;
    position: relative;
    margin: 0 auto 0 auto;
-   
+
 }
 a {
    text-decoration: none;
  }
- 
+
 .menu {
    background-color: #9bd3d3;
    display: flex;
@@ -43,18 +43,16 @@ a {
    }
    &__search{
       padding: 10px;
-      &:hover &-block{
-         background-image: url(../../../image/search_hov.png);
-         cursor: pointer;
-        }
-      &-block{
-        height: 19px; 
-        width: 18px;
-        margin: auto;
-        background-image: url(../../../image/search.png);
-       
-      }
+       &:hover &-block{
+           fill: #0a58ca;
+           transform: scale(1.25);
+           cursor: pointer;
+       }
+       &-block{
+           fill: #0d6efd;
+           width: 1.7em;
+           height: 1.7em;
+       }
    }
  }
 
- 

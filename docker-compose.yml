@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+    webserver:
+        image: 'nginx:alpine'
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        ports:
+            - 8080:80
+        depends_on:
+            - app
+        container_name: gb_habr_nginx
+
+    app:
+        build:
+            context: .
+            dockerfile: docker/app/Dockerfile
+        volumes:
+            - ./:/var/www
+        container_name: gb_habr_app
+
+    db:
+        image: mysql:8.0
+        restart: always
+        volumes:
+            - ./docker/tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: gb_habr
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 3306:3306
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: gb_habr_db
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        ports:
+           - '8025:8025'
+        container_name: gb_habr_mailhog
