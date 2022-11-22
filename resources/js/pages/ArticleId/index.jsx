@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDbArticle, getArticle } from "../../store/articles"
 import './ArticleId.scss'
 import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
+import Comments from '../../components/Comments/Comments';
 
 function ArticleId() {
   const dispatch = useDispatch(); 
@@ -43,9 +44,13 @@ function ArticleId() {
             </p>
           </div>  
         </div>
-        <div className="articleId">
+        <div className="articleId articleId-icons">
           <ArticleStatsIcons articleId="true" item={article}/>
-        </div> </> : ''
+        </div> 
+        <div className="articleId ">
+          <Comments/>
+        </div>
+        </> : ''
       }
     </>
   );
