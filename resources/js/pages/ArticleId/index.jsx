@@ -5,6 +5,7 @@ import { getDbArticle, getArticle } from "../../store/articles"
 import './ArticleId.scss'
 import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
 import Comments from '../../components/Comments/Comments';
+import MainComment from '../../components/Comments/MainComment';
 
 function ArticleId() {
   const dispatch = useDispatch(); 
@@ -49,6 +50,9 @@ function ArticleId() {
         </div> 
         <div className="articleId ">
           <Comments/>
+        </div>
+        <div className="articleId ">
+          <MainComment/>
         </div>
         </> : ''
       }

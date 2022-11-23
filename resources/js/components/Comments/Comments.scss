@@ -1,8 +1,41 @@
 .comments{
    &_refresh{
+      border: 2px solid rgb(209 206 206);
+      border-bottom: 0px solid white;
+      border-radius: 5px 5px 0 0 ;
+      width: 40px;
+      display: flex;
+      justify-content: center;
       &:hover{
          cursor: pointer;
          background-color: #e2e5e5;
+         
       }
    }
+   &_load{
+      animation: load 0.5s infinite linear;
+   }
 }
+
+@keyframes load {
+   0% {
+      transform: rotate(0deg);
+     }
+   100% {
+      transform: rotate(-180deg);
+     }
+ }
+
+.mainComment{
+   &-noautch{
+      height: 30px;
+      width: 10px;
+      background-color: #0dd1d1;
+      margin-right: 20px;
+   }
+   &-btn{
+      &:hover{
+         c
+      }
+   }
+} 

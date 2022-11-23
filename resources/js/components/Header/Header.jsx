@@ -55,7 +55,7 @@ export const Header = () => {
                             <h1>Хабр</h1>
                         </a>
                     </div>
-                    {authed ? (
+                    {!authed ? (
                         <div>
                             <Link to="/login" className="nav-btn">
                                 Войти
@@ -67,7 +67,7 @@ export const Header = () => {
                         <div>
                             {/* <Link className="nav-btn"  onClick = {()=>dispatch(logOutUserAction(token))}>
                             Выйти
-                        </Link> */}
+                            </Link> */}
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -34,8 +34,9 @@ const Router = () => {
                         <Route exact path='/search' element={<Search/>}/>
                         <Route exact path='/confirm_email' element={<ConfirmEmail/>}/>
                         <Route exact path='/article/:articleId' element={<ArticleId/>}/>
-                        <Route element={<ProtectedRoute />}>
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
+                        <Route element={<ProtectedRoute />}>
+                            
                         </Route>
                     </Routes>
                 </div>
