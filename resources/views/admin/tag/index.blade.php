@@ -2,10 +2,10 @@
 
 @section('title')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Список категорий</h1>
+        <h1 class="h2">Список тегов</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('admin.category.create') }}" class="btn btn-sm btn-outline-secondary">Добавить</a>
+                <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-outline-secondary">Добавить</a>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="table-responsive">
-        @if(count($categories))
+        @if(count($tags))
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
@@ -24,16 +24,16 @@
                 </thead>
                 <tbody>
 
-                @foreach($categories as $category)
+                @foreach($tags as $tag)
                     <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->title }}</td>
-                        <td>{{ $category->slug }}</td>
+                        <td>{{ $tag->id }}</td>
+                        <td>{{ $tag->title }}</td>
+                        <td>{{ $tag->slug }}</td>
 
                         <td class="d-flex justify-content-end">
-                            <a href="{{ route('admin.category.edit', $category->id) }}"
+                            <a href="{{ route('admin.tags.edit', $tag->id) }}"
                                class="btn btn-primary btn-sm text-white">Изменить</a>
-                            <form action="{{ route('admin.category.destroy', $category->id) }}"
+                            <form action="{{ route('admin.tags.destroy', $tag->id) }}"
                                   method="post">
                                 @csrf
                                 @method('DELETE')
@@ -46,7 +46,7 @@
 
                 @else
                     <div class="container text-center">
-                        <h2 class="h4 fw-light">Категорий пока нет..</h2>
+                        <h2 class="h4 fw-light">Тегов пока нет..</h2>
                     </div>
                 @endif
                 </tbody>

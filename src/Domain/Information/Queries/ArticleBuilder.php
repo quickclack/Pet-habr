@@ -28,6 +28,7 @@ final class ArticleBuilder implements QueryBuilder
     public function getArticlesWithPaginate(ArticleStatus $status): LengthAwarePaginator
     {
         return $this->getBuilder()
+            ->with('user')
             ->where('status', $status)
             ->paginate(20);
     }

@@ -19,7 +19,7 @@ class ArticleRelationResource extends JsonResource
             'user' => new UserResource($this->user),
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
-            'status' => $this->status,
+            'status' => $this->status->name,
             'created_at' => "{$this->setArticleDate()} в {$this->created_at->format('h:m')}",
         ];
     }
