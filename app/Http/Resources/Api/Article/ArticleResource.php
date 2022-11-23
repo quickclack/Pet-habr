@@ -13,7 +13,7 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'user' => new UserResource($this->user),
+            'user_name' => $this->user->nickName,
             'views' => $this->views,
             'count_comments' => $this->comments()->count(),
             'created_at' => "{$this->setArticleDate()} в {$this->created_at->format('h:m')}",

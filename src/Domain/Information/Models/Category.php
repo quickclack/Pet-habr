@@ -3,6 +3,7 @@
 namespace Domain\Information\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -34,5 +35,12 @@ class Category extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function scopeFilter(Builder $query): void
+    {
+        $query->when(request('filters.category'), function (Builder $builder) {
+            $builder->where('id', request('filters.category'));
+        });
     }
 }

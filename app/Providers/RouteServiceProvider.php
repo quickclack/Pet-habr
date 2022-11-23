@@ -6,6 +6,7 @@ use App\Routing\AdminRegistrar;
 use App\Routing\AppRegistrar;
 use Domain\Information\Routing\ArticleRegistrar;
 use Domain\Information\Routing\CategoryRegistrar;
+use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -36,6 +37,7 @@ class RouteServiceProvider extends ServiceProvider
         CategoryRegistrar::class,
         ArticleRegistrar::class,
         VerifyEmailRegistrar::class,
+        ProfileRegistrar::class,
     ];
 
     /**

@@ -14,6 +14,8 @@ class ArticleRegistrar implements RouteRegistrar
         Route::middleware('api')->prefix('api')->group(function () {
             Route::post('/articles', [ArticleController::class, 'getAllArticles']);
             Route::post('/article/{article:id}', [ArticleController::class, 'getArticleById']);
+
+            Route::post('/article', [ArticleController::class, 'getCategoryByFilters']);
         });
     }
 }

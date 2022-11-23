@@ -12,8 +12,11 @@ class CategoryRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('api')->prefix('api')->group(function () {
-            Route::post('/categories', [CategoryController::class, 'getAllCategories']);
-            Route::post('/category/{categories:slug}', [CategoryController::class, 'getCategoryBySlug']);
+            Route::controller(CategoryController::class)->group(function () {
+
+                Route::post('/categories', 'getAllCategories');
+                Route::post('/category/{categories:slug}', 'getCategoryBySlug');
+            });
         });
     }
 }

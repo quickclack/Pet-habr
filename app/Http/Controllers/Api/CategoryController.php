@@ -19,6 +19,8 @@ class CategoryController extends Controller
     {
         $category = $builder->getCategoryBySlug($slug);
 
+        $category->articles->load('user');
+
         if (!$category) {
             return response()->json([
                 'message' => 'Такой категории нет',
