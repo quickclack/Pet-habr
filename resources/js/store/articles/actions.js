@@ -89,3 +89,22 @@ export const getDbArticlesSearchPage = ({value, page}) => async (dispatch) => {
         console.log(e.message);
     }
 }
+
+
+export const getDbArticlesFiltersCategori = (id) => async (dispatch) => {
+    console.log("getDbArticlesAll")
+    try{
+        const articles = await axios({
+            method: 'post',
+            url: `/api/article?filters[category]=${id}`,
+            // headers: { 
+            //   'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZ2ItZmluYWwtcHJvamVjdC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY2ODI1Njc4NywiZXhwIjoxNjY4MjYwMzg3LCJuYmYiOjE2NjgyNTY3ODcsImp0aSI6IkJLNU5XTzNjMzBTaGJmMUMiLCJzdWIiOiIyMCIsInBydiI6IjYwNWIyNjUxYzJmMzcxNmJhYTRmN2I2Nzg2YThhYTJmNTg3YjNkYzgifQ.EBLD4I4Fh7riHKBNLC6m3V7OYDnC7w8C2TWDqXmvRyk'
+            // }
+        })
+            .then(({data})=>{
+                dispatch(setArticlesAll(data));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}

@@ -7,7 +7,7 @@ function Article({item}) {
   return (
       <div className="article" >
         <div className="article__header ">
-          <h4> {item.user.nickName}</h4>
+          <h4> {item.user_name}</h4>
           <h5> &emsp;{item.created_at}&ensp;</h5>
         </div>
         <div className='article__title'>

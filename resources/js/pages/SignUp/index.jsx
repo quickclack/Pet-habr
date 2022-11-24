@@ -56,7 +56,7 @@ export const SignUp = () => {
     if (signUperror) {
       return
     } else {
-      navigate("/");
+      navigate("/articles/all");
       clearForm();
     }
   }

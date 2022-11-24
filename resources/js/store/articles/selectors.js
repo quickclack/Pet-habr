@@ -8,7 +8,8 @@ export const getArticle = (state) => {
     return state.articles.length == 0 ? [] :state.articles.article};
 
 export const getPaginationLinks = (state) => {
-    // console.log(state.articles.articles.meta.links)
-    return state.articles.length == 0 ? [] :state.articles.articles.meta.links
+    //  console.log('state.articles',state.articles)
+    return state.articles.length == 0 ? [] : 
+        state.articles.articles.meta == undefined ? [] : state.articles.articles.meta.links
 };
 

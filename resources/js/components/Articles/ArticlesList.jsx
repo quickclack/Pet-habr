@@ -57,37 +57,39 @@ function ArticlesList({search, value}) {
          <Article key={key} item={item} />
         )) : <h2>Статей нет</h2>
       } 
-      <div className="articleId">
-        <div className="articles__pagination">
-          <div className={`articles__pagination-element `}
-                    onClick = {()=>paginate('-1')}
+      { paginationArray.length > 0 ?
+        <div className="articleId">
+          <div className="articles__pagination">
+            <div className={`articles__pagination-element `}
+                      onClick = {()=>paginate('-1')}
+              >
+                <span>
+                  &laquo; Предыдущая
+                </span>
+            </div>
+            
+            {
+              paginationArray.length > 0 ? paginationArray.map((item, key) =>(
+                <div key = { key } className={`articles__pagination-element ${item.active ? 'active':'' }`}
+                      onClick = {()=>paginate(parseInt(item.label))}
+                >
+                    <span>
+                      {`${item.label}`}
+                    </span>
+                </div>
+              )) : ''
+            }
+
+            <div className={`articles__pagination-element `}
+              onClick = {()=>paginate('+1')}
             >
               <span>
-                &laquo; Предыдущая
+                Следующая &raquo;
               </span>
+            </div>
           </div>
-          
-          {
-            paginationArray.length > 0 ? paginationArray.map((item, key) =>(
-              <div key = { key } className={`articles__pagination-element ${item.active ? 'active':'' }`}
-                    onClick = {()=>paginate(parseInt(item.label))}
-              >
-                  <span>
-                    {`${item.label}`}
-                  </span>
-              </div>
-            )) : ''
-          }
-
-          <div className={`articles__pagination-element `}
-            onClick = {()=>paginate('+1')}
-          >
-            <span>
-              Следующая &raquo;
-            </span>
-          </div>
-        </div>
-      </div>
+        </div>:''
+      }
     </>
   );
 }

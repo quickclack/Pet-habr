@@ -43,7 +43,7 @@ export const Layout = () => {
                         {
                             categories.length > 0 ? categories.map((item, key) => (
                                 <li key = { key }>
-                                    <Link to={categoriesLinks[key] || '/'}>{item.title}</Link>
+                                    <Link to={`/articles/categories/${item.id}` || '/'}>{item.title}</Link>
                                 </li>
                             )) : ''
                         }

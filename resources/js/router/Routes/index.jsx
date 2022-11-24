@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import All from '../../pages/All';
-import Design  from '../../pages/Design';
+import ArticlesFiltersCategori  from '../../pages/ArticlesFiltersCategori';
 import WebDevelopment from '../../pages/WebDevelopment';
 import MobileDevelopment from '../../pages/MobileDevelopment';
 import Marketing from '../../pages/Marketing';
@@ -24,12 +24,9 @@ const Router = () => {
             <div className="wrapper">
                 <div className="pages-container">
                     <Routes>
-                        <Route exact path='/' element={<All/>}/>
+                        <Route exact path='/articles/all' element={<All/>}/>
 
-                        <Route exact path={categoriesLinks[0]} element={<Design/>}/>
-                        <Route exact path={categoriesLinks[1]} element={<WebDevelopment/>}/>
-                        <Route exact path={categoriesLinks[2]} element={<MobileDevelopment/>}/>
-                        <Route exact path={categoriesLinks[3]} element={<Marketing/>}/>
+                        <Route exact path='/articles/categories/:id' element={<ArticlesFiltersCategori/>}/>
                         <Route element={<PublicRoute />}>
                             <Route exact path='/login' element={<LogIn/>}/>
                             <Route exact path='/signup' element={<SignUp/>}/>

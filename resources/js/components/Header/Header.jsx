@@ -51,7 +51,7 @@ export const Header = () => {
             <div className= "header">
                 <div className="navbar">
                     <div>
-                        <a href="/">
+                        <a href="/articles/all">
                             <h1>Хабр</h1>
                         </a>
                     </div>

@@ -38,7 +38,7 @@ export const LogIn = () => {
     if (logInerror) {
       return
     } else {
-      navigate("/");
+      navigate("/articles/all");
       clearForm();
     }
   }
