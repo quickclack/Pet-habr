@@ -24,6 +24,7 @@ const Router = () => {
             <div className="wrapper">
                 <div className="pages-container">
                     <Routes>
+                        <Route exact path='/' element={<All/>}/>
                         <Route exact path='/articles/all' element={<All/>}/>
 
                         <Route exact path='/articles/categories/:id' element={<ArticlesFiltersCategori/>}/>

@@ -11,14 +11,10 @@ function ArticlesList({search, value}) {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
   const [currentPage, setCurrentPage] = useState(1)
- 
   const paginationArray = useSelector(getPaginationLinks).slice(1, -1);
   // const [articles, setArticles] = useState([]);
 
-  console.log('pagination', paginationArray)
- 
-  
-
+  console.log('pagination - ', paginationArray)
   console.log('articles - ', articles)
 
   const paginate = (page) =>{
@@ -44,10 +40,9 @@ function ArticlesList({search, value}) {
         curent = page 
       }
     }
-    console.log(search)
-    search ? dispatch( getDbArticlesSearchPage({page:curent, value}) ):
-            dispatch( getDbArticlesPage(curent) );
     
+    search ? dispatch( getDbArticlesSearchPage({page:curent, value}) ):
+      dispatch( getDbArticlesPage(curent) );
   }
    
   return (
