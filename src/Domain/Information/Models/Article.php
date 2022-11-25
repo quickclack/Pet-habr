@@ -3,6 +3,7 @@
 namespace Domain\Information\Models;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
@@ -54,6 +55,13 @@ class Article extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeFilter(Builder $query): void
+    {
+        $query->when(request('filters.category'), function (Builder $builder) {
+            $builder->where('category_id', request('filters.category'));
+        });
     }
 
     public function setArticleDate(): string

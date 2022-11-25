@@ -36,19 +36,14 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function getCategoryByFilters(): JsonResponse
+    public function getArticleByFilters(): ArticleCollection
     {
-        $category = Category::query()
-            ->with('articles')
-            ->has('articles')
+        $articles = Article::query()
+            ->with('user')
             ->filter()
-            ->first();
+            ->paginate(5);
 
-        $category->articles->load('user');
-
-        return response()->json([
-            'data' => new CategoryArticleResource($category)
-        ]);
+        return new ArticleCollection($articles);
     }
 
     private function addViews(Article|Model $article): void

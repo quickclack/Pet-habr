@@ -36,11 +36,4 @@ class Category extends Model
             ]
         ];
     }
-
-    public function scopeFilter(Builder $query): void
-    {
-        $query->when(request('filters.category'), function (Builder $builder) {
-            $builder->where('id', request('filters.category'));
-        });
-    }
 }
