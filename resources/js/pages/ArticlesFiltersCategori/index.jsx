@@ -16,10 +16,8 @@ function ArticlesFiltersCategori() {
   return (
     <>
       <h3 className='pages-header'>Design</h3> 
-      <ArticlesList />
+      <ArticlesList param = {`/api/article?filters[category]=${parseInt(params.id)}&`} />
     </>
-          
-    
   )
 }
   

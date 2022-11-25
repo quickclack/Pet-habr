@@ -7,7 +7,7 @@ import Article from './Article.jsx';
 import './ArticlesList.scss'
 
 
-function ArticlesList({search, value}) {
+function ArticlesList({param}) {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
   const [currentPage, setCurrentPage] = useState(1)
@@ -40,9 +40,7 @@ function ArticlesList({search, value}) {
         curent = page 
       }
     }
-    
-    search ? dispatch( getDbArticlesSearchPage({page:curent, value}) ):
-      dispatch( getDbArticlesPage(curent) );
+    dispatch( getDbArticlesPage({param, page: curent}) );
   }
    
   return (
