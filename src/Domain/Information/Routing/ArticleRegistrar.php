@@ -15,7 +15,7 @@ class ArticleRegistrar implements RouteRegistrar
             Route::post('/articles', [ArticleController::class, 'getAllArticles']);
             Route::post('/article/{article:id}', [ArticleController::class, 'getArticleById']);
 
-            Route::post('/article', [ArticleController::class, 'getCategoryByFilters']);
+            Route::post('/article', [ArticleController::class, 'getArticleByFilters']);
         });
     }
 }
