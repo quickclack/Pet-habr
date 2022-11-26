@@ -20,7 +20,11 @@
       font-weight:700;
       font-size: 26px;
      }
+     a:hover{
+      h4{color: #4da7a7;} 
+      }
    }
+   
    &__button{
       border: 2px solid #9bd3d3;
       padding: 7px; 
@@ -31,7 +35,6 @@
       }
       a{
          color: #9bd3d3;
-        
       }
    }
    &__tags{

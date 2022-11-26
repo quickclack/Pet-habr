@@ -31,9 +31,9 @@ function Comments() {
         
       }
       <div className="d-flex justify-content-center">
-         <div className="comments_refresh"  
+         <div className="comments_refresh" title="Обновить комментарии"
             onClick = {()=>updatingСomments()}>
-            <CachedIcon className={commentsLoad ? "comments_load":''}/>
+            <CachedIcon className={commentsLoad ? "comments_load":''} />
          </div>
       </div>
       

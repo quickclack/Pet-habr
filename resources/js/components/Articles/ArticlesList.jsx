@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage, getDbArticlesSearchPage} from "../../store/articles"
+import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage} from "../../store/articles"
 import Article from './Article.jsx';
 import './ArticlesList.scss'
 

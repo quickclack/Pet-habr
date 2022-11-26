@@ -55,7 +55,7 @@ export const Header = () => {
                             <h1>Хабр</h1>
                         </a>
                     </div>
-                    {!authed ? (
+                    {authed ? (
                         <div>
                             <Link to="/login" className="nav-btn">
                                 Войти

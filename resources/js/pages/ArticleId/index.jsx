@@ -9,7 +9,12 @@ import MainComment from '../../components/Comments/MainComment';
 
 function ArticleId() {
   const dispatch = useDispatch(); 
-  const { articleId } = useParams();
+  const params = useParams();
+  
+  const commentsParam = params.comments === 'comments'
+  const  articleId  =  params.articleId;
+  console.log("params - ", commentsParam )
+  
   let article = useSelector(getArticle);
   
   console.log('article - ',article)
@@ -30,11 +35,16 @@ function ArticleId() {
             <h5> &emsp;{article.created_at}&ensp;</h5>
           </div>
           <div className='articleId__title'>
-            <h4>{article.title}</h4>
+          {commentsParam ? <Link to={`/article/${article.id}`} className="nav-btn">
+              <h4>{article.title}</h4>
+          </Link> :
+            
+            <h4>{article.title}</h4>}
           </div>
+          {commentsParam ? '':  
           <div className='articleId__description'>
             <p>{article.description}</p>
-          </div>
+          </div>}
           <div className='articleId__tags'>
             <p><span className='articleId__tags-span'>Теги:&ensp;</span>
               {

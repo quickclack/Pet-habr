@@ -6,27 +6,32 @@ import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
 import { Dining } from '@mui/icons-material';
 
 function MainComment() {
-   const [comments, setComments] = useState([])
-   const [commentsLoad, setCommentsLoad] = useState(false)
+   const [comment, setComment] = useState('')
+   
    const authed = useSelector(getIsAuth);
    const dispatch = useDispatch();
+   
+   function commentSubmitHandler(event) {
+      setComment(event.target.value);
+    }
    
    async function sendComment(event) {
       console.log("sendComment")
       event.preventDefault();
-      const logInerror = await dispatch();
-      if (logInerror) {
+      // const logInerror = await dispatch();
+      // if (logInerror) {
+      // return
+      // } else {
+      // navigate("/");
+      // clearForm();
+      // }
       return
-      } else {
-      navigate("/");
-      clearForm();
-      }
    }
   
    return (
       <>
          {
-            !authed ? 
+            authed ? 
             <div className="d-flex align-items-center">
                <div className="mainComment-noautch"></div>
                <div >
@@ -37,8 +42,11 @@ function MainComment() {
             <div> 
                <div className="h4">Ваш комментарий</div>
                <form onSubmit={sendComment}>
-               <textarea rows="5"  name="comment"></textarea>
-                  <input className="btn" type="submit" value="Отправить"></input>
+                  <textarea rows="5"  name="comment"
+                     value={comment}
+                     onChange={commentSubmitHandler}></textarea>
+                  { comment =='' ? <input className="mainComment-btn" type="button" value="Отправить" title="Введите комментарий"/>:
+                  <input className="mainComment-btn active" type="submit" value="Отправить"/>}
                </form>
             </div>
          }

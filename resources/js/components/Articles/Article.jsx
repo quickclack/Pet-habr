@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import ArticleStatsIcons from './ArticleStatsIcons.jsx'
+import parse from "html-react-parser";
 
 function Article({item}) {
   
@@ -16,7 +17,7 @@ function Article({item}) {
           </Link>
         </div>
         <div className='article__description'>
-          <p>{item.description}</p>
+          {parse(item.description)}
         </div>
         <div className='article__button'>
           <Link to={`/article/${item.id}`} className="nav-btn">
