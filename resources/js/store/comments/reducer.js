@@ -1,6 +1,6 @@
 import {SET_COMMENTS_ALL, SET_COMMENTS_ARTICLE, SET_COMMENTS_USER} from "./actions";
 
-const initialState = {}
+const initialState = []
 
 export const commentsReducer = (state = initialState, { type, payload }) => {
    

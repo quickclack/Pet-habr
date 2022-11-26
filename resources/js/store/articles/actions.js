@@ -21,14 +21,14 @@ export const setArticleNull = () => ({
 export const getDbArticlesAll = () => async (dispatch) => {
     console.log("getDbArticlesAll")
     try{
-        const articles = await axios({
+        const config = {
             method: 'post',
-            url: '/api/articles',
-            // headers: { 
-            //   'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZ2ItZmluYWwtcHJvamVjdC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY2ODI1Njc4NywiZXhwIjoxNjY4MjYwMzg3LCJuYmYiOjE2NjgyNTY3ODcsImp0aSI6IkJLNU5XTzNjMzBTaGJmMUMiLCJzdWIiOiIyMCIsInBydiI6IjYwNWIyNjUxYzJmMzcxNmJhYTRmN2I2Nzg2YThhYTJmNTg3YjNkYzgifQ.EBLD4I4Fh7riHKBNLC6m3V7OYDnC7w8C2TWDqXmvRyk'
-            // }
-        })
+            url: `/api/articles`,
+            headers: { }
+        };
+        const articles = await axios(config)
             .then(({data})=>{
+                console.log("getDbArticlesAll ")
                 dispatch(setArticlesAll(data));
             })
     } catch (e) {
@@ -39,8 +39,14 @@ export const getDbArticlesAll = () => async (dispatch) => {
 export const getDbArticle = (articleId) => async (dispatch) => {
     console.log("getDbArticle")
     try{
-        const articles = await axios.post(`/api/article/${articleId}`)
+        const config = {
+            method: 'post',
+            url: `/api/article/${articleId}`,
+            headers: { }
+          };
+        const articles = await axios(config)
             .then(({data})=>{
+                console.log("getDbArticle respons - ", data)
                 dispatch(setArticle(data.article));
             })
     } catch (e) {
@@ -71,7 +77,7 @@ export const getDbArticlesPage = ({param,page}) => async (dispatch) => {
 export const getDbArticlesSearch = (value) => async (dispatch) => {
     console.log("getDbArticlesSearch ")
     try{
-        await axios.post("api/search",{
+        await axios.post("/api/search",{
             search: value,
         })
             .then(({data})=>{
@@ -88,9 +94,7 @@ export const getDbArticlesFiltersCategori = (id) => async (dispatch) => {
         const articles = await axios({
             method: 'post',
             url: `/api/article?filters[category]=${id}`,
-            // headers: { 
-            //   'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZ2ItZmluYWwtcHJvamVjdC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY2ODI1Njc4NywiZXhwIjoxNjY4MjYwMzg3LCJuYmYiOjE2NjgyNTY3ODcsImp0aSI6IkJLNU5XTzNjMzBTaGJmMUMiLCJzdWIiOiIyMCIsInBydiI6IjYwNWIyNjUxYzJmMzcxNmJhYTRmN2I2Nzg2YThhYTJmNTg3YjNkYzgifQ.EBLD4I4Fh7riHKBNLC6m3V7OYDnC7w8C2TWDqXmvRyk'
-            // }
+            headers: { }
         })
             .then(({data})=>{
                 dispatch(setArticlesAll(data));

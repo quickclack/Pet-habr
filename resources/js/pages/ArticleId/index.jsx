@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDbArticle, getArticle } from "../../store/articles"
+import { getDbCommentsArticle } from "../../store/comments"
 import './ArticleId.scss'
 import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
 import Comments from '../../components/Comments/Comments';
@@ -12,17 +13,20 @@ function ArticleId() {
   const params = useParams();
   
   const commentsParam = params.comments === 'comments'
-  const  articleId  =  params.articleId;
+  const  articleId  =  parseInt(params.articleId);
   console.log("params - ", commentsParam )
   
   let article = useSelector(getArticle);
   
   console.log('article - ',article)
   
-  useEffect(()=> {
-    console.log('article dispatch - ',articleId)
-    dispatch( getDbArticle(articleId) );
+  useEffect(()=>{ 
+    window.scroll(0, 0);
+    const id = articleId
+    dispatch(getDbArticle(id))
+    dispatch( getDbCommentsArticle(id));
   },[])
+
   return (
     <>
       { article !== undefined ? <>
@@ -59,7 +63,7 @@ function ArticleId() {
           <ArticleStatsIcons articleId="true" item={article}/>
         </div> 
         <div className="articleId ">
-          <Comments/>
+          <Comments id = { articleId } />
         </div>
         <div className="articleId ">
           <MainComment/>

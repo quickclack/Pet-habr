@@ -9,18 +9,19 @@ export const setCommentsArticle = (payload) => ({
     payload: payload
 })
 
-
-
-export const getDbCommentsArticle = () => async (dispatch) => {
-    console.log("ggetDbCategoriesAll")
+export const getDbCommentsArticle = (id) => async (dispatch) => {
+    console.log("getDbCommentsArticle -" , id)
     try{
-        const articles = await axios({
+        
+        const config = {
             method: 'post',
-            url: 'api/categories',
-        })
+            url: `/api/comments/${id}`,
+            headers: { }
+        };
+        const comments = await axios(config)
             .then(({data})=>{
-                console.log(data)
-                dispatch(setCategoriesAll(data.categories));
+                console.log("getDbCommentsArticle respons - ", data)
+                dispatch(setCommentsArticle(data.comments));
             })
     } catch (e) {
         console.log(e.message);

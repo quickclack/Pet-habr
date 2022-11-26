@@ -1,7 +1,7 @@
 export const getCommentsArticle = (state) => {
-      // console.log(state)
-    return state.categories.categories || []
-    // .length == 0 ? [] : state.articles.articles.data.articles
+       console.log("comments -", state.comments)
+       console.log("comments -", state.comments.length == 0 ? [] : state.comments.comments)
+    return state.comments.length == 0 ? [] : state.comments.comments
 };
 
 export const getCommentsUser = (state) => {

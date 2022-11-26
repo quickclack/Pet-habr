@@ -11,14 +11,14 @@ export const setCategoriesAll = (payload) => ({
 
 
 export const getDbCategoriesAll = () => async (dispatch) => {
-    console.log("ggetDbCategoriesAll")
+    console.log("getDbCategoriesAll")
     try{
-        const articles = await axios({
+        const categories = await axios({
             method: 'post',
-            url: 'api/categories',
+            url: '/api/categories',
         })
             .then(({data})=>{
-                console.log(data)
+                console.log("getDbCategoriesAll respons - ", data)
                 dispatch(setCategoriesAll(data.categories));
             })
     } catch (e) {

@@ -7,12 +7,12 @@ import ArticlesList from '../../components/Articles/ArticlesList';
 function ArticlesFiltersCategori() {
   let params = useParams();
   const dispatch = useDispatch(); 
-
+  const id = parseInt(params.id)
   useEffect(()=> {
     console.log("ArticlesFiltersCategori")
-    console.log(params.id)
-    dispatch( getDbArticlesFiltersCategori(params.id));
-  },[params]) 
+    console.log(id)
+    dispatch( getDbArticlesFiltersCategori(id));
+  },[id]) 
   return (
     <>
       <h3 className='pages-header'>Design</h3> 
