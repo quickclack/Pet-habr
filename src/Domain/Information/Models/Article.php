@@ -2,7 +2,6 @@
 
 namespace Domain\Information\Models;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
@@ -12,10 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Support\Traits\DateConversion;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, DateConversion;
 
     protected $fillable = [
         'title',
@@ -62,12 +62,5 @@ class Article extends Model
         $query->when(request('filters.category'), function (Builder $builder) {
             $builder->where('category_id', request('filters.category'));
         });
-    }
-
-    public function setArticleDate(): string
-    {
-        return Carbon::parse($this->created_at)
-            ->subDay()
-            ->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);
     }
 }

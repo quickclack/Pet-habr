@@ -18,7 +18,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words(2, true)),
-            'description' => $this->faker->text,
+            'description' => $this->faker->text(2000),
             'views' => 0,
             'user_id' => User::query()
                 ->inRandomOrder()

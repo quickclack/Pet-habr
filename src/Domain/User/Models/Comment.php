@@ -6,10 +6,11 @@ use Domain\Information\Models\Article;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Support\Traits\DateConversion;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, DateConversion;
 
     protected $fillable = [
         'comment',
