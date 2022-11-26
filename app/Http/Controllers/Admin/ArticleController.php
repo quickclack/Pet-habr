@@ -32,6 +32,13 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function trash(ArticleBuilder $builder): Application|Factory|View
+    {
+        return view('admin.article.trash', [
+            'articles' => $builder->getArticlesWithPaginate(ArticleStatus::REJECTED)
+        ]);
+    }
+
     public function create(CategoryBuilder $builder, TagBuilder $tagBuilder): Application|Factory|View
     {
         return view('admin.article.create', [
