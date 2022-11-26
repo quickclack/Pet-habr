@@ -26,15 +26,22 @@ class AdminRegistrar implements RouteRegistrar
                 Route::resource('/article', ArticleController::class)
                     ->names('admin.articles');
 
+
                 Route::controller(ArticleController::class)->group(function () {
                     Route::get('/article/new','show')
                         ->name('admin.articles.new');
+
+                    Route::get('/articles/trash','trash')
+                        ->name('admin.article.trash');
 
                     Route::post('/article/{id}/approved', 'approve')
                         ->name('admin.article.approve');
 
                     Route::post('/article/{id}/reject', 'reject')
                         ->name('admin.article.reject');
+
+                    Route::post('/article/{id}/destroy', 'destroy')
+                        ->name('admin.article.destroy');
                 });
 
                 Route::resource('/tags', TagController::class)

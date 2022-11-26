@@ -20,7 +20,8 @@ class AuthRegistrar implements RouteRegistrar
             Route::post('/auth/registered', [RegisteredController::class, 'store'])
                 ->middleware('throttle:auth');
 
-            Route::post('/auth/logout', [AuthenticatedController::class, 'logout']);
+            Route::post('/auth/logout', [AuthenticatedController::class, 'logout'])
+                ->middleware('auth:sanctum');
         });
     }
 }
