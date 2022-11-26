@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Resources\Api\Category;
+namespace App\Http\Resources\Api\Comment;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CategoryCollection extends ResourceCollection
+class CommentCollection extends ResourceCollection
 {
     public function toArray($request): array
     {
         return [
-            'categories' => $this->collection
+            'comments' => $this->collection
         ];
     }
 }

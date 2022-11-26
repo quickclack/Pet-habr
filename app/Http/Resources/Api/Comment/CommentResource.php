@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Http\Resources\Api\Article;
+namespace App\Http\Resources\Api\Comment;
 
-use App\Http\Resources\Api\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class CommentResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
+            'comment' => $this->comment,
             'user_name' => $this->user->nickName,
-            'views' => $this->views,
-            'count_comments' => $this->comments()->count(),
             'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}",
         ];
     }

@@ -6,6 +6,7 @@ use App\Routing\AdminRegistrar;
 use App\Routing\AppRegistrar;
 use Domain\Information\Routing\ArticleRegistrar;
 use Domain\Information\Routing\CategoryRegistrar;
+use Domain\User\Routing\CommentRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
@@ -38,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         ArticleRegistrar::class,
         VerifyEmailRegistrar::class,
         ProfileRegistrar::class,
+        CommentRegistrar::class,
     ];
 
     /**
