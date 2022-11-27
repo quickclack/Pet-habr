@@ -14,7 +14,7 @@ final class UpdateProfileDto
         public readonly string $lastName,
         public readonly string $description,
         public readonly string $sex,
-        public readonly string|null $avatar,
+        public readonly string $avatar,
     ){
     }
 

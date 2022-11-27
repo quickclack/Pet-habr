@@ -28,14 +28,14 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(!app()->isProduction());
 
         DB::listen(function ($query) {
-            if ($query->time > 10) {
+            if ($query->time > 8) {
                 logger()->channel('telegram')
                     ->debug('whenQueryingForLongerThan:' . $query->sql, $query->bindings);
             }
         });
 
         app(Kernel::class)->whenRequestLifecycleIsLongerThan(
-            CarbonInterval::seconds(10), fn() => logger()
+            CarbonInterval::seconds(4), fn() => logger()
                 ->channel('telegram')
                 ->debug('whenRequestLifecycleIsLongerThan:' . request()->url()));
 

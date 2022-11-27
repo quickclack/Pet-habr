@@ -22,13 +22,14 @@ final class ArticleBuilder implements QueryBuilder
             ->with('user')
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')
+            ->filter()
             ->paginate(5);
     }
 
     public function getArticlesWithPaginate(ArticleStatus $status): LengthAwarePaginator
     {
         return $this->getBuilder()
-            ->with('user')
+            ->with(['user', 'category'])
             ->where('status', $status)
             ->paginate(20);
     }

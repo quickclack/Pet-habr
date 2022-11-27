@@ -16,7 +16,13 @@ class ProfileController extends Controller
         ProfileRequest $request, UpdateProfileContract $contract, int $id
     ): JsonResponse
     {
-        $contract(UpdateProfileDto::formRequest($request), $id);
+        $validated = $request->validated();
+
+        if ($request->hasFile('avatar')) {
+            $validated['avatar'] = upload()->uploadImage($request->file('avatar'), 'avatars');
+        }
+
+        $contract(UpdateProfileDto::formRequest($validated), $id);
 
         return response()->json(['message' => 'Профиль успешно обновлен']);
     }

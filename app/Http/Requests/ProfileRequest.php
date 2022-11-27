@@ -19,8 +19,8 @@ class ProfileRequest extends FormRequest
             'description' => ['required', 'string', 'max:50', 'min:1'],
             'sex' => ['required'],
             'avatar' => [
-                'image',
                 'nullable',
+                'image',
                 'max:1999',
                 'mimes:jpeg,png,jpg,gif,svg'
             ],

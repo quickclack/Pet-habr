@@ -195,9 +195,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\DomainServiceProvider::class,
+        App\Providers\InformationServiceProvider::class,
 
-        Domain\User\Providers\AuthServiceProvider::class
-
+        Domain\User\Providers\AuthServiceProvider::class,
+        Domain\Information\Providers\InformationServiceProvider::class,
     ],
 
     /*

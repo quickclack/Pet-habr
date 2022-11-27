@@ -3,6 +3,7 @@
 namespace Domain\Information\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Pipeline\Pipeline;
 use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
@@ -57,10 +58,11 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function scopeFilter(Builder $query): void
+    public function scopeFilter(Builder $query): mixed
     {
-        $query->when(request('filters.category'), function (Builder $builder) {
-            $builder->where('category_id', request('filters.category'));
-        });
+        return app(Pipeline::class)
+            ->send($query)
+            ->through(filters())
+            ->thenReturn();
     }
 }

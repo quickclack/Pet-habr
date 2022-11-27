@@ -12,7 +12,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Services\Uploads\Contract\Upload;
 use Support\Enums\ArticleStatus;
 
 class ArticleController extends Controller
@@ -42,7 +41,14 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request): RedirectResponse
     {
-        $article = Article::create($request->validated());
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = upload()
+                ->uploadImage($request->file('image'), 'articles');
+        }
+
+        $article = Article::create($validated);
 
         $article->user_id = auth()->id() ?? null;
 
@@ -62,12 +68,13 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update(ArticleRequest $request, Article $article, Upload $upload): RedirectResponse
+    public function update(ArticleRequest $request, Article $article): RedirectResponse
     {
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $upload->uploadImage($request->file('image'));
+            $validated['image'] = upload()
+                ->uploadImage($request->file('image'), 'articles');
         }
 
         $article->update($validated);
