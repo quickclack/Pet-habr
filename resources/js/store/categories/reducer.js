@@ -1,12 +1,6 @@
 import {SET_CATEGORIES_ALL} from "./actions";
 
-
-
-       
-
-const initialState = {
-    links:['/design','/web_development','/mobile_development','/marketing']
-}
+const initialState = {}
 
 export const categoriesReducer = (state = initialState, { type, payload }) => {
    

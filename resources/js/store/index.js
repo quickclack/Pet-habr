@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import { articlesReducer } from "./articles";
 import { userAuthReducer } from "./userAuth";
 import { categoriesReducer } from "./categories";
+import { commentsReducer } from "./comments"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
    articles: articlesReducer,
    auth: userAuthReducer,
    categories: categoriesReducer,
+   comments: commentsReducer,
  });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -2,23 +2,19 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage, getDbArticlesSearchPage} from "../../store/articles"
+import { getDbArticlesAll, getArticlesAll, getPaginationLinks, getDbArticlesPage} from "../../store/articles"
 import Article from './Article.jsx';
 import './ArticlesList.scss'
 
 
-function ArticlesList({search, value}) {
+function ArticlesList({param}) {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
   const [currentPage, setCurrentPage] = useState(1)
- 
   const paginationArray = useSelector(getPaginationLinks).slice(1, -1);
   // const [articles, setArticles] = useState([]);
 
-  console.log('pagination', paginationArray)
- 
-  
-
+  console.log('pagination - ', paginationArray)
   console.log('articles - ', articles)
 
   const paginate = (page) =>{
@@ -44,10 +40,7 @@ function ArticlesList({search, value}) {
         curent = page 
       }
     }
-    console.log(search)
-    search ? dispatch( getDbArticlesSearchPage({page:curent, value}) ):
-            dispatch( getDbArticlesPage(curent) );
-    
+    dispatch( getDbArticlesPage({param, page: curent}) );
   }
    
   return (
@@ -57,37 +50,39 @@ function ArticlesList({search, value}) {
          <Article key={key} item={item} />
         )) : <h2>Статей нет</h2>
       } 
-      <div className="articleId">
-        <div className="articles__pagination">
-          <div className={`articles__pagination-element `}
-                    onClick = {()=>paginate('-1')}
+      { paginationArray.length > 0 ?
+        <div className="articleId">
+          <div className="articles__pagination">
+            <div className={`articles__pagination-element `}
+                      onClick = {()=>paginate('-1')}
+              >
+                <span>
+                  &laquo; Предыдущая
+                </span>
+            </div>
+            
+            {
+              paginationArray.length > 0 ? paginationArray.map((item, key) =>(
+                <div key = { key } className={`articles__pagination-element ${item.active ? 'active':'' }`}
+                      onClick = {()=>paginate(parseInt(item.label))}
+                >
+                    <span>
+                      {`${item.label}`}
+                    </span>
+                </div>
+              )) : ''
+            }
+
+            <div className={`articles__pagination-element `}
+              onClick = {()=>paginate('+1')}
             >
               <span>
-                &laquo; Предыдущая
+                Следующая &raquo;
               </span>
+            </div>
           </div>
-          
-          {
-            paginationArray.length > 0 ? paginationArray.map((item, key) =>(
-              <div key = { key } className={`articles__pagination-element ${item.active ? 'active':'' }`}
-                    onClick = {()=>paginate(parseInt(item.label))}
-              >
-                  <span>
-                    {`${item.label}`}
-                  </span>
-              </div>
-            )) : ''
-          }
-
-          <div className={`articles__pagination-element `}
-            onClick = {()=>paginate('+1')}
-          >
-            <span>
-              Следующая &raquo;
-            </span>
-          </div>
-        </div>
-      </div>
+        </div>:''
+      }
     </>
   );
 }
