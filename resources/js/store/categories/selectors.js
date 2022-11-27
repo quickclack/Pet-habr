@@ -5,7 +5,7 @@ export const getCategoriesAll = (state) => {
 };
 
 export const getLinksCategoriesAll = (state) => {
-  // console.log(state)
+  // console.log(state.categories)
 return state.categories.links || []
 
 };

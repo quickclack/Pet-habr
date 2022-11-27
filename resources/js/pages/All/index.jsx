@@ -15,10 +15,8 @@ function All() {
         <div className="pages-header">
           <h3 >ALL</h3> 
         </div>
-        <ArticlesList />
+        <ArticlesList param = {'api/articles?'} />
       </>
-           
-       
     );
   }
   

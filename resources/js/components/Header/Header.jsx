@@ -51,7 +51,7 @@ export const Header = () => {
             <div className= "header">
                 <div className="navbar">
                     <div>
-                        <a href="/">
+                        <a href="/articles/all">
                             <h1>Хабр</h1>
                         </a>
                     </div>
@@ -67,7 +67,7 @@ export const Header = () => {
                         <div>
                             {/* <Link className="nav-btn"  onClick = {()=>dispatch(logOutUserAction(token))}>
                             Выйти
-                        </Link> */}
+                            </Link> */}
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

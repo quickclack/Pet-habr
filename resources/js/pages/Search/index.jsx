@@ -69,7 +69,7 @@ export const Search = () => {
            
          </form>
       </div>
-      { articlesVisible && <ArticlesList  search = {true} value = {search}/>}
+      { articlesVisible && <ArticlesList  param = {`api/search?search=${search}&`} />}
     </section>
   );
 };

@@ -20,7 +20,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 export const Layout = () => {
     const [menuFix, setmenuFix] = useState(false);
     window.addEventListener('scroll', function (){
-        let scrollY =window.pageYOffset;
+        let scrollY = window.pageYOffset;
         if(scrollY > 68) {
             setmenuFix(true);
         } else {
@@ -43,7 +43,7 @@ export const Layout = () => {
                         {
                             categories.length > 0 ? categories.map((item, key) => (
                                 <li key = { key }>
-                                    <Link to={categoriesLinks[key] || '/'}>{item.title}</Link>
+                                    <Link to={`/articles/categories/${item.id}` || '/'}>{item.title}</Link>
                                 </li>
                             )) : ''
                         }

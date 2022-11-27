@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import All from '../../pages/All';
-import Design  from '../../pages/Design';
+import ArticlesFiltersCategori  from '../../pages/ArticlesFiltersCategori';
 import WebDevelopment from '../../pages/WebDevelopment';
 import MobileDevelopment from '../../pages/MobileDevelopment';
 import Marketing from '../../pages/Marketing';
@@ -14,7 +14,7 @@ import { PublicRoute } from "../PublicRoute/Index"
 import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
-import {UserSettingsProfile} from '../../pages/UserSettings/Profile/Index';
+import {UserSettingsProfile} from '../../pages/UserSettings/Profile';
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -25,11 +25,9 @@ const Router = () => {
                 <div className="pages-container">
                     <Routes>
                         <Route exact path='/' element={<All/>}/>
+                        <Route exact path='/articles/all' element={<All/>}/>
 
-                        <Route exact path={categoriesLinks[0]} element={<Design/>}/>
-                        <Route exact path={categoriesLinks[1]} element={<WebDevelopment/>}/>
-                        <Route exact path={categoriesLinks[2]} element={<MobileDevelopment/>}/>
-                        <Route exact path={categoriesLinks[3]} element={<Marketing/>}/>
+                        <Route exact path='/articles/categories/:id' element={<ArticlesFiltersCategori/>}/>
                         <Route element={<PublicRoute />}>
                             <Route exact path='/login' element={<LogIn/>}/>
                             <Route exact path='/signup' element={<SignUp/>}/>
@@ -37,6 +35,8 @@ const Router = () => {
                         <Route exact path='/search' element={<Search/>}/>
                         <Route exact path='/confirm_email' element={<ConfirmEmail/>}/>
                         <Route exact path='/article/:articleId' element={<ArticleId/>}/>
+                        <Route exact path='/article/:articleId/:comments' element={<ArticleId/>}/>    
+                            
                         <Route element={<ProtectedRoute />}>
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
                         </Route>
