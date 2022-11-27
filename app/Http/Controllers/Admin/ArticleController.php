@@ -48,7 +48,7 @@ class ArticleController extends Controller
 
         $article->tags()->sync($request->tags);
 
-        flash()->success('Статья успешно добавлена');
+        flash()->success('Статья отправлена на модерацию');
 
         return to_route('admin.articles.index');
     }

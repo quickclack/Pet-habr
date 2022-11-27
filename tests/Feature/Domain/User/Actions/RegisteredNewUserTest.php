@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Domain\User\Actions;
 
-use Domain\User\Actions\Contract\RegisteredContract;
+use Domain\User\Actions\Contracts\RegisteredContract;
 use Domain\User\DTO\NewUserDTO;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

@@ -16,6 +16,7 @@ class ArticleRelationResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'views' => $this->views,
+            'count_comments' => $this->comments()->count(),
             'user' => new UserResource($this->user),
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
