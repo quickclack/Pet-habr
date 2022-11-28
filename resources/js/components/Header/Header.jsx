@@ -42,7 +42,9 @@ export const Header = () => {
         {title:'Закладки', action: handleCloseUserMenu},
         {title:'Как стать автором', action: handleCloseUserMenu},
         {title:'Настройки профиля', action: ()=> navigate("/auth/settigs/profile")},
-        {title:'Выход', action: ()=>dispatch(logOutUserAction(token))}
+        {title:'Выход', action: ()=>{
+            setAnchorElUser(null)
+            dispatch(logOutUserAction(token))}}
     ];
 
 
