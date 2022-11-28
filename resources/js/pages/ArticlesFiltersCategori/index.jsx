@@ -1,22 +1,25 @@
 import React, {useEffect} from 'react';
 import { Routes, Route, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getDbArticlesAll, getDbArticlesFiltersCategori} from "../../store/articles"
+import { useDispatch, useSelector } from "react-redux";
+import { getDbArticlesAll, getDbArticlesFilters} from "../../store/articles"
+import { getCategoriesAll } from "../../store/categories"
 import ArticlesList from '../../components/Articles/ArticlesList';
 
 function ArticlesFiltersCategori() {
   let params = useParams();
   const dispatch = useDispatch(); 
   const id = parseInt(params.id)
+  const categories = useSelector(getCategoriesAll)
+  const categoryIdTitle = categories.filter(item => item.id == id)[0].title
+ 
   useEffect(()=> {
-    console.log("ArticlesFiltersCategori")
-    console.log(id)
-    dispatch( getDbArticlesFiltersCategori(id));
+    dispatch( getDbArticlesFilters(`/api/articles?filters[category]=${id}`));
   },[id]) 
+
   return (
     <>
-      <h3 className='pages-header'>Design</h3> 
-      <ArticlesList param = {`/api/article?filters[category]=${parseInt(params.id)}&`} />
+      <h3 className='pages-header'>{ categoryIdTitle }</h3> 
+      <ArticlesList param = {`/api/articles?filters[category]=${parseInt(id)}&`} />
     </>
   )
 }
