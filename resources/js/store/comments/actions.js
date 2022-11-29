@@ -3,9 +3,15 @@ import axios from 'axios';
 export const SET_COMMENTS_ALL = 'SET_COMMENTS_ALL';
 export const SET_COMMENTS_ARTICLE = 'SET_COMMENTS_ARTICLE';
 export const SET_COMMENTS_USER = 'SET_COMMENTS_USER';
+export const SET_COMMENTS_MAIN_VISIBLE = 'SET_COMMENTS_MAIN_VISIBLE';
 
 export const setCommentsArticle = (payload) => ({
     type: SET_COMMENTS_ARTICLE,
+    payload: payload
+})
+
+export const setMainCommentVisible = (payload) => ({
+    type: SET_COMMENTS_MAIN_VISIBLE,
     payload: payload
 })
 

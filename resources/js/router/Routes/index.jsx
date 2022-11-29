@@ -2,9 +2,6 @@ import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import All from '../../pages/All';
 import ArticlesFiltersCategori  from '../../pages/ArticlesFiltersCategori';
-import WebDevelopment from '../../pages/WebDevelopment';
-import MobileDevelopment from '../../pages/MobileDevelopment';
-import Marketing from '../../pages/Marketing';
 import ArticleId from '../../pages/ArticleId'
 import { LogIn } from '../../pages/Login';
 import { SignUp } from '../../pages/SignUp';
@@ -14,7 +11,8 @@ import { PublicRoute } from "../PublicRoute/Index"
 import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
-import {UserSettingsProfile} from '../../pages/UserSettings/Profile';
+import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
+import  ArticlesFiltersTags  from '../../pages/ArticlesFiltersTags';
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -28,6 +26,7 @@ const Router = () => {
                         <Route exact path='/articles/all' element={<All/>}/>
 
                         <Route exact path='/articles/categories/:id' element={<ArticlesFiltersCategori/>}/>
+                        <Route exact path='/articles/tags/:id' element={<ArticlesFiltersTags/>}/>
                         <Route element={<PublicRoute />}>
                             <Route exact path='/login' element={<LogIn/>}/>
                             <Route exact path='/signup' element={<SignUp/>}/>

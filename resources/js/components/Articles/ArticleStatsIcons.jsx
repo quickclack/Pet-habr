@@ -12,6 +12,7 @@ function ArticleStatsIcons({articleId, item}) {
    const handleMouseOver = () => {
       setIsBooped(true);
    };
+ 
    const handleMouseOut = () => {
       setIsBooped(false);
    };
@@ -20,11 +21,11 @@ function ArticleStatsIcons({articleId, item}) {
       <>
          <div className="article-stats-icons">
             <div className="article-stats-icons__block">
-               <div className="article-stats-icons__elem" title="Всего голосов">
+               <div className="article-stats-icons__elem" title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}>
                   <img src={ voices } alt="" />
                </div>
                <div className="article-stats-icons__elem">
-                  0
+                  { item.rating || 0}
                </div>
             </div>
             <div className="article-stats-icons__block">

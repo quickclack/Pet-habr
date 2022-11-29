@@ -13,3 +13,8 @@ export const getPaginationLinks = (state) => {
         state.articles.articles.meta == undefined ? [] : state.articles.articles.meta.links
 };
 
+export const getArticleTags = (state) => {
+    //   console.log('state.articles',state.articles.article.tags[0].title)
+    return state.articles.length == 0 ? '' : 
+        state.articles.article == undefined ? '' : state.articles.article.tags[0].title
+};

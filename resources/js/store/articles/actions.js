@@ -88,12 +88,12 @@ export const getDbArticlesSearch = (value) => async (dispatch) => {
         console.log(e.message);
     }
 }
-export const getDbArticlesFiltersCategori = (id) => async (dispatch) => {
-    console.log("getDbArticlesAll")
+export const getDbArticlesFilters = (url) => async (dispatch) => {
+    console.log("getDbArticlesFilters")
     try{
         const articles = await axios({
             method: 'post',
-            url: `/api/article?filters[category]=${id}`,
+            url: url,
             headers: { }
         })
             .then(({data})=>{

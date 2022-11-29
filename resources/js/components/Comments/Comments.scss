@@ -28,6 +28,42 @@
          color: #777; 
       }
    }
+   &__icons{
+      &__container{
+         display: flex;
+         margin-top: 10px;
+         padding-left: 30px;
+      }
+      &__block{
+
+      }
+      &__elem{
+         &-answer{
+            color: #b8ced7;
+            &:hover{
+               color: #7a8386;
+               cursor: pointer;
+            }
+         }
+      }
+   }
+   &__ansver{
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px 0 15px;
+      &__container{
+         margin-top: 15px;
+      }
+      &-close{
+         width: 24px;
+         height: 24px;
+         transform: scale(1);
+         :hover{
+            cursor: pointer;
+            transform: scale(1.1);
+         }
+      }
+   }
 }
 
 @keyframes load {
