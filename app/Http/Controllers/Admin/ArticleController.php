@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
+use App\Jobs\ArticleApprovalJob;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\Information\Queries\CategoryBuilder;
 use Domain\Information\Queries\TagBuilder;
+use Domain\User\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -104,6 +106,8 @@ class ArticleController extends Controller
         $article->status = ArticleStatus::APPROVED;
 
         $article->save();
+
+        dispatch(new ArticleApprovalJob(User::find($article->user_id)));
 
         flash()->success('Статья подтверждена');
 

@@ -27,17 +27,19 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(!app()->isProduction());
 
-        DB::listen(function ($query) {
-            if ($query->time > 8) {
-                logger()->channel('telegram')
-                    ->debug('whenQueryingForLongerThan:' . $query->sql, $query->bindings);
-            }
-        });
+        if (app()->isProduction()) {
+            DB::listen(function ($query) {
+                if ($query->time > 8) {
+                    logger()->channel('telegram')
+                        ->debug('whenQueryingForLongerThan:' . $query->sql, $query->bindings);
+                }
+            });
 
-        app(Kernel::class)->whenRequestLifecycleIsLongerThan(
-            CarbonInterval::seconds(4), fn() => logger()
+            app(Kernel::class)->whenRequestLifecycleIsLongerThan(
+                CarbonInterval::seconds(4), fn() => logger()
                 ->channel('telegram')
                 ->debug('whenRequestLifecycleIsLongerThan:' . request()->url()));
+        }
 
         Password::defaults(fn() => Password::min(8)
             ->letters()
