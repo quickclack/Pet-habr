@@ -12,7 +12,7 @@ class ProfileRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('api')->prefix('api')->group(function () {
-            Route::controller(ProfileController::class)->group(function () {
+            Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(function () {
 
                 Route::put('/profile/update/{id}', 'updateProfile');
                 Route::post('/profile/article/create', 'createArticle');

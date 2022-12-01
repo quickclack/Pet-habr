@@ -22,13 +22,13 @@ class CategoryController extends Controller
     {
         $category = $builder->getCategoryBySlug($slug);
 
-        $category->articles->load('user');
-
         if (!$category) {
             return response()->json([
                 'message' => 'Такой категории нет',
             ]);
         }
+
+        $category->articles->load('user');
 
         return response()->json([
             'category' => new CategoryArticleResource($category)

@@ -31,10 +31,10 @@ class RegisteredPageTest extends TestCase
         ];
     }
 
-    private function request(): TestResponse
+    private function request(array $headers = []): TestResponse
     {
         return $this->post(action([RegisteredController::class, 'store'],
-            $this->request));
+            $this->request), $headers);
     }
 
     private function findUser(): User
@@ -90,13 +90,5 @@ class RegisteredPageTest extends TestCase
 
         $this->request()
             ->assertInvalid();
-    }
-
-    public function test_it_user_authenticated_after_registered(): void
-    {
-        $this->request()
-            ->assertOk();
-
-        $this->assertAuthenticatedAs($this->findUser());
     }
 }
