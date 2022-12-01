@@ -6,17 +6,19 @@ use Domain\User\DTO\UpdateProfileDto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class UpdateProfileDtoTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_instance_created_from_form_request(): void
     {
-        Storage::fake('public');
-
         $dto = UpdateProfileDto::formRequest(new Request([
             'firstName' => 'test',
             'lastName' => 'testov',

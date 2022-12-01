@@ -7,17 +7,19 @@ use Domain\User\Actions\Contracts\UpdateProfileContract;
 use Domain\User\DTO\UpdateProfileDto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class UpdateProfileActionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function test_it_success_profile_updated(): void
     {
-        Storage::fake('public');
-
         $actions = app(UpdateProfileContract::class);
 
         $user = UserFactory::new()->createOne();

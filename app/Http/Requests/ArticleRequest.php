@@ -23,7 +23,7 @@ class ArticleRequest extends FormRequest
                 'exists:categories,id'
             ],
             'image' => [
-                'required',
+                'nullable',
                 'image',
                 'max:1999',
                 'mimes:jpeg,png,jpg,gif,svg'

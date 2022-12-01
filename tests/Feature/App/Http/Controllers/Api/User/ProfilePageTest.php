@@ -8,7 +8,6 @@ use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProfilePageTest extends TestCase
@@ -18,8 +17,6 @@ class ProfilePageTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Storage::fake('public');
     }
 
     private function createUser(): User
