@@ -4,84 +4,61 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
-use App\Jobs\ArticleApprovalJob;
+use App\View\ViewModels\Article\ArticleCreateViewModel;
+use App\View\ViewModels\Article\ArticleEditViewModel;
+use App\View\ViewModels\Article\ArticleIndexViewModel;
+use App\View\ViewModels\Article\ArticleShowViewModel;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\Information\Queries\CategoryBuilder;
 use Domain\Information\Queries\TagBuilder;
-use Domain\User\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Support\Enums\ArticleStatus;
 
 class ArticleController extends Controller
 {
-    public function index(ArticleBuilder $builder): Application|Factory|View
-    {
-        return view('admin.article.index', [
-            'countNewArticle' => $builder->getCountNewArticles(),
-            'articles' => $builder->getArticlesWithPaginate(ArticleStatus::APPROVED)
-        ]);
+    public function __construct(
+        protected ArticleBuilder $articleBuilder,
+        protected CategoryBuilder $categoryBuilder,
+        protected TagBuilder $tagBuilder
+    ){
     }
 
-    public function show(ArticleBuilder $builder): Application|Factory|View
+    public function index(): ArticleIndexViewModel
     {
-        return view('admin.article.new', [
-            'articles' => $builder->getArticlesWithPaginate(ArticleStatus::NEW)
-        ]);
+        return (new ArticleIndexViewModel($this->articleBuilder))
+            ->view('admin.article.index');
     }
 
-    public function create(CategoryBuilder $builder, TagBuilder $tagBuilder): Application|Factory|View
+    public function show(): ArticleShowViewModel
     {
-        return view('admin.article.create', [
-            'categories' => $builder->getCategoryByPlug(),
-            'tags' => $tagBuilder->getTagByPluck()
-        ]);
+        return (new ArticleShowViewModel($this->articleBuilder))
+            ->view('admin.article.new');
     }
 
-    public function store(ArticleRequest $request): RedirectResponse
+    public function create(): ArticleCreateViewModel
     {
-        $validated = $request->validated();
+        return (new ArticleCreateViewModel($this->categoryBuilder, $this->tagBuilder))
+            ->view('admin.article.create');
+    }
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = upload()
-                ->uploadImage($request->file('image'), 'articles');
-        }
-
-        $article = Article::create($validated);
-
-        $article->user_id = auth()->id() ?? null;
-
-        $article->tags()->sync($request->tags);
+    public function store(ArticleRequest $request, Article $article): RedirectResponse
+    {
+        article()->store($request, $article);
 
         flash()->success('Статья отправлена на модерацию');
 
         return to_route('admin.articles.index');
     }
 
-    public function edit(Article $article, CategoryBuilder $builder, TagBuilder $tagBuilder): Application|Factory|View
+    public function edit(Article $article): ArticleEditViewModel
     {
-        return view('admin.article.edit', [
-            'article' => $article,
-            'categories' => $builder->getCategoryByPlug(),
-            'tags' => $tagBuilder->getTagByPluck()
-        ]);
+        return (new ArticleEditViewModel($article, $this->categoryBuilder, $this->tagBuilder))
+            ->view('admin.article.edit');
     }
 
     public function update(ArticleRequest $request, Article $article): RedirectResponse
     {
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $validated['image'] = upload()
-                ->uploadImage($request->file('image'), 'articles');
-        }
-
-        $article->update($validated);
-
-        $article->tags()->sync($request->tags);
+        article()->update($request, $article);
 
         flash()->success('Статья успешно обновлена');
 
@@ -90,37 +67,25 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        $article->tags()->sync([]);
-
-        $article->delete();
+        article()->destroy($article);
 
         flash()->success('Статья успешно удалена');
 
         return to_route('admin.articles.index');
     }
 
-    public function approve(ArticleBuilder $builder, int $id): RedirectResponse
+    public function approve(int $id): RedirectResponse
     {
-        $article = $builder->getArticleById($id);
-
-        $article->status = ArticleStatus::APPROVED;
-
-        $article->save();
-
-        dispatch(new ArticleApprovalJob(User::find($article->user_id)));
+        article()->approve($this->articleBuilder, $id);
 
         flash()->success('Статья подтверждена');
 
         return back();
     }
 
-    public function reject(ArticleBuilder $builder, int $id): RedirectResponse
+    public function reject(int $id): RedirectResponse
     {
-        $article = $builder->getArticleById($id);
-
-        $article->status = ArticleStatus::REJECTED;
-
-        $article->save();
+        article()->reject($this->articleBuilder, $id);
 
         flash()->success('Статья отклонена');
 

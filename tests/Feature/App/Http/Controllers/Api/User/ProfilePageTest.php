@@ -7,7 +7,6 @@ use Database\Factories\Domain\Information\Models\CategoryFactory;
 use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ProfilePageTest extends TestCase
@@ -67,7 +66,6 @@ class ProfilePageTest extends TestCase
             'title' => 'Test',
             'description' => 'Test',
             'category_id' => $category->getKey(),
-            'image' => UploadedFile::fake()->image('image.jpg', 1, 1)
         ];
 
         $this->post(action([ProfileController::class, 'createArticle']), $request, ['Authenticated' => 'Bearer' . $token])

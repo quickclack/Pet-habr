@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
+use App\View\ViewModels\Category\CategoryEditViewModel;
+use App\View\ViewModels\Category\CategoryIndexViewModel;
 use Domain\Information\Models\Category;
 use Domain\Information\Queries\CategoryBuilder;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,11 +15,15 @@ use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
-    public function index(CategoryBuilder $builder): Application|Factory|View
+    public function __construct(
+        protected CategoryBuilder $builder
+    ){
+    }
+
+    public function index(): CategoryIndexViewModel
     {
-        return view('admin.category.index', [
-            'categories' => $builder->getAllCategories()
-        ]);
+        return (new CategoryIndexViewModel($this->builder))
+            ->view('admin.category.index');
     }
 
     public function create(): Application|Factory|View
@@ -27,23 +33,22 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $category->create($request->validated());
+        category()->store($request, $category);
 
         flash()->success('Категория успешно добавлена');
 
         return to_route('admin.category.index');
     }
 
-    public function edit(Category $category): Application|Factory|View
+    public function edit(Category $category): CategoryEditViewModel
     {
-        return view('admin.category.edit', [
-            'category' => $category
-        ]);
+        return (new CategoryEditViewModel($category))
+            ->view('admin.category.edit');
     }
 
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $category->update($request->validated());
+        category()->update($request, $category);
 
         flash()->success('Изменения сохранены');
 
@@ -52,13 +57,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
-        if (count($category->articles)) {
-            flash()->message('Невозможно, у категории есть статьи');
-
-            return to_route('admin.category.index');
-        }
-
-        $category->delete();
+        category()->destroy($category);
 
         flash()->success('Категория успешно удалена');
 

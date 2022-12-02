@@ -9,31 +9,22 @@ use Domain\Information\Models\Article;
 use Domain\User\Actions\Contracts\UpdateProfileContract;
 use Domain\User\DTO\UpdateProfileDto;
 use Illuminate\Http\JsonResponse;
+use Support\Traits\Validated;
 
 class ProfileController extends Controller
 {
-    public function updateProfile(
-        ProfileRequest $request, UpdateProfileContract $contract, int $id
-    ): JsonResponse
+    use Validated;
+
+    public function updateProfile(ProfileRequest $request, UpdateProfileContract $contract, int $id): JsonResponse
     {
-        $validated = $request->validated();
-
-        if ($request->hasFile('avatar')) {
-            $validated['avatar'] = upload()->uploadImage($request->file('avatar'), 'avatars');
-        }
-
-        $contract(UpdateProfileDto::formRequest($validated), $id);
+        $contract(UpdateProfileDto::formRequest($this->validated($request, 'avatar', 'avatars')), $id);
 
         return response()->json(['message' => 'Профиль успешно обновлен']);
     }
 
-    public function createArticle(ArticleRequest $request): JsonResponse
+    public function createArticle(ArticleRequest $request, Article $article): JsonResponse
     {
-        $article = Article::create($request->validated());
-
-        $article->user_id = auth()->id() ?? null;
-
-        $article->tags()->sync($request->tags);
+        article()->store($request, $article);
 
         return response()->json(['message' => 'Статья отправлена на модерацию']);
     }

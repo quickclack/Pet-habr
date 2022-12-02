@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TagRequest;
+use App\View\ViewModels\Tag\TagEditViewModel;
+use App\View\ViewModels\Tag\TagIndexViewModel;
 use Domain\Information\Models\Tag;
 use Domain\Information\Queries\TagBuilder;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,11 +15,15 @@ use Illuminate\Http\RedirectResponse;
 
 class TagController extends Controller
 {
-    public function index(TagBuilder $builder): Application|Factory|View
+    public function __construct(
+        protected TagBuilder $builder
+    ){
+    }
+
+    public function index(): TagIndexViewModel
     {
-        return view('admin.tag.index', [
-            'tags' => $builder->getAllTags()
-        ]);
+        return (new TagIndexViewModel($this->builder))
+            ->view('admin.tag.index');
     }
 
     public function create(): Application|Factory|View
@@ -27,23 +33,22 @@ class TagController extends Controller
 
     public function store(TagRequest $request, Tag $tag): RedirectResponse
     {
-        $tag->create($request->validated());
+        tag()->store($request, $tag);
 
         flash()->success('Тег успешно добавлена');
 
         return to_route('admin.tags.index');
     }
 
-    public function edit(Tag $tag): Application|Factory|View
+    public function edit(Tag $tag)
     {
-        return view('admin.tag.edit', [
-            'tag' => $tag
-        ]);
+        return (new TagEditViewModel($tag))
+            ->view('admin.tag.edit');
     }
 
     public function update(TagRequest $request, Tag $tag): RedirectResponse
     {
-        $tag->update($request->validated());
+        tag()->update($request, $tag);
 
         flash()->success('Изменения сохранены');
 
@@ -52,7 +57,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag): RedirectResponse
     {
-        $tag->delete();
+        tag()->destroy($tag);
 
         flash()->success('Тег успешно удален');
 
