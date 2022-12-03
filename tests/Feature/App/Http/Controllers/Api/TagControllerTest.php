@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\TagController;
 use Database\Factories\Domain\Information\Models\TagFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,7 +17,7 @@ class TagControllerTest extends TestCase
             ->count(5)
             ->create();
 
-        $this->post('api/tags')
+        $this->post(action([TagController::class, 'getAllTags']))
             ->assertOk()
             ->assertJsonCount(1);
     }

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Domain\Information\Models\Article;
+use Domain\Information\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,8 +14,12 @@ class WithSeeder extends Seeder
         for ($i = 1; $i <= 40; $i++) {
 
             $data[] = [
-                'article_id' => rand(1, 40),
-                'tag_id' => rand(1, 10),
+                'article_id' => Article::query()
+                    ->inRandomOrder()
+                    ->value('id'),
+                'tag_id' => Tag::query()
+                    ->inRandomOrder()
+                    ->value('id'),
             ];
         }
 
