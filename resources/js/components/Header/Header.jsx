@@ -24,7 +24,7 @@ export const Header = () => {
     const navigate = useNavigate();
 
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const [logoutVievMessageBoolen, setLogoutVievMessageBoolen] = useState(false);
+    const [logoutMessage, setLogoutMessage] = useState('');
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -42,8 +42,8 @@ export const Header = () => {
     const logOutUser = async () => {
         setAnchorElUser(null)
         const logout = await dispatch(logOutUserAction(token))
-        setLogoutVievMessageBoolen(true)
-        setTimeout(()=>setLogoutVievMessageBoolen(false), 5000)
+        setLogoutMessage(logout)
+        setTimeout(()=>setLogoutMessage(''), 5000)
         console.log("logout - "+  logout)
     }
 // settingsProfile
@@ -75,7 +75,7 @@ export const Header = () => {
                             <Link to="/signup" className="nav-btn ms-3">
                                 Регистрация
                             </Link>
-                            {logoutVievMessageBoolen ? <LogoutVievMessage/>:''}
+                            {logoutMessage === '' ? '' : <LogoutVievMessage logoutMessage ={logoutMessage}/>}
                             {/* <LogoutVievMessage/> */}
                         </div> ) : (
                         <div>

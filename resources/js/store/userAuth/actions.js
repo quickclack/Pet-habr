@@ -120,10 +120,7 @@ export const logOutUserAction =(token) => async (dispatch) => {
                 console.log('data', data)
                 dispatch(logOutUser());
                 dispatch(setErrorAction(null))
-                if (data.message === "Вы вышли"){
-                    return true
-                }
-                return false
+                return data.message 
             })
             return logout
     } catch (e) {

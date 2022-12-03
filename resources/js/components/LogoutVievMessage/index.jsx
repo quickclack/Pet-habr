@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss'
-function LogoutVievMessage() {
+function LogoutVievMessage({logoutMessage}) {
   
    return (
        <div className="logout" >
-         <p>Вы вышли.</p>
+         <p>{logoutMessage}</p>
        </div>
      );
    }
