@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 // import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from "react-router-dom";
@@ -13,14 +13,18 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
+import imgAvatar from "../../../image/git.png"
+
+import LogoutVievMessage from '../LogoutVievMessage'
+
 export const Header = () => {
     const authed = useSelector(getIsAuth);
     const token = useSelector(getToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    const [logoutVievMessageBoolen, setLogoutVievMessageBoolen] = useState(false);
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -34,6 +38,14 @@ export const Header = () => {
         setAnchorElUser(null);
         navigate("/auth/settigs/profile")
     }
+
+    const logOutUser = async () => {
+        setAnchorElUser(null)
+        const logout = await dispatch(logOutUserAction(token))
+        setLogoutVievMessageBoolen(true)
+        setTimeout(()=>setLogoutVievMessageBoolen(false), 5000)
+        console.log("logout - "+  logout)
+    }
 // settingsProfile
     const settings = [
         {title:'Статьи', action: handleCloseUserMenu},
@@ -41,10 +53,8 @@ export const Header = () => {
         {title:'Диалоги', action: handleCloseUserMenu},
         {title:'Закладки', action: handleCloseUserMenu},
         {title:'Как стать автором', action: handleCloseUserMenu},
-        {title:'Настройки профиля', action: ()=> navigate("/auth/settigs/profile")},
-        {title:'Выход', action: ()=>{
-            setAnchorElUser(null)
-            dispatch(logOutUserAction(token))}}
+        {title:'Настройки профиля', action: settingsProfile},
+        {title:'Выход', action: logOutUser}
     ];
 
 
@@ -65,6 +75,8 @@ export const Header = () => {
                             <Link to="/signup" className="nav-btn ms-3">
                                 Регистрация
                             </Link>
+                            {logoutVievMessageBoolen ? <LogoutVievMessage/>:''}
+                            {/* <LogoutVievMessage/> */}
                         </div> ) : (
                         <div>
                             {/* <Link className="nav-btn"  onClick = {()=>dispatch(logOutUserAction(token))}>
@@ -73,7 +85,7 @@ export const Header = () => {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Remy Sharp" src="/resources/image/git.png" />
+                                        <Avatar alt="Remy Sharp" src={imgAvatar} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -99,7 +111,7 @@ export const Header = () => {
                                     ))}
                                 </Menu>
                             </Box>
-
+                                
                         </div>
                     )}
                 </div>
