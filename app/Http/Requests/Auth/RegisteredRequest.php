@@ -15,7 +15,7 @@ class RegisteredRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nickName' => ['required', 'string'],
+            'nickName' => ['required', 'string', 'unique:users'],
             'email' => ['required', 'email:dns', 'string', 'unique:users'],
             'password' => ['required', 'confirmed', Password::default()],
             'password_confirmation' => ['required'],

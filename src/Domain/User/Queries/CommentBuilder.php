@@ -6,6 +6,7 @@ use App\Contracts\QueryBuilder;
 use Domain\User\Models\Comment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 final class CommentBuilder implements QueryBuilder
 {
@@ -21,5 +22,13 @@ final class CommentBuilder implements QueryBuilder
             ->select(['id', 'comment', 'created_at', 'user_id'])
             ->where('article_id', $id)
             ->get();
+    }
+
+    public function getCommentById(int $id): Model|Builder|null
+    {
+        return $this->getBuilder()
+            ->where('user_id' , auth()->id())
+            ->orWhere('id', $id)
+            ->firstOrFail();
     }
 }
