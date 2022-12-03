@@ -19,25 +19,25 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
     console.log("signUpUser")
     console.log(user)
     try{
-        await axios.get('/sanctum/csrf-cookie').then(()=>{
-            axios.post("/api/auth/registered",{
+        // await axios.get('/sanctum/csrf-cookie').then(()=>{
+        await   axios.post("/api/auth/registered",{
                 email: user.email,
                 password: user.password,
                 nickName: user.name,
                 password_confirmation: user.confirmation
             })
                 .then(({data})=>{
-                    console.log('data', data)
+                    // console.log('data', data)
                     const userUp = {
-                        email: user.email,
-                        token: data.authorisation.token,
+                        // email: user.email,
+                        token: data.access_token,
                     };
                     dispatch(logInUser(userUp));
                     dispatch(setErrorAction(null))
 
                     return false
                 })
-        })
+        // })
     } catch (e) {
         // console.log(e);
         // console.log("ошибка - ",e.response.data.message)
@@ -83,9 +83,12 @@ export const logInUserTrunk = (user) => async (dispatch) => {
                     console.log('data', data)
 
                     const userIn = {
-                        email: user.email,
-                        token: data.authorisation.token,
+                        token: data.access_token,
                     };
+                    if (user.remember) {
+                        userIn.email =  user.email
+                        userIn.password = user.password
+                    }
                     dispatch(logInUser(userIn));
                     dispatch(setErrorAction(null))
                     return false

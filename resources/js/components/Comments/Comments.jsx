@@ -84,7 +84,7 @@ function Comments({id}) {
                      { item.rating || 0}
                   </div>
                </div>
-                  <div className="article-stats-icons__block">
+                  {/* <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
                            commentCommentsAnswer({key, idComment: item.id})
@@ -93,7 +93,7 @@ function Comments({id}) {
                         Ответить
                      </div>
                     
-                  </div>
+                  </div> */}
                <div className="article-stats-icons__block ">
                   <div className="article-stats-icons__elem hover"title="Добавить в закладки">
                      <img src={ bookmarks } alt="" />

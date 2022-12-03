@@ -3,15 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import './login.scss';
 import { useDispatch, useSelector } from "react-redux";
 
-import { logInUserTrunk } from "../../store/userAuth/actions";
+import { logInUserTrunk, getUser } from "../../store/userAuth";
 
 import {getErrors} from "../../store/userAuth/selectors";
 import {ErrorField} from "../../components/ErrorField";
 
 export const LogIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  const user = useSelector(getUser);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
+  const [remember, setRemember] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
@@ -34,6 +35,7 @@ export const LogIn = () => {
   async function logInHandler(event) {
     console.log("logInHandler")
     event.preventDefault();
+    console.log("remember - " + remember)
     const logInerror = await dispatch(logInUserTrunk({email, password, remember}));
     if (logInerror) {
       return

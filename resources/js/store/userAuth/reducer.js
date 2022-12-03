@@ -1,7 +1,11 @@
 import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, SET_ERROR} from "./actions"
 
 const initialState = {
-    user: null,
+    user: {
+        email: "",
+        password: "",
+        token: null
+    },
     errors: null
 }
 
@@ -19,8 +23,11 @@ export const userAuthReducer = (state = initialState, action)=> {
         }
 
         case(LOGOUT_USER): {
+            console.log("LOGOUT_USER red - ")
             return {
-                user: null
+                ...state,
+                user: {...state.user,
+                        token: null}
             }
         }
 

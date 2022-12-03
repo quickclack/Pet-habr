@@ -38,13 +38,16 @@ export const SignUp = () => {
   async function signUpHandler(event) {
     console.log("signUpHandler")
     event.preventDefault();
-    const signUperror = await dispatch(signUpUserTrunk({name, email, password, confirmation}));
+    const signUperror = dispatch(signUpUserTrunk({name, email, password, confirmation}));
+    console.log("signUperror" + {signUperror})
     console.log("errorList",errorList)
     if (signUperror) {
       return
     } else {
-      navigate("/confirm_email");
+      // navigate("/confirm_email");
+
       clearForm();
+      navigate("/articles/all");
     }
   }
 
