@@ -10,6 +10,7 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user->id,
             'comment' => $this->comment,
             'user_name' => $this->user->nickName,
             'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}",

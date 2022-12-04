@@ -24,11 +24,9 @@ final class CommentBuilder implements QueryBuilder
             ->get();
     }
 
-    public function getCommentById(int $id): Model|Builder|null
+    public function getCommentById(int $id): ?Model
     {
         return $this->getBuilder()
-            ->where('user_id' , auth()->id())
-            ->orWhere('id', $id)
-            ->firstOrFail();
-    }
+            ->findOrFail($id);
+   }
 }

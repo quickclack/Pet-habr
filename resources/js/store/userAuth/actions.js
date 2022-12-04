@@ -73,8 +73,8 @@ export const logInUserTrunk = (user) => async (dispatch) => {
     console.log("logInUserTrunk")
     console.log(user)
     try{
-        await axios.get('/sanctum/csrf-cookie').then(()=>{
-            axios.post("api/auth/login",{
+        // axios.get('/sanctum/csrf-cookie').then(()=>{
+         await    axios.post("api/auth/login",{
                 email: user.email,
                 password: user.password,
                 remember: user.remember,
@@ -83,6 +83,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
                     console.log('data', data)
 
                     const userIn = {
+                        id: data.id,
                         token: data.access_token,
                     };
                     if (user.remember) {
@@ -93,7 +94,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
                     dispatch(setErrorAction(null))
                     return false
                 })
-        })
+        // })
     } catch (e) {
         console.log(e);
         console.log("ошибка - ",e.response.data.message)
@@ -103,23 +104,30 @@ export const logInUserTrunk = (user) => async (dispatch) => {
 }
 //выход
 export const logOutUserAction =(token) => async (dispatch) => {
-    console.log("logOutUserAction")
+    console.log("logOutUserAction - " + token)
     try{
-        await axios.get("api/auth/logout",{
-            "headers": {
-                "Authorization": `Bearer ${token}`
-            }
-        })
+         const config = {
+            method: 'post',
+            url: '/api/auth/logout',
+            headers: { 
+              Accept: 'application/json', 
+              Authorization: `Bearer ${token}`, 
+            },
+            
+          };
+        
+            const logout = await axios(config)
             .then(({data})=>{
                 console.log('data', data)
                 dispatch(logOutUser());
                 dispatch(setErrorAction(null))
-                return false
+                return data.message 
             })
+            return logout
     } catch (e) {
-        console.log(e);
-        console.log("ошибка - ",e.response.data.message)
-        dispatch(setErrorAction(e.response.data.message))
+        
+        console.log("ошибка - ", e)
+        // dispatch(setErrorAction(e.response.data.message))
         return true
     }
 };

@@ -1,0 +1,39 @@
+.logout{
+   position: absolute;
+   height: 50px;
+   width: 200px;
+   bottom: -26px;
+   right: 11px;
+   z-index: 10;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #d6ffff;
+   border-radius: 10px;
+   animation: move 5s 1 linear;
+   p{
+      color: rgb(42, 83, 94);
+      margin: 0;
+   }
+
+
+}
+@keyframes move {
+   0% {
+      transform: scaleY(0.5);
+      opacity:  0.5;
+   }
+   5% {
+      transform: scaleY(1);
+      opacity:  1;
+     }
+   80% {
+      transform: scaleY(1);
+      opacity:  1;
+    
+     }  
+   100% {
+      transform: scaleY(0.5);
+      opacity:  0;
+   }
+}

@@ -2,15 +2,17 @@ import React, {useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import './Comments.scss'
 import { useDispatch, useSelector } from "react-redux";
+import {createDbCommentsArticle, setCommentsLoad, getDbCommentsArticle} from "../../store/comments"
 import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
 import { Dining } from '@mui/icons-material';
 
-function MainComment() {
+function MainComment({articleId}) {
    const [comment, setComment] = useState('')
    
    const authed = useSelector(getIsAuth);
    const dispatch = useDispatch();
-   
+   const token = useSelector(getToken)
+
    function commentSubmitHandler(event) {
       setComment(event.target.value);
     }
@@ -18,14 +20,11 @@ function MainComment() {
    async function sendComment(event) {
       console.log("sendComment")
       event.preventDefault();
-      // const logInerror = await dispatch();
-      // if (logInerror) {
-      // return
-      // } else {
-      // navigate("/");
-      // clearForm();
-      // }
-      return
+      await dispatch(createDbCommentsArticle({comment, articleId, token}));
+      dispatch(setCommentsLoad)
+      await dispatch( getDbCommentsArticle(articleId) )
+      dispatch(setCommentsLoad)
+      setComment('')
    }
   
    return (

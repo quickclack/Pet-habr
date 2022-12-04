@@ -10,7 +10,12 @@ return state.comments.links || []
 };
 
 export const getMainCommentVisible = (state) => {
-  console.log(state.comments.mainCommentVisible)
+  // console.log(state.comments.mainCommentVisible)
 return state.comments.mainCommentVisible || ''
 
+};
+
+export const getCommentsLoad = (state) => {
+  // console.log("comments -", state.comments.length == 0 ? [] : state.comments.comments)
+  return state.comments.length == 0 ? [] : state.comments.commentsLoader
 };
