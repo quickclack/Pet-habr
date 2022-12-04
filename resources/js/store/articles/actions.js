@@ -103,3 +103,35 @@ export const getDbArticlesFilters = (url) => async (dispatch) => {
         console.log(e.message);
     }
 }
+export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
+    console.log("getDbArticleCreate - ", article)
+    try{
+        const data = new FormData();
+        data.append('title', article.title);
+        data.append('description', article.description);
+        data.append('category_id', article.category_id);
+        data.append('tag_id', article.tag_id);
+        data.append('image', article.image);
+        
+        const config = {
+            method: 'post',
+            url: '/api/profile/article/create',
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+                
+            },
+            data:data
+        }
+       const res =  await axios(config)
+            .then(({data})=>{
+               return data.message
+            })
+
+            return res
+            
+    } catch (e) {
+        return e.message
+    }
+}
+

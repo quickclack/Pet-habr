@@ -108,9 +108,7 @@ function Comments({id}) {
                <h4> {item.user_name}</h4>
                <h5> &emsp;{item.created_at}&ensp;</h5>
             </div>
-            <span>
-               {`${item.id}`}
-            </span>
+            
             <span>
                {`${item.comment}`}
             </span>
@@ -144,23 +142,27 @@ function Comments({id}) {
                   </div>
                </div>
                { item.user_id == userId ? 
-                  <div className="article-stats-icons__block">
-                     <div className="comments__icons__elem-answer"
-                        onClick={()=>{
-                           commentEdit({key, comment: item.comment})
-                        }}
-                        >
-                        Редактировать
+                  <>
+                     <div className="article-stats-icons__block">
+                        <div className="comments__icons__elem-answer"
+                           onClick={()=>{
+                              commentEdit({key, comment: item.comment})
+                           }}
+                           >
+                           Редактировать
+                        </div>
                      </div>
-                  </div>: '' 
+                     <div className='comments__ansver-close' title="Удалить комментарий"
+                     onClick={()=>{
+                        deleteComment(item.id)
+                     }}
+                     >
+                     <CloseIcon/>
+                  </div>
+                  </>
+                  : '' 
                }
-               <div className='comments__ansver-close' title="Удалить комментарий"
-                  onClick={()=>{
-                     deleteComment(item.id)
-                  }}
-                  >
-                  <CloseIcon/>
-               </div>
+              
 
             </div>
             { commentsCommentsVisible[key] ?
