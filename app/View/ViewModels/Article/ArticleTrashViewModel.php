@@ -7,25 +7,15 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\ViewModels\ViewModel;
 use Support\Enums\ArticleStatus;
 
-class ArticleIndexViewModel extends ViewModel
+class ArticleTrashViewModel extends ViewModel
 {
     public function __construct(
         protected ArticleBuilder $builder
     ){
     }
 
-    public function countNewArticle(): int
-    {
-        return $this->builder->getCountNewArticles();
-    }
-
-    public function countRejectedArticle(): int
-    {
-        return $this->builder->getCountRejectedArticles();
-    }
-
     public function articles(): LengthAwarePaginator
     {
-        return $this->builder->getArticlesWithPaginate(ArticleStatus::APPROVED);
+        return $this->builder->getArticlesWithPaginate(ArticleStatus::REJECTED);
     }
 }

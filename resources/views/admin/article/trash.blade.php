@@ -2,12 +2,10 @@
 
 @section('title')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Список статей</h1>
+        <h1 class="h2">Список отклонённых статей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('admin.articles.create') }}" class="btn btn-sm btn-outline-secondary">Добавить статью</a>
-                <a href="{{ route('admin.articles.new') }}" class="btn btn-sm btn-outline-secondary">Новые статьи ({{ $countNewArticle }})</a>
-                <a href="{{ route('admin.articles.trash') }}" class="btn btn-sm btn-outline-secondary">Отклонённые статьи ({{ $countRejectedArticle }})</a>
+                <a href="{{ route('admin.articles.index') }}" class="btn btn-sm btn-outline-secondary">Список новых статей</a>
             </div>
         </div>
     </div>
@@ -34,31 +32,26 @@
                         <td>{{ $article->id }}</td>
                         <td>{{ $article->title }}</td>
                         <td>{{ $article->description }}</td>
-                        <td>{{ $article->user->email ?? '-' }}</td>
-                        <td>{{ $article->category_id }}</td>
+                        <td>{{ $article->user->nickName ?? '-' }}</td>
+                        <td>{{ $article->category->title ?? '-' }}</td>
                         <td>{{ $article->status->name }}</td>
 
                         <td>
-                            <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}"
-                               class="btn btn-primary btn-sm text-white">Изменить</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.articles.destroy', ['article' => $article->id]) }}"
+                            <form action="{{ route('admin.articles.destroy', $article->id ) }}"
                                   method="post">
                                 @csrf
                                 @method('DELETE')
 
-                                <x-forms.delete-button>Удалить</x-forms.delete-button>
+                                <button type="submit" class="btn btn-danger ms-3 btn-sm">Удалить</button>
                             </form>
                         </td>
-                    </tr>
-                @endforeach
+                        @endforeach
 
-                @else
-                    <div class="container text-center">
-                        <h2 class="h4 fw-light">Статей пока нет..</h2>
-                    </div>
-                @endif
+                        @else
+                            <div class="container text-center">
+                                <h2 class="h4 fw-light">Статей пока нет..</h2>
+                            </div>
+                    @endif
                 </tbody>
             </table>
 

@@ -58,4 +58,11 @@ final class ArticleBuilder implements QueryBuilder
             ->where('status', ArticleStatus::NEW)
             ->count();
     }
+
+    public function getCountRejectedArticles(): int
+    {
+        return $this->getBuilder()
+            ->where('status', ArticleStatus::REJECTED)
+            ->count();
+    }
 }

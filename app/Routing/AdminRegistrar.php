@@ -30,6 +30,9 @@ class AdminRegistrar implements RouteRegistrar
                     Route::get('/article/new','show')
                         ->name('admin.articles.new');
 
+                    Route::get('/articles/trash', 'trash')
+                        ->name('admin.articles.trash');
+
                     Route::post('/article/{id}/approved', 'approve')
                         ->name('admin.article.approve');
 

@@ -8,6 +8,7 @@ use App\View\ViewModels\Article\ArticleCreateViewModel;
 use App\View\ViewModels\Article\ArticleEditViewModel;
 use App\View\ViewModels\Article\ArticleIndexViewModel;
 use App\View\ViewModels\Article\ArticleShowViewModel;
+use App\View\ViewModels\Article\ArticleTrashViewModel;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\Information\Queries\CategoryBuilder;
@@ -33,6 +34,12 @@ class ArticleController extends Controller
     {
         return (new ArticleShowViewModel($this->articleBuilder))
             ->view('admin.article.new');
+    }
+
+    public function trash(): ArticleTrashViewModel
+    {
+        return (new ArticleTrashViewModel($this->articleBuilder))
+            ->view('admin.article.trash');
     }
 
     public function create(): ArticleCreateViewModel
@@ -71,7 +78,7 @@ class ArticleController extends Controller
 
         flash()->success('Статья успешно удалена');
 
-        return to_route('admin.articles.index');
+        return to_route('admin.articles.trash');
     }
 
     public function approve(int $id): RedirectResponse
