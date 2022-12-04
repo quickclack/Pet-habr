@@ -14,7 +14,7 @@ class AppRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('web')->group(function () {
-            Auth::routes();
+           // Auth::routes();
 
             Route::get('/{view?}', HomeController::class)
                 ->where('view', '(.*)');

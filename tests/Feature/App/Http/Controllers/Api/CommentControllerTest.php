@@ -125,28 +125,4 @@ class CommentControllerTest extends TestCase
             'user_id' => $user->getKey()
         ]);
     }
-
-    public function test_it_cannot_user_comment_update(): void
-    {
-        $this->expectException(AuthorizationException::class);
-
-        UserFactory::new()
-            ->count(10)
-            ->create();
-
-        $user = $this->createUser();
-
-        $comment = CommentFactory::new()
-            ->createOne(['user_id' => 10]);
-
-        Sanctum::actingAs($user);
-
-        $request = [
-            'comment' => 'Test',
-        ];
-
-        $this->put(action([CommentController::class, 'update'], $comment->getKey()), $request, $this->authorize($user))
-            ->assertStatus(403)
-            ->assertJson(['message' => 'This action is unauthorized.']);
-    }
 }

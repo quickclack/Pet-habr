@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileRequest extends FormRequest
 {
@@ -14,10 +15,11 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => ['required', 'string', 'max:10', 'min:1'],
-            'lastName' => ['required', 'string', 'max:15', 'min:1'],
-            'description' => ['required', 'string', 'max:50', 'min:1'],
-            'sex' => ['required'],
+            'firstName' => ['string', 'max:10', 'min:1'],
+            'lastName' => ['string', 'max:15', 'min:1'],
+            'password' => [Password::default()],
+            'description' => ['string', 'max:50', 'min:1'],
+            'sex' => ['string'],
             'avatar' => [
                 'nullable',
                 'image',

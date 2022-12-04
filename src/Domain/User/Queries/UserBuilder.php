@@ -15,14 +15,14 @@ final class UserBuilder implements QueryBuilder
         return User::query();
     }
 
-    public function getUserByEmail(string $email): Model
+    public function getUserByEmail(string $email): Model|User|null
     {
         return $this->getBuilder()
             ->where('email', $email)
             ->firstOrFail();
     }
 
-    public function getUserById(int $id): Model
+    public function getUserById(int $id): ?Model
     {
         return $this->getBuilder()
             ->findOrFail($id);
