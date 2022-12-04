@@ -72,7 +72,7 @@ function ArticleId() {
           </div>
           { mainCommentVisible ? 
             <div className="articleId ">
-              <MainComment/>
+              <MainComment articleId={articleId}/>
             </div>: ''
           }
         </> : ''

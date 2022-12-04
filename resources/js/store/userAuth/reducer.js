@@ -4,7 +4,8 @@ const initialState = {
     user: {
         email: "",
         password: "",
-        token: null
+        token: null,
+        id: null,
     },
     errors: null
 }
@@ -26,8 +27,7 @@ export const userAuthReducer = (state = initialState, action)=> {
             console.log("LOGOUT_USER red - ")
             return {
                 ...state,
-                user: {...state.user,
-                        token: null}
+                user: {...state.user, token: null, id: null}
             }
         }
 

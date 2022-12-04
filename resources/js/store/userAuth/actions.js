@@ -83,6 +83,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
                     console.log('data', data)
 
                     const userIn = {
+                        id: data.id,
                         token: data.access_token,
                     };
                     if (user.remember) {

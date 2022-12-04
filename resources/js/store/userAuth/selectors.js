@@ -21,3 +21,8 @@ export const getErrors = (state) => {
    // console.log(state.auth)
    return state.auth.errors
 };
+
+export const getUserId = (state) => {
+   // console.log(state.auth)
+   return state.auth.user.id
+};

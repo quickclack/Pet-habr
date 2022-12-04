@@ -31,8 +31,10 @@
    &__icons{
       &__container{
          display: flex;
+         align-items: center;
          margin-top: 10px;
          padding-left: 30px;
+         height: 30px;
       }
       &__block{
 
@@ -55,12 +57,14 @@
          margin-top: 15px;
       }
       &-close{
+         margin-left: 20px;
          width: 24px;
          height: 24px;
-         transform: scale(1);
+         background-color: #ffffff;
          :hover{
             cursor: pointer;
-            transform: scale(1.1);
+            transition:background-color 1s ease-out;
+            background-color: #e3e3e3;
          }
       }
    }
