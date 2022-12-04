@@ -16,6 +16,7 @@ class AuthenticatedController extends Controller
         $user = $builder->getUserByEmail($request->email);
 
         return response()->json([
+            'id' => auth()->id(),
             'access_token' => $user->createToken('auth_token')->plainTextToken,
             'token_type' => 'Bearer',
         ]);
