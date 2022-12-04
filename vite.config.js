@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/assets/admin/css/bootstrap.min.css',
                 'resources/assets/admin/css/dashboard.css',
                 'resources/assets/admin/js/bootstrap.bundle.min.js',
+                'resources/assets/emails/css/email.css',
             ],
             refresh: true,
         }),

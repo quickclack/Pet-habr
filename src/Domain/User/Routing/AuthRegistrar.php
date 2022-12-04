@@ -4,6 +4,7 @@ namespace Domain\User\Routing;
 
 use App\Contracts\RouteRegistrar;
 use App\Http\Controllers\Api\Auth\AuthenticatedController;
+use App\Http\Controllers\Api\Auth\ReestablishController;
 use App\Http\Controllers\Api\Auth\RegisteredController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ class AuthRegistrar implements RouteRegistrar
 
             Route::post('/auth/logout', [AuthenticatedController::class, 'logout'])
                 ->middleware('auth:sanctum');
+
+            Route::post('/auth/forgot/password', ReestablishController::class);
         });
     }
 }

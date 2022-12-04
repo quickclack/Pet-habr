@@ -13,9 +13,8 @@ class AuthenticationPageTest extends TestCase
 
     public function test_it_page_success(): void
     {
-        $this->markTestIncomplete('Ждем ответ от фронта');
-        /*$this->get('/login')
-            ->assertOk();*/
+        $this->get('/login')
+            ->assertOk();
     }
 
     public function test_it_store_success(): void
