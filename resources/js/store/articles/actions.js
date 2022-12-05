@@ -3,10 +3,21 @@ import axios from 'axios';
 export const SET_ARTICLES_ALL = 'SET_ARTICLES_ALL';
 export const SET_ARTICLE = 'SET_ARTICLE';
 export const SET_ARTICLES_NULL = 'SET_ARTICLES_NULL';
+export const SET_ARTICLE_PASSING = 'SET_ARTICLE_PASSING';
+export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
     payload: payload
+})
+
+export const setArticlePassing = (payload) => ({
+    type: SET_ARTICLE_PASSING,
+    payload: payload
+})
+
+export const setArticlePassingNull = () => ({
+    type: SET_ARTICLE_PASSING_NULL,
 })
 
 export const setArticle = (payload) => ({
@@ -110,7 +121,8 @@ export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
         data.append('title', article.title);
         data.append('description', article.description);
         data.append('category_id', article.category_id);
-        data.append('tag_id', article.tag_id);
+        article.tag_id.forEach((element,key) => data.append(`tags[${key}]`, element) );
+        // data.append('tags', article.tag_id);
         data.append('image', article.image);
         
         const config = {

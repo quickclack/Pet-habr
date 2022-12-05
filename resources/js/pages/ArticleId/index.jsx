@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDbArticle, getArticle } from "../../store/articles"
+import { getDbArticle, getArticle, setArticlePassing } from "../../store/articles"
 import { getDbCommentsArticle, getMainCommentVisible } from "../../store/comments"
 import './ArticleId.scss'
 import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
@@ -14,7 +14,7 @@ function ArticleId() {
   const mainCommentVisible = useSelector(getMainCommentVisible);
   const commentsParam = params.comments === 'comments'
   const  articleId  =  parseInt(params.articleId);
-  console.log("params - ", commentsParam )
+  console.log("params - ", params )
   
   let article = useSelector(getArticle);
   
@@ -24,7 +24,8 @@ function ArticleId() {
     window.scroll(0, 0);
     const id = articleId
     dispatch(getDbArticle(id))
-    dispatch( getDbCommentsArticle(id));
+    dispatch(getDbCommentsArticle(id));
+    dispatch(setArticlePassing(`/article/${articleId}/${params.comments || ''}`))
   },[])
 
   return (

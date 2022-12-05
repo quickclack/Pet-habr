@@ -1,10 +1,10 @@
-import {SET_ARTICLES_ALL, SET_ARTICLE, SET_ARTICLES_NULL} from "./actions";
+import {SET_ARTICLES_ALL, SET_ARTICLE, SET_ARTICLES_NULL, SET_ARTICLE_PASSING, SET_ARTICLE_PASSING_NULL} from "./actions";
 
 
 let dateTransition = new Date()  // текущая дата для изменения
        
 
-const initialState = []
+const initialState = {}
 
 export const articlesReducer = (state = initialState, { type, payload }) => {
    
@@ -29,6 +29,20 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...[]
+            }
+        }
+        case SET_ARTICLE_PASSING: {
+            console.log("aArticlePassingReducer", payload)
+            return {
+                ...state,
+                articlePassing:  payload
+            }
+        }
+        case SET_ARTICLE_PASSING_NULL: {
+            console.log("aArticlePassingReducer", payload)
+            return {
+                ...state,
+                articlePassing: ''
             }
         }
         default:{

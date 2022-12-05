@@ -18,3 +18,8 @@ export const getArticleTags = (state) => {
     return state.articles.length == 0 ? '' : 
         state.articles.article == undefined ? '' : state.articles.article.tags[0].title
 };
+
+export const getArticlePassing = (state) => {
+       console.log('state.articles',state.articles.articlePassing)
+    return state.articles.articlePassing || '' 
+};

@@ -53,7 +53,7 @@ export const ArticleCreate = () => {
       <section className="wrapper">
          <div className="article__edit-page">
             <form onSubmit={articleCreate} enctype="multipart/form-data">
-               <div className="article__edit-page-text">Добавить статью</div>
+               <div className="article__edit-page-text">Новая статья</div>
                <div className="form">
                   <div className="text-field">
                      <label className="text-field__label" >Название</label>
@@ -113,7 +113,7 @@ export const ArticleCreate = () => {
                   </div>
 
                   <div className="row justify-content-center">
-                     <input className="btn profile-btn" type="submit" value="Добавить"/>
+                     <input className="btn profile-btn" type="submit" value="Загрузить статью"/>
                   </div>
                  
                </div>
