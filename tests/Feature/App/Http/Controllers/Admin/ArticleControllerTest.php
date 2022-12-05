@@ -73,6 +73,22 @@ class ArticleControllerTest extends TestCase
             ->assertSee($expectedArticle->title);
     }
 
+    public function test_it_get_empty_trash_article_success(): void
+    {
+        $this->get(action([ArticleController::class, 'trash']))
+            ->assertOk()
+            ->assertSee('Список отклонённых статей')
+            ->assertViewIs('admin.article.trash');
+    }
+
+    public function test_it_get_trash_article_success(): void
+    {
+        $expectedArticles = $this->createArticle(10);
+
+        $this->get(action([ArticleController::class, 'trash']))
+            ->assertSee($expectedArticles->title);
+    }
+
     public function test_it_get_create_article_page_success(): void
     {
         $this->get(action([ArticleController::class, 'create']))
