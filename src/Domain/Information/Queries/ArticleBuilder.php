@@ -3,6 +3,7 @@
 namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
@@ -50,6 +51,14 @@ final class ArticleBuilder implements QueryBuilder
             ->when($request->search, function (Builder $builder) use ($request) {
                 $builder->whereFullText(['title', 'description'], $request->search);
             })->paginate(5);
+    }
+
+    public function getUserArticles(): Collection
+    {
+        return $this->getBuilder()
+            ->where('user_id', auth()->id())
+            ->where('status', ArticleStatus::APPROVED)
+            ->get();
     }
 
     public function getCountNewArticles(): int

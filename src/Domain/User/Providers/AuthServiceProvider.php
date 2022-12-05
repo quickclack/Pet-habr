@@ -2,6 +2,7 @@
 
 namespace Domain\User\Providers;
 
+use Domain\Information\Models\Article;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -35,6 +36,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-comment', function (User $user, Comment $comment) {
             return auth()->id() === $user->getKey() && $comment->user_id === $user->getKey();
+        });
+
+        Gate::define('update-article', function (User $user, Article $article) {
+            return auth()->id() === $user->getKey() && $article->user_id === $user->getKey();
+        });
+
+        Gate::define('delete-article', function (User $user, Article $article) {
+            return auth()->id() === $user->getKey() && $article->user_id === $user->getKey();
         });
     }
 }

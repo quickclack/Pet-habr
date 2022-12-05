@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Api\Article;
+namespace App\Http\Resources\Api\Profile\Article;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class ArticleProfileResource extends JsonResource
 {
     public function toArray($request): array
     {
@@ -12,10 +12,10 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'user_name' => $this->user->nickName,
+            'image' => $this->image,
             'views' => $this->views,
             'count_comments' => $this->comments()->count(),
-            'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}",
+            'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}"
         ];
     }
 }
