@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import imgAvatar from "../../../image/git.png"
 
-import LogoutVievMessage from '../LogoutVievMessage'
+import VievMessage from '../VievMessage'
 
 export const Header = () => {
     const authed = useSelector(getIsAuth);
@@ -75,7 +75,7 @@ export const Header = () => {
                             <Link to="/signup" className="nav-btn ms-3">
                                 Регистрация
                             </Link>
-                            {logoutMessage === '' ? '' : <LogoutVievMessage logoutMessage ={logoutMessage}/>}
+                            {logoutMessage === '' ? '' : <VievMessage message ={logoutMessage}/>}
                             {/* <LogoutVievMessage/> */}
                         </div> ) : (
                         <div>

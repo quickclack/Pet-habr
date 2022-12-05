@@ -13,6 +13,8 @@ import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
 import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
 import  ArticlesFiltersTags  from '../../pages/ArticlesFiltersTags';
+import { ArticleCreate }  from '../../pages/ArticleCreate';
+
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const Router = () => {
                             
                         <Route element={<ProtectedRoute />}>
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
+                            <Route exact path='/article/create' element={<ArticleCreate/>}/>
                         </Route>
                     </Routes>
                 </div>

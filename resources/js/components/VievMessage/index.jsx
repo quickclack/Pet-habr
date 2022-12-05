@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.scss'
-function LogoutVievMessage({logoutMessage}) {
+function VievMessage({message}) {
   
    return (
        <div className="logout" >
-         <p>{logoutMessage}</p>
+         <p>{message}</p>
        </div>
      );
    }
    
- export default LogoutVievMessage;
+ export default VievMessage;

@@ -7,7 +7,7 @@ import { articlesReducer } from "./articles";
 import { userAuthReducer } from "./userAuth";
 import { categoriesReducer } from "./categories";
 import { commentsReducer } from "./comments"
-
+import { tagsReducer } from "./tags"
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
    auth: userAuthReducer,
    categories: categoriesReducer,
    comments: commentsReducer,
+   tags: tagsReducer,
  });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

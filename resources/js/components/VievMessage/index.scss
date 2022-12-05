@@ -1,7 +1,7 @@
 .logout{
    position: absolute;
-   height: 50px;
-   width: 200px;
+   min-height: 50px;
+   min-width: 200px;
    bottom: -26px;
    right: 11px;
    z-index: 10;
@@ -11,13 +11,17 @@
    background-color: #d6ffff;
    border-radius: 10px;
    animation: move 5s 1 linear;
+   text-align: center;
+   padding: 15px;
    p{
       color: rgb(42, 83, 94);
       margin: 0;
+      position: relative;
    }
 
 
 }
+
 @keyframes move {
    0% {
       transform: scaleY(0.5);

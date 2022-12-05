@@ -54,5 +54,19 @@ a {
            height: 1.7em;
        }
    }
+   &__edit{
+      padding: 10px;
+      &:hover &-block{
+         fill: #0a58ca;
+         // transform: scale(1.25);
+         cursor: pointer;
+      }
+      &-block{
+         // fill: #0d6efd;
+         width: 1.6em;
+         height: 1.6em;
+      }
+
+   }
  }
 
