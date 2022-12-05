@@ -16,11 +16,13 @@ final class ArticleManager
 {
     use Validated;
 
-    public function store(FormRequest $request, Article $article): void
+    public function store(FormRequest $request): void
     {
-        $article->create($this->validated($request, 'image', 'articles'));
+        $article = Article::create(
+            $this->validated($request, 'image', 'articles')
+        );
 
-        $article->user_id = auth()->id() ?? null;
+        $this->addUser($article); // костыльно
 
         $article->tags()->sync($request->tags);
     }
@@ -57,5 +59,12 @@ final class ArticleManager
         $article->status = ArticleStatus::REJECTED;
 
         $article->save();
+    }
+
+    private function addUser(Article $article): void
+    {
+        $article->user_id = auth()->id();
+
+        $article->update();
     }
 }

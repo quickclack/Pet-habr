@@ -48,9 +48,9 @@ class ArticleController extends Controller
             ->view('admin.article.create');
     }
 
-    public function store(ArticleRequest $request, Article $article): RedirectResponse
+    public function store(ArticleRequest $request): RedirectResponse
     {
-        article()->store($request, $article);
+        article()->store($request);
 
         flash()->success('Статья отправлена на модерацию');
 
