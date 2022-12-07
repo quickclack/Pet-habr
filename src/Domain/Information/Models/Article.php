@@ -65,4 +65,17 @@ class Article extends Model
             ->through(filters())
             ->thenReturn();
     }
+
+    public function scopeSorted(Builder $query): void
+    {
+        $query->when(request('sort'), function (Builder $builder) {
+            $column = request()->str('sort');
+
+            if ($column->contains(['views', 'created_at'])) {
+                $direction = $column->contains('-') ? 'ASC' : 'DESC';
+
+                $builder->orderBy((string) $column->remove('-'), $direction);
+            }
+        });
+    }
 }

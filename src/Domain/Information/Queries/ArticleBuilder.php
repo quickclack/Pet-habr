@@ -23,8 +23,8 @@ final class ArticleBuilder implements QueryBuilder
         return $this->getBuilder()
             ->with('user')
             ->where('status', ArticleStatus::APPROVED)
-            ->orderByDesc('created_at')
             ->filter()
+            ->sorted()
             ->paginate(5);
     }
 

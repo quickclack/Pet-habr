@@ -19,14 +19,17 @@ class ArticleFactory extends Factory
         return [
             'title' => ucfirst($this->faker->words(2, true)),
             'description' => $this->faker->text(2000),
-            'views' => 0,
+            'views' => $this->faker->numberBetween(0 ,100),
             'user_id' => User::query()
                 ->inRandomOrder()
                 ->value('id'),
             'category_id' => Category::query()
                 ->inRandomOrder()
                 ->value('id'),
-            'status' => 5
+            'status' => 5,
+            'created_at' => $this->faker->unique()
+                ->dateTimeBetween('-2 days', '+1 days')
+                ->format('Y-m-d h:m:s'),
         ];
     }
 }
