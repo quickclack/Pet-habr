@@ -18,7 +18,8 @@ function ArticleId() {
   
   let article = useSelector(getArticle);
   
-  console.log('article - ',article)
+  console.log('article - ',article )
+  console.log('article - ',Object.entries(article).length !== 0 )
   
   useEffect(()=>{ 
     window.scroll(0, 0);
@@ -30,7 +31,7 @@ function ArticleId() {
 
   return (
     <>
-      { article !== undefined ? 
+      { Object.entries(article).length !== 0 ? 
         <>
           <div className="pages-header">
             <h3 >articleId { articleId } </h3> 

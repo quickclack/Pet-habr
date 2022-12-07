@@ -1,6 +1,6 @@
 export const getArticlesAll = (state) => {
-    //   console.log(state)
-    return state.articles.length == 0 ? [] : state.articles.articles.data.articles
+    console.log(state)
+    return state.articles.articles.length == 0 ? [] : state.articles.articles.data.articles
 };
 
 export const getArticle = (state) => {
@@ -8,7 +8,7 @@ export const getArticle = (state) => {
     return state.articles.length == 0 ? [] :state.articles.article};
 
 export const getPaginationLinks = (state) => {
-    //  console.log('state.articles',state.articles)
+    //console.log('state.articles',state.articles)
     return state.articles.length == 0 ? [] : 
         state.articles.articles.meta == undefined ? [] : state.articles.articles.meta.links
 };
@@ -20,6 +20,11 @@ export const getArticleTags = (state) => {
 };
 
 export const getArticlePassing = (state) => {
-       console.log('state.articles',state.articles.articlePassing)
+    //    console.log('state.articles',state.articles.articlePassing)
     return state.articles.articlePassing || '' 
+};
+
+export const getArticlesPagesUrl = (state) => {
+    // console.log('state.articles',state.articles.pagesUrl)
+ return state.articles.pagesUrl || '' 
 };

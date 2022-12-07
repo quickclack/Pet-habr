@@ -13,8 +13,10 @@ import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
 import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
 import  ArticlesFiltersTags  from '../../pages/ArticlesFiltersTags';
-import { ArticleCreate }  from '../../pages/ArticleCreate';
-
+import { ArticleCreate }  from '../../pages/UserProfile/ArticleCreate';
+import  UserProfile  from '../../pages/UserProfile'
+import  UserProfileArticles  from '../../pages/UserProfile/Articles'
+import  UserProfileComments  from '../../pages/UserProfile/Сomments'
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -41,6 +43,10 @@ const Router = () => {
                         <Route element={<ProtectedRoute />}>
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
                             <Route exact path='/article/create' element={<ArticleCreate/>}/>
+                            <Route exact path='/user/:nameUser' element={<UserProfile/>}>
+                                <Route exact path='articles' element={<UserProfileArticles/>}/>
+                                <Route exact path='comments' element={<UserProfileComments/>}/>
+                            </Route>
                         </Route>
                     </Routes>
                 </div>

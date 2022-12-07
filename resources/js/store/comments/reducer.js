@@ -10,7 +10,7 @@ export const commentsReducer = (state = initialState, { type, payload }) => {
    
     switch (type) {
         case SET_COMMENTS_ARTICLE: {
-            console.log("SET_COMMENTS_ARTICLE", payload)
+            // console.log("SET_COMMENTS_ARTICLE", payload)
             return {
                 ...state,
                 mainCommentVisible: state.mainCommentVisible,
@@ -18,14 +18,14 @@ export const commentsReducer = (state = initialState, { type, payload }) => {
             }
         }
         case SET_COMMENTS_MAIN_VISIBLE: {
-            console.log("SET_COMMENTS_MAIN_VISIBLE", payload)
+            // console.log("SET_COMMENTS_MAIN_VISIBLE", payload)
             return {
                 ...state,
                 mainCommentVisible: payload
             }
         }
         case SET_COMMENTS_LOADER: {
-            console.log("SET_COMMENTS_LOADER", payload)
+            // console.log("SET_COMMENTS_LOADER", payload)
             return {
                 ...state,
                 commentsLoader: !state.commentsLoader

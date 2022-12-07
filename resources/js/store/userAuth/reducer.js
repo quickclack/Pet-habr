@@ -6,38 +6,34 @@ const initialState = {
         password: "",
         token: null,
         id: null,
+        nickName : 'dfgdfg'
     },
     errors: null
 }
 
-export const userAuthReducer = (state = initialState, action)=> {
-    switch(action.type){
+export const userAuthReducer = (state = initialState, {type, payload})=> {
+    switch(type){
         case(SIGNUP_USER): {
             return {
-                user:action.payload
+                user:{...state.user, ...payload}
             }
         }
         case(LOGIN_USER): {
             return {
-                user:action.payload
+                user:{...state.user, ...payload}
             }
         }
-
         case(LOGOUT_USER): {
-            console.log("LOGOUT_USER red - ")
             return {
-                ...state,
                 user: {...state.user, token: null, id: null}
             }
         }
-
         case(SET_ERROR): {
             return {
                 ...state,
-                errors: action.payload
+                errors: payload
             }
         }
-
         default : {
             return state
         }
