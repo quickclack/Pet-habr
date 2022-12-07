@@ -23,6 +23,8 @@ class ProfileRegistrar implements RouteRegistrar
                 Route::put('/profile/article/{article:id}/update', 'update');
 
                 Route::delete('/profile/article/{article:id}/delete', 'destroy');
+
+                Route::post('/profile/article/{article:id}', 'getArticleById');
             });
         });
     }

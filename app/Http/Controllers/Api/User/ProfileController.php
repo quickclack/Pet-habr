@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\ProfileRequest;
+use App\Http\Resources\Api\Article\ArticleRelationResource;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileCollection;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Actions\Contracts\UpdateProfileContract;
@@ -43,6 +44,21 @@ class ProfileController extends Controller
         return new ArticleProfileCollection(
             $this->builder->getUserArticles()
         );
+    }
+
+    public function getArticleById(ArticleBuilder $builder, int $id): JsonResponse
+    {
+        $article = $builder->getUserArticleById($id);
+
+        if (!$article) {
+            return response()->json([
+                'message' => 'Такой статьи нет'
+            ]);
+        }
+
+        return response()->json([
+            'article' => new ArticleRelationResource($article)
+        ]);
     }
 
     public function update(ArticleRequest $request, int $id): JsonResponse

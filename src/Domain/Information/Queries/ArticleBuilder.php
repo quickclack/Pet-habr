@@ -44,6 +44,14 @@ final class ArticleBuilder implements QueryBuilder
             ->first();
     }
 
+    public function getUserArticleById(int $id): ?Model
+    {
+        return $this->getBuilder()
+            ->with(['user', 'category', 'tags'])
+            ->where('id', $id)
+            ->first();
+    }
+
     public function getArticlesBySearch(FormRequest $request): LengthAwarePaginator
     {
         return $this->getBuilder()
