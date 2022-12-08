@@ -78,4 +78,12 @@ class Article extends Model
             }
         });
     }
+
+    public function scopeSearch(Builder $query): void
+    {
+        $query->with('user')
+            ->when(request('search'), function (Builder $builder) {
+                $builder->whereFullText(['title', 'description'], request('search'));
+            })->get();
+    }
 }

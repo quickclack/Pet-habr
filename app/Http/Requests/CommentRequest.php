@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Domain\User\Rules\CommentRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
@@ -14,7 +15,12 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment' => ['required', 'string', 'max:100']
+            'comment' => [
+                'required',
+                'string',
+                'max:100',
+                new CommentRule()
+            ]
         ];
     }
 

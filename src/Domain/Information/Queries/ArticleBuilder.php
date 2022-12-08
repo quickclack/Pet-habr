@@ -25,6 +25,7 @@ final class ArticleBuilder implements QueryBuilder
             ->where('status', ArticleStatus::APPROVED)
             ->filter()
             ->sorted()
+            ->search()
             ->paginate(5);
     }
 
@@ -42,15 +43,6 @@ final class ArticleBuilder implements QueryBuilder
             ->with(['user', 'category', 'tags'])
             ->where('id', $id)
             ->first();
-    }
-
-    public function getArticlesBySearch(FormRequest $request): LengthAwarePaginator
-    {
-        return $this->getBuilder()
-            ->with('user')
-            ->when($request->search, function (Builder $builder) use ($request) {
-                $builder->whereFullText(['title', 'description'], $request->search);
-            })->paginate(5);
     }
 
     public function getUserArticles(): Collection

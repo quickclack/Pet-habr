@@ -1,9 +1,9 @@
 <?php
 
-namespace Services\Uploads;
+namespace Support\Uploads;
 
 use Illuminate\Http\UploadedFile;
-use Services\Uploads\Contract\Upload;
+use Support\Uploads\Contract\Upload;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 final class UploadService implements Upload

@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\ArticleController;
 use Database\Factories\Domain\Information\Models\ArticleFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class SearchControllerTest extends TestCase
+class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,6 +19,30 @@ class SearchControllerTest extends TestCase
             ->create();
     }
 
+    public function test_it_show_all_articles_success(): void
+    {
+        $this->createArticle();
+
+        $this->post(action([ArticleController::class, 'getAllArticles']))
+            ->assertOk();
+    }
+
+    public function test_it_show_one_article_success(): void
+    {
+        $article = ArticleFactory::new()
+            ->createOne();
+
+        $this->post(action([ArticleController::class, 'getArticleById'], $article->getKey()))
+            ->assertOk()
+            ->assertJsonPath('article.title', $article->title);
+    }
+
+    public function test_it_show_one_article_fail(): void
+    {
+        $this->post(action([ArticleController::class, 'getArticleById'], 500))
+            ->assertJson(['message' => 'Такой статьи нет']);
+    }
+
     public function test_it_search_response_success(): void
     {
         $article = $this->createArticle();
@@ -28,7 +51,7 @@ class SearchControllerTest extends TestCase
             'search' => $article->first()->title,
         ];
 
-        $this->post(action(SearchController::class), $request)
+        $this->post(action([ArticleController::class, 'getAllArticles']), $request)
             ->assertOk()
             ->assertJsonCount(3);
     }
@@ -41,7 +64,7 @@ class SearchControllerTest extends TestCase
             'search' => $article->random()->first()->title,
         ];
 
-        $this->post(action(SearchController::class), $request)
+        $this->post(action([ArticleController::class, 'getAllArticles']), $request)
             ->assertOk()
             ->assertJsonCount(3)
             ->assertJson([
@@ -53,14 +76,16 @@ class SearchControllerTest extends TestCase
 
     public function test_it_not_transmitted_search_success(): void
     {
-        $this->expectException(ValidationException::class);
-
         $request = [
             'search' => '',
         ];
 
         $this->withoutExceptionHandling()
-            ->post(action(SearchController::class), $request)
-            ->assertJson(['message' => 'Поле search обязательно для заполнения.']);
+            ->post(action([ArticleController::class, 'getAllArticles']), $request)
+            ->assertJson([
+                "data" => [
+                    "articles" => []
+                ]
+            ]);
     }
 }

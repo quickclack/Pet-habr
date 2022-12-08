@@ -4,8 +4,8 @@ use Domain\Information\ArticleManager;
 use Domain\Information\CategoryManager;
 use Domain\Information\Filters\FilterManager;
 use Domain\Information\TagManager;
-use Services\Uploads\Contract\Upload;
 use Support\Flash\Flash;
+use Support\Uploads\Contract\Upload;
 
 if (!function_exists('filters')) {
     function filters(): array

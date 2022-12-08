@@ -12,8 +12,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Services\Socialite\Contract\Socialite;
 use Services\Socialite\SocialiteService;
-use Services\Uploads\Contract\Upload;
-use Services\Uploads\UploadService;
+use Support\Uploads\Contract\Upload;
+use Support\Uploads\UploadService;
 
 class AppServiceProvider extends ServiceProvider
 {
