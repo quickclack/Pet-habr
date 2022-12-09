@@ -117,6 +117,22 @@ class ProfileControllerTest extends TestCase
             ->assertJsonCount(1);
     }
 
+    public function test_it_not_added_views_success(): void
+    {
+        $user = $this->createUser();
+
+        Sanctum::actingAs($user);
+
+        $article = ArticleFactory::new()->createOne([
+            'views' => 2
+        ]);
+
+        $this->post(action([ProfileController::class, 'getArticleById'], $article->getKey()))
+            ->assertOk();
+
+        $this->assertEquals('2', $article->views);
+    }
+
     public function test_it_can_user_article_update_success(): void
     {
         $user = $this->createUser();

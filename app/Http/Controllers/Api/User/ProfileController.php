@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileCollection;
+use App\Http\Resources\Api\Profile\Article\ArticleProfileResource;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Actions\Contracts\UpdateProfileContract;
 use Domain\User\DTO\UpdateProfileDto;
@@ -43,6 +44,21 @@ class ProfileController extends Controller
         return new ArticleProfileCollection(
             $this->builder->getUserArticles()
         );
+    }
+
+    public function getArticleById(int $id): JsonResponse
+    {
+        $article = $this->builder->getArticleById($id);
+
+        if (!$article) {
+            return response()->json([
+                'message' => 'Такой статьи нет'
+            ]);
+        }
+
+        return response()->json([
+            'article' => new ArticleProfileResource($article)
+        ]);
     }
 
     public function update(ArticleRequest $request, int $id): JsonResponse
