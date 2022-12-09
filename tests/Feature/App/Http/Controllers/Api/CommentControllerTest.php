@@ -8,7 +8,6 @@ use Database\Factories\Domain\User\Models\CommentFactory;
 use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\Information\Models\Article;
 use Domain\User\Models\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
