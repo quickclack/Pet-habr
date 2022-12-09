@@ -18,7 +18,7 @@ final class CommentBuilder implements QueryBuilder
     public function getCommentsOnArticle(int $id): Collection
     {
         return $this->getBuilder()
-            ->with('user')
+            ->with(['user', 'replies'])
             ->select(['id', 'comment', 'created_at', 'user_id'])
             ->where('article_id', $id)
             ->get();

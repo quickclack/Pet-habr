@@ -7,6 +7,7 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Resources\Api\Comment\CommentCollection;
 use Domain\User\Actions\Contracts\CreateCommentContract;
 use Domain\User\DTO\NewCommentDto;
+use Domain\User\Models\Comment;
 use Domain\User\Queries\CommentBuilder;
 use Illuminate\Http\JsonResponse;
 
@@ -24,7 +25,9 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request, CreateCommentContract $contract): JsonResponse
     {
-        $contract(NewCommentDto::formRequest($request));
+        $comment = $contract(NewCommentDto::formRequest($request));
+
+        $this->addReplyToComment($request, $comment);
 
         return response()->json(['message' => 'Комментарий успешно добавлен']);
     }
@@ -49,5 +52,12 @@ class CommentController extends Controller
         $comment->delete();
 
         return response()->json(['message' => 'Комментарий успешно удален']);
+    }
+
+    private function addReplyToComment(CommentRequest $request, Comment $comment): void
+    {
+        $comment->parent_id = $request->get('parent_id');
+
+        $comment->save();
     }
 }

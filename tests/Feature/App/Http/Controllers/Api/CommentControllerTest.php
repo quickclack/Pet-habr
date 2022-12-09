@@ -8,7 +8,6 @@ use Database\Factories\Domain\User\Models\CommentFactory;
 use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\Information\Models\Article;
 use Domain\User\Models\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -41,6 +40,15 @@ class CommentControllerTest extends TestCase
         ];
     }
 
+    private function request(Article $article, ?array $data = null): array
+    {
+        return [
+            'comment' => fake()->text(60),
+            'article_id' => $article->getKey(),
+            'user_id' => auth()->id(),
+        ];
+    }
+
     public function test_get_all_comments_for_article_success(): void
     {
         $user = $this->createUser();
@@ -65,11 +73,7 @@ class CommentControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $request = [
-            'comment' => fake()->text(60),
-            'article_id' => $article->getKey(),
-            'user_id' => auth()->id(),
-        ];
+        $request = $this->request($article);
 
         $this->post(action([CommentController::class, 'store']), $request, $this->authorize($user))
             ->assertOk()
@@ -124,5 +128,36 @@ class CommentControllerTest extends TestCase
             'comment' => 'Test',
             'user_id' => $user->getKey()
         ]);
+    }
+
+    public function test_it_can_reply_to_comment_success(): void
+    {
+        $user = $this->createUser();
+
+        $comment = CommentFactory::new()
+            ->createOne();
+
+        Sanctum::actingAs($user);
+
+        $article = $this->createArticle();
+
+        $request = [
+            'comment' => fake()->text(60),
+            'article_id' => $article->getKey(),
+            'user_id' => auth()->id(),
+            'parent_id' => $comment->getKey()
+        ];
+
+        $this->post(action([CommentController::class, 'store']), $request, $this->authorize($user))
+            ->assertOk()
+            ->assertJson(['message' => 'Комментарий успешно добавлен']);
+
+        $this->assertEquals(2, $comment->count());
+
+        $this->assertEquals(1, $comment->replies()->count());
+
+        $reply = $comment->replies()->first();
+
+        $this->assertEquals($request['comment'], $reply->comment);
     }
 }
