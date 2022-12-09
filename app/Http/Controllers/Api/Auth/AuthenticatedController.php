@@ -17,8 +17,9 @@ class AuthenticatedController extends Controller
 
         return response()->json([
             'id' => auth()->id(),
+            'nickName' => $user->nickName,
             'access_token' => $user->createToken('auth_token')->plainTextToken,
-            'token_type' => 'Bearer',
+            'token_type' => 'Bearer'
         ]);
     }
 
