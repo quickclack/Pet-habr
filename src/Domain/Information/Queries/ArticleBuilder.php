@@ -45,20 +45,7 @@ final class ArticleBuilder implements QueryBuilder
             ->first();
     }
 
-<<<<<<< HEAD
-    public function getUserArticles(): Collection
-=======
-    public function getArticlesBySearch(FormRequest $request): LengthAwarePaginator
-    {
-        return $this->getBuilder()
-            ->with('user')
-            ->when($request->search, function (Builder $builder) use ($request) {
-                $builder->whereFullText(['title', 'description'], $request->search);
-            })->paginate(5);
-    }
-
     public function getUserArticles(): LengthAwarePaginator
->>>>>>> 9563e6b (профиль)
     {
         return $this->getBuilder()
             ->where('user_id', auth()->id())
