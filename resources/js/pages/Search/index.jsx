@@ -72,8 +72,13 @@ export const Search = () => {
     await dispatch(setArticlesPagesUrl(`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}&`))
     
     setArticlesVisible(true)
-    // clearForm();
   }
+
+  const serchSortHandler = (event)=>{
+    setSerchSort(event.target.value)
+    console.log(serchSort)
+  }
+
   const styleChek = {
     fontSize: "10px",
     backgroundColor: 'aqua',
@@ -82,18 +87,15 @@ export const Search = () => {
   return (
     <section className="wrapper">
       <div className="search-page">
-         <form onSubmit={searchHandler}>
+        <form onSubmit={searchHandler}>
           <div className="search-page__form">
-            
-              
-              <input className="text-field__input search-page__form-input"
+            <input className="text-field__input search-page__form-input"
                 type="text" 
                 placeholder="Поиск"
                 value={search}
                 onChange={searchSubmitHandler}
                 
               />
-            
             <input className="btn search-page__form-btn" type="submit" value="Найти"></input>
           </div>  
           <FormControl>
@@ -148,10 +150,9 @@ export const Search = () => {
                 <ErrorField error={errorList}/>
             } */}
            
-         </form>
+        </form>
       </div>
       { articlesVisible && <ArticlesList   />}
     </section>
   );
 };
-
