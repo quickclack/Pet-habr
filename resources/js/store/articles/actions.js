@@ -40,7 +40,10 @@ export const getDbArticlesAll = (url) => async (dispatch) => {
         const config = {
             method: 'post',
             url: url,
-            headers: { }
+            headers: { 
+                Accept: 'application/json', 
+                // Authorization: `Bearer ${token}`
+            }
         };
         const articles = await axios(config)
             .then(({data})=>{

@@ -6,7 +6,7 @@ import Article from './Article.jsx';
 import './ArticlesList.scss'
 import ArticlePagination from './ArticlePagination'
 
-function ArticlesList({param}) {
+function ArticlesList() {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
   
@@ -20,7 +20,7 @@ function ArticlesList({param}) {
         )) : <h2>Статей нет</h2>
       
       } 
-      <ArticlePagination param = {param}/>
+      <ArticlePagination />
     </>
   );
 }

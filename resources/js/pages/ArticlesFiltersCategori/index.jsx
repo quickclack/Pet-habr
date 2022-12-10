@@ -13,8 +13,8 @@ function ArticlesFiltersCategori() {
   const categoryIdTitle = categories.filter(item => item.id == id)[0].title
  
   useEffect(()=> {
-    dispatch( getDbArticlesFilters(`/api/articles?filters[category]=${id}`));
-    dispatch(setArticlesPagesUrl(`/api/articles?filters[category]=${parseInt(id)}&`))
+    dispatch( getDbArticlesFilters(`/api/articles?filters[category]=${id}&sort=created_at`));
+    dispatch(setArticlesPagesUrl(`/api/articles?filters[category]=${parseInt(id)}&sort=created_at&`))
   },[id]) 
 
   return (
