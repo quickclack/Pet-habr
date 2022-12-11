@@ -6,6 +6,7 @@ export const SET_ARTICLES_NULL = 'SET_ARTICLES_NULL';
 export const SET_ARTICLE_PASSING = 'SET_ARTICLE_PASSING';
 export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
 export const SET_ARTICLES_PAGES_URL = 'SET_ARTICLES_PAGES_URL'
+export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
@@ -34,6 +35,11 @@ export const setArticlesPagesUrl = (payload) => ({
     payload: payload
 })
 
+export const setArticleCountComments = (payload) => ({
+    type: SET_ARTICLE_COUNT_COMMENTS,
+    payload: payload
+})
+
 export const getDbArticlesAll = (url) => async (dispatch) => {
     console.log("getDbArticlesAll")
     try{
@@ -55,13 +61,16 @@ export const getDbArticlesAll = (url) => async (dispatch) => {
     }
 }
 
-export const getDbArticle = (articleId) => async (dispatch) => {
+export const getDbArticle = ({url , token = '' }) => async (dispatch) => {
     console.log("getDbArticle")
     try{
         const config = {
             method: 'post',
-            url: `/api/article/${articleId}`,
-            headers: { }
+            url: url ,
+            headers: {
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
           };
         const articles = await axios(config)
             .then(({data})=>{
@@ -86,9 +95,9 @@ export const getDbArticlesPage = ({param, page, token}) => async (dispatch) => {
                 Accept: 'application/json', 
                 Authorization: `Bearer ${token}`
             }
-          };
-          console.log(config.url)
-        const articles = await axios(config)
+        };
+            console.log(config.url)
+            const articles = await axios(config)
             .then(({data})=>{
                 dispatch(setArticlesAll(data));
             })
@@ -179,3 +188,5 @@ export const getDbArticlesUserProfile = ({url, token}) => async (dispatch) => {
         console.log(e.message);
     }
 }
+
+

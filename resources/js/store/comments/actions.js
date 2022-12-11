@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {setArticleCountComments} from '../articles'
 
 export const SET_COMMENTS_ALL = 'SET_COMMENTS_ALL';
 export const SET_COMMENTS_ARTICLE = 'SET_COMMENTS_ARTICLE';
@@ -28,12 +29,15 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
         const config = {
             method: 'post',
             url: `/api/comments/${id}`,
-            headers: { }
+            headers: { 
+
+            }
         };
         const comments = await axios(config)
             .then(({data})=>{
                 console.log("getDbCommentsArticle respons - ", data)
                 dispatch(setCommentsArticle(data.comments));
+                dispatch(setArticleCountComments(data.comments.length))
             })
     } catch (e) {
         console.log(e.message);
@@ -53,7 +57,6 @@ export const createDbCommentsArticle = ({comment, articleId, token, commentId}) 
             data:{
                 'comment': comment,
                 'article_id':parseInt(articleId),
-               
             }
         };
         if (commentId) config.data.parent_id = commentId

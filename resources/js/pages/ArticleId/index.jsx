@@ -7,24 +7,32 @@ import './ArticleId.scss'
 import ArticleStatsIcons from '../../components/Articles/ArticleStatsIcons.jsx'
 import Comments from '../../components/Comments/Comments';
 import MainComment from '../../components/Comments/MainComment';
+import { getToken } from "../../store/userAuth"
 
 function ArticleId() {
   const dispatch = useDispatch(); 
   const params = useParams();
   const mainCommentVisible = useSelector(getMainCommentVisible);
   const commentsParam = params.comments === 'comments'
-  const  articleId  =  parseInt(params.articleId);
+  const articleId = parseInt(params.articleId);
   console.log("params - ", params )
-  
+  const token = useSelector(getToken)
   let article = useSelector(getArticle);
   
-  console.log('article - ',article )
-  console.log('article - ',Object.entries(article).length !== 0 )
+  console.log('article - ', article )
+  console.log('article - ', Object.entries(article).length !== 0 )
   
   useEffect(()=>{ 
     window.scroll(0, 0);
     const id = articleId
-    dispatch(getDbArticle(id))
+    if (params.nameUser) {
+      const url = `/api/article/${id}`
+      
+      dispatch(getDbArticle({url, token}))
+    } else { 
+      const url = `/api/article/${id}`
+      dispatch(getDbArticle({url})) }
+    
     dispatch(setArticlePassing(`/article/${articleId}/${params.comments || ''}`))
   },[])
 
@@ -57,8 +65,8 @@ function ArticleId() {
               <p><span className='articleId__tags-span'>Теги:&ensp;</span>
                 {
                   article.tags.length > 0 ? article.tags.map((item, key) =>(
-                    <Link to={`/articles/tags/${item.id}`} className="nav-btn">
-                      <span key = {key}> {item.title}{key<article.tags.length - 1 ? ',' : '' } </span>
+                    <Link to={`/articles/tags/${item.id}`} className="nav-btn" key = {item.id}>
+                      <span> {item.title}{key<article.tags.length - 1 ? ',' : '' } </span>
                     </Link>
                   )) : ''
                 }

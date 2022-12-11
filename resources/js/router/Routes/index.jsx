@@ -12,11 +12,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
 import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
-import  ArticlesFiltersTags  from '../../pages/ArticlesFiltersTags';
-import { ArticleCreate }  from '../../pages/UserProfile/ArticleCreate';
-import  UserProfile  from '../../pages/UserProfile'
-import  UserProfileArticles  from '../../pages/UserProfile/Articles'
-import  UserProfileComments  from '../../pages/UserProfile/Сomments'
+import ArticlesFiltersTags from '../../pages/ArticlesFiltersTags';
+import { ArticleCreate } from '../../pages/UserProfile/ArticleCreate';
+import UserProfile from '../../pages/UserProfile'
+import UserProfileArticles from '../../pages/UserProfile/Articles'
+import UserProfileComments from '../../pages/UserProfile/Сomments'
+import UserProfileArticle from '../../pages/UserProfile/Article'
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const Router = () => {
                             <Route exact path='/user/:nameUser' element={<UserProfile/>}>
                                 <Route exact path='articles' element={<UserProfileArticles/>}/>
                                 <Route exact path='comments' element={<UserProfileComments/>}/>
+                                <Route exact path='article/:articleId' element={<UserProfileArticle/>}/>
                             </Route>
                         </Route>
                     </Routes>

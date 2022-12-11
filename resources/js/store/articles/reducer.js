@@ -3,7 +3,8 @@ import {
     SET_ARTICLE, SET_ARTICLES_NULL, 
     SET_ARTICLE_PASSING, 
     SET_ARTICLE_PASSING_NULL,
-    SET_ARTICLES_PAGES_URL
+    SET_ARTICLES_PAGES_URL,
+    SET_ARTICLE_COUNT_COMMENTS
 } from "./actions";
 
 
@@ -11,10 +12,10 @@ let dateTransition = new Date()  // текущая дата для измене�
        
 
 const initialState = {
-    articles:[], //массив статей
-    article:{}, // объект статья
-    articlePassing:'', // ссылка на статью с корой ушли на авторизацию
-    pagesUrl:'' // параметр запроса (url) для пагинации
+    articles: [], //массив статей
+    article: {}, // объект статья
+    articlePassing: '', // ссылка на статью с корой ушли на авторизацию
+    pagesUrl: '' // параметр запроса (url) для пагинации
 }
 
 export const articlesReducer = (state = initialState, { type, payload }) => {
@@ -61,6 +62,12 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 pagesUrl: payload
+            }
+        }
+        case SET_ARTICLE_COUNT_COMMENTS: {
+            return {
+                ...state,
+                article: {...state.article, count_comments: payload}
             }
         }
         default:{

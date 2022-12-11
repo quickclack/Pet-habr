@@ -1,67 +1,50 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbCommentArticle,
    updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, setCommentsArticle} from "../../store/comments"
 import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
-import CachedIcon from '@mui/icons-material/Cached';
+
 import './Comments.scss'
 import voices from "../../../image/voices.png"
 import bookmarks from "../../../image/bookmarks.png"
 import CloseIcon from '@mui/icons-material/Close';
 import ComentEdit from "./ComentEdit"
-import CommentsComment from "./CommentsComment"
-function Comments({id}) {
-   const commentsLoad = useSelector(getCommentsLoad)
+
+function CommentsComment({comment, articleId}) {
    const dispatch = useDispatch(); 
    const authed = useSelector(getIsAuth);
-   const comments =  useSelector(getCommentsArticle);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
-   const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(Array.from({length:comments.length}).map(()=>false))
-   const [commentsEditVisible, setCommentsEditVisible] = useState(Array.from({length:comments.length}).map(()=>false))
-   console.log("authed - ", authed)
+   const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(false)
+   const [commentsEditVisible, setCommentsEditVisible] = useState(false)
+   console.log("CommentsComment authed - ", authed)
    
-   useEffect(()=>{
-      dispatch(setCommentsArticle(''))
-      updatingСomments()
-   },[])
-
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch( getDbCommentsArticle(id) )
+      await dispatch( getDbCommentsArticle(articleId) )
       dispatch(setCommentsLoad(false))
    }
 
-   function openCommentAnswer({key, idComment}){
-      console.log("openCommentAnswer")
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      copy[key] = !copy[key] 
-      console.log("copy - ", copy, key)
-      console.log("key - ", key)
-      setCommentsCommentsVisible(copy);
-      dispatch( setMainCommentVisible(false) )
-   }
+   // function openCommentAnswer({idComment}){
+   //    console.log("openCommentAnswer")
+   //    setCommentsCommentsVisible(true);
+   //    dispatch( setMainCommentVisible(false) )
+   // }
 
    function commentCommentAnswerClose(){
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsCommentsVisible(copy);
+      setCommentsCommentsVisible(false);
       dispatch( setMainCommentVisible(true))
    }
    
-   function openCommentEdit({key, comment}) {
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      copy[key] = !copy[key] 
-      console.log("copy - ", copy, key)
-      console.log("key - ", key)
-      setCommentsEditVisible(copy);
+   function openCommentEdit({comment}) {
+      console.log("openCommentEdit - ")
+      setCommentsEditVisible(true);
       dispatch( setMainCommentVisible(false) )
    }
 
    function commentCommentEditClose() {
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsEditVisible(copy);
+      setCommentsEditVisible(false);
       dispatch( setMainCommentVisible(true))
    }
    
@@ -75,52 +58,47 @@ function Comments({id}) {
       await dispatch(deleteDbCommentArticle({ commentId, token}));
       updatingСomments()
    }
-   async function sendCommentAnswer() {
-      console.log("sendCommentAnswer - " , id )
-      commentCommentAnswerClose()
-      updatingСomments()
-      
-   }
+   // async function sendCommentAnswer() {
+   //    console.log("sendCommentAnswer - " , id )
+   //    commentCommentAnswerClose()
+   //    updatingСomments()
+   //    setComment('');
+   // }
    return (
    <>
-      <div className="h3">Комментарии { comments.length }</div>
-      {
-         comments.length == 0 ? 
-         <div className="d-flex justify-content-center my-4">
-            <small className="text-muted">Здесь пока нет ни одного комментария, вы можете стать первым!</small>
-         </div>
-         :  comments.map((item, key) =>(
-         <div key = { item.id } className="row my-3">
+      {/* <div className="h3">Ответ @ { comment.id }</div> */}
+     
+         <div className="row my-3">
             <div className="comments__header">
-               <h4> {item.user_name}</h4>
-               <h5> &emsp;{item.created_at}&ensp;</h5>
+               <h4> {comment.user_name}</h4>
+               <h5> &emsp;{comment.created_at}&ensp;</h5>
             </div>
             
             <span>
-               {`${item.comment}`}
+               {`${comment.comment}`}
             </span>
 
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
-                  <div className="article-stats-icons__elem" title={item.rating == undefined ? "Комментарий не оценивали" :"Всего голосов"}>
+                  <div className="article-stats-icons__elem" title={comment.rating == undefined ? "Комментарий не оценивали" :"Всего голосов"}>
                      <img src={ voices } alt="" />
                   </div>
                   <div className="article-stats-icons__elem">
-                     { item.rating || 0}
+                     { comment.rating || 0}
                   </div>
                </div>
-               {   item.user_id !== userId &&  !authed ?
+               {/* {   comment.user_id !== userId &&  !authed ?
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
-                           openCommentAnswer({key, idComment: item.id})
+                           openCommentAnswer({ parent_id: comment.parent_id})// подумать
                         }}
                      >
                         Ответить
                      </div>
                   </div>
                   : ''
-               }   
+               }    */}
                <div className="article-stats-icons__block ">
                   <div className="article-stats-icons__elem hover"title="Добавить в закладки">
                      <img src={ bookmarks } alt="" />
@@ -129,12 +107,12 @@ function Comments({id}) {
                      0
                   </div>
                </div>
-               { item.user_id == userId ? 
+               { comment.user_id == userId ? 
                   <>
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
                            onClick={()=>{
-                              openCommentEdit({key, comment: item.comment})
+                              openCommentEdit({ comment: comment.comment})
                            }}
                            >
                            Редактировать
@@ -142,7 +120,7 @@ function Comments({id}) {
                      </div>
                      <div className='comments__ansver-close' title="Удалить комментарий"
                         onClick={()=>{
-                           deleteComment(item.id)
+                           deleteComment(comment.id)
                         }}
                      >
                         <CloseIcon/>
@@ -150,53 +128,33 @@ function Comments({id}) {
                   </>
                   : '' 
                }
-               
-
             </div>
-            { commentsCommentsVisible[key] ?
+            { commentsCommentsVisible ?
                <ComentEdit 
-                  title = {`Ответить @${item.user_name}`} 
+                  title = {`Ответить @${comment.user_name}`} 
                   close = {commentCommentAnswerClose}  
                   commenValue = { ''}
-                  commentId = { item.id }
+                  commentId = { comment.parent_id }
                   sendComment = {sendCommentAnswer}
                   name = {'answer'}
-                  articleId ={ id }
+                  articleId ={ null }
                />
                : ''
             }
-            { commentsEditVisible[key] ?
+            { commentsEditVisible ?
                <ComentEdit 
                   title = { 'Редактировать' } 
                   close = { commentCommentEditClose } 
-                  commenValue = { item.comment }
-                  commentId = { item.id }
+                  commenValue = { comment.comment }
+                  commentId = { comment.id }
                   sendComment = { sendCommentEdit }
                   name = {'edit'}
                />
                : ''
             }
-            { item.replies_comment ? 
-               <div className="col mx-5">
-                  {item.replies_comment.map((item) => (
-                     // <div>gggggg</div>
-                     <CommentsComment key={item.id} comment={item} articleId={id}/>
-                  ))}
-               </div>: ''
-            }
          </div> 
-         ))
-      }
-      <div className="d-flex justify-content-center">
-         <div className="comments_refresh" title="Обновить комментарии"
-            onClick = {()=>updatingСomments()}>
-            <CachedIcon className={commentsLoad ? "comments_load":''} />
-         </div>
-      </div>
-      
-     
    </>
    );
 }
   
-export default Comments;
+export default CommentsComment;
