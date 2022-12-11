@@ -16,8 +16,9 @@ export const setMainCommentVisible = (payload) => ({
     payload: payload
 })
 
-export const setCommentsLoad = () => ({
+export const setCommentsLoad = (payload) => ({
     type: SET_COMMENTS_LOADER,
+    payload: payload  
 })
 
 
@@ -39,7 +40,7 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
     }
 }
 
-export const createDbCommentsArticle = ({comment, articleId, token}) => async (dispatch) => {
+export const createDbCommentsArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
     console.log("createDbCommentsArticle -" + comment + " - " + articleId)
     try{
         const config = {
@@ -51,9 +52,11 @@ export const createDbCommentsArticle = ({comment, articleId, token}) => async (d
             },
             data:{
                 'comment': comment,
-                'article_id':parseInt(articleId)
+                'article_id':parseInt(articleId),
+               
             }
         };
+        if (commentId) config.data.parent_id = commentId
         const comments = await axios(config)
             .then(({data})=>{
                 console.log("createDbCommentsArticle - ", data)

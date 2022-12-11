@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Routes, Route, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setArticlesPagesUrl, getDbArticlesFilters, getArticleTags} from "../../store/articles"
+import { setArticlesPagesUrl, getDbArticlesFilters, getArticleTags, setArticlesAll} from "../../store/articles"
 import ArticlesList from '../../components/Articles/ArticlesList';
 
 function ArticlesFiltersTags() {
@@ -11,9 +11,11 @@ function ArticlesFiltersTags() {
   const tags = useSelector (getArticleTags)
   
   useEffect(()=> {
+    dispatch(setArticlesAll(''))
+    window.scroll(0, 0);
     console.log("ArticlesFiltersTags")
     dispatch( getDbArticlesFilters(`/api/articles?filters[tags]=${id}`));
-    dispatch(setArticlesPagesUrl(`/api/articles?filters[tags]=${parseInt(params.id)}&`))
+    dispatch( setArticlesPagesUrl(`/api/articles?filters[tags]=${parseInt(params.id)}&`))
   },[id]) 
   return (
     <>

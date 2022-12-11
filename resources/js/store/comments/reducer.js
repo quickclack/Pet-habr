@@ -28,7 +28,7 @@ export const commentsReducer = (state = initialState, { type, payload }) => {
             // console.log("SET_COMMENTS_LOADER", payload)
             return {
                 ...state,
-                commentsLoader: !state.commentsLoader
+                commentsLoader: payload 
             }
         }
         

@@ -2,43 +2,36 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbCommentArticle,
-   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad} from "../../store/comments"
-import { getUserId, getToken } from "../../store/userAuth"
+   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, setCommentsArticle} from "../../store/comments"
+import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
 import CachedIcon from '@mui/icons-material/Cached';
 import './Comments.scss'
 import voices from "../../../image/voices.png"
 import bookmarks from "../../../image/bookmarks.png"
 import CloseIcon from '@mui/icons-material/Close';
+import ComentEdit from "./ComentEdit"
 
 function Comments({id}) {
-   const [comment, setComment] = useState('')
-   const [commentEditValue, setCommentEditValue] = useState('')
-   
    const commentsLoad = useSelector(getCommentsLoad)
-   
    const dispatch = useDispatch(); 
+   const authed = useSelector(getIsAuth);
    const comments =  useSelector(getCommentsArticle);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
    const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(Array.from({length:comments.length}).map(()=>false))
    const [commentsEditVisible, setCommentsEditVisible] = useState(Array.from({length:comments.length}).map(()=>false))
+   console.log("authed - ", authed)
    
-   console.log ('commentsCommentsVisible - ', commentsCommentsVisible)
+   useEffect(()=>{
+      dispatch(setCommentsArticle(''))
+      updatingСomments()
+   },[])
+
    const updatingСomments = async () =>{
-      dispatch(setCommentsLoad)
+      dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
       await dispatch( getDbCommentsArticle(id) )
-      dispatch(setCommentsLoad)
-   }
-
-   function commentSubmitHandler(event) {
-      setComment(event.target.value);
-   }
-
-   async function sendCommentComment(event) {
-      console.log("sendCommentComment")
-      event.preventDefault();
-      return
+      dispatch(setCommentsLoad(false))
    }
 
    function openCommentAnswer({key, idComment}){
@@ -56,9 +49,8 @@ function Comments({id}) {
       setCommentsCommentsVisible(copy);
       dispatch( setMainCommentVisible(true))
    }
-
-   function commentEdit({key, comment}) {
-      // console.log("comment- ", comments)
+   
+   function openCommentEdit({key, comment}) {
       const copy = Array.from({length:comments.length}).map(()=>false)
       copy[key] = !copy[key] 
       console.log("copy - ", copy, key)
@@ -73,27 +65,23 @@ function Comments({id}) {
       setCommentsEditVisible(copy);
       dispatch( setMainCommentVisible(true))
    }
-
-   function commentEditSubmitHandler(event) {
-      setCommentEditValue(event.target.value);
-   }
-
-   async function sendCommentEdit(event) {
+   
+   function sendCommentEdit() {
       console.log("sendCommentEdit")
-      event.preventDefault();
-      const commentId = event.target[0].attributes.dates.value
-      console.dir(commentId)
-      const logInerror = await dispatch(updateDbCommentArticle({comment:commentEditValue, commentId, token}));
       commentCommentEditClose()
       updatingСomments()
-      return
    }
 
    async function  deleteComment(commentId) { 
       await dispatch(deleteDbCommentArticle({ commentId, token}));
       updatingСomments()
    }
-  
+   async function sendCommentAnswer() {
+      console.log("sendCommentAnswer - " , id )
+      commentCommentAnswerClose()
+      updatingСomments()
+      setComment('');
+   }
    return (
    <>
       <div className="h3">Комментарии { comments.length }</div>
@@ -122,7 +110,8 @@ function Comments({id}) {
                      { item.rating || 0}
                   </div>
                </div>
-                  {/* <div className="article-stats-icons__block">
+               {   item.user_id !== userId &&  !authed ?
+                  <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
                            openCommentAnswer({key, idComment: item.id})
@@ -130,9 +119,9 @@ function Comments({id}) {
                      >
                         Ответить
                      </div>
-                    
-                  </div> */}
-                  
+                  </div>
+                  : ''
+               }   
                <div className="article-stats-icons__block ">
                   <div className="article-stats-icons__elem hover"title="Добавить в закладки">
                      <img src={ bookmarks } alt="" />
@@ -146,19 +135,19 @@ function Comments({id}) {
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
                            onClick={()=>{
-                              commentEdit({key, comment: item.comment})
+                              openCommentEdit({key, comment: item.comment})
                            }}
                            >
                            Редактировать
                         </div>
                      </div>
                      <div className='comments__ansver-close' title="Удалить комментарий"
-                     onClick={()=>{
-                        deleteComment(item.id)
-                     }}
+                        onClick={()=>{
+                           deleteComment(item.id)
+                        }}
                      >
-                     <CloseIcon/>
-                  </div>
+                        <CloseIcon/>
+                     </div>
                   </>
                   : '' 
                }
@@ -166,47 +155,27 @@ function Comments({id}) {
 
             </div>
             { commentsCommentsVisible[key] ?
-               <div className='comments__ansver__container  '> 
-                  <div className='comments__ansver'>
-                     <div className="h4">Ответить @{item.user_name}</div>
-                     <div className='comments__ansver-close'
-                        onClick={()=>{
-                           commentCommentAnswerClose()
-                        }}
-                     >
-                        <CloseIcon/>
-                     </div>
-                  </div>
-                  <form onSubmit={sendComment}>
-                     <textarea rows="5"  name="commentComment"
-                        value={comment}
-                        onChange={commentSubmitHandler}></textarea>
-                     { comment =='' ? <input className="mainComment-btn" type="button" value="Отправить" title="Введите комментарий"/>:
-                     <input className="mainComment-btn active" type="submit" value="Отправить"/>}
-                  </form>
-               </div> : ''
+               <ComentEdit 
+                  title = {`Ответить @${item.user_name}`} 
+                  close = {commentCommentAnswerClose}  
+                  commenValue = { ''}
+                  commentId = { item.id }
+                  sendComment = {sendCommentAnswer}
+                  name = {'answer'}
+                  articleId ={ id }
+               />
+               : ''
             }
             { commentsEditVisible[key] ?
-               <div className='comments__ansver__container  '> 
-                  <div className='comments__ansver'>
-                     <div className="h4">Редактировать</div>
-                     <div className='comments__ansver-close'
-                        onClick={()=>{
-                           commentCommentEditClose()
-                        }}
-                        >
-                        <CloseIcon/>
-                     </div>
-                  </div>
-                  <form onSubmit={sendCommentEdit}>
-                     <textarea rows="5"  name="commentComment"
-                        value={commentEditValue}
-                        dates = {item.id}
-                        onChange={commentEditSubmitHandler}></textarea>
-                     { commentEditValue =='' ? <input className="mainComment-btn" type="button" value="Сохранить" title="Введите комментарий"/>:
-                     <input className="mainComment-btn active" type="submit" value="Сохранить"/>}
-                  </form>
-               </div> : ''
+               <ComentEdit 
+                  title = { 'Редактировать' } 
+                  close = { commentCommentEditClose } 
+                  commenValue = { item.comment }
+                  commentId = { item.id }
+                  sendComment = { sendCommentEdit }
+                  name = {'edit'}
+               />
+               : ''
             }
          </div> 
          ))
@@ -218,16 +187,7 @@ function Comments({id}) {
          </div>
       </div>
       
-      {/* <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-         {commentsLoad ? :''}
-            <path fill="currentColor" d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" />
-         </svg> 
-         comment: "Harum excepturi sunt id qui ipsa. Rerum et in omnis sapiente. Quidem voluptas similique et aut."
-         created_at: "вчера в 09:11"
-         id: 21
-         user_name: "Miss Amelia Becker"
-         */
-      }
+     
    </>
    );
 }

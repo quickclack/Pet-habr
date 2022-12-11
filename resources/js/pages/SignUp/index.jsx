@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import './signUp.scss';
-import { signUpUserTrunk, signUpUserServicesTrunk } from "../../store/userAuth/actions";
+import { signUpUserTrunk, signUpUserServicesTrunk, setErrorAction } from "../../store/userAuth";
 import {ErrorField} from "../../components/ErrorField";
 import {getErrors} from "../../store/userAuth/selectors";
 export const SignUp = () => {
@@ -10,11 +10,12 @@ export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
-
   const errorList = useSelector(getErrors);
- 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(()=>{
+    dispatch(setErrorAction('') )
+  },[])
 
   function nameSubmitHandler(event) {
     setName(event.target.value);
@@ -38,14 +39,12 @@ export const SignUp = () => {
   async function signUpHandler(event) {
     console.log("signUpHandler")
     event.preventDefault();
-    const signUperror = dispatch(signUpUserTrunk({name, email, password, confirmation}));
+    const signUperror = await dispatch(signUpUserTrunk({name, email, password, confirmation}));
     console.log("signUperror" + {signUperror})
     console.log("errorList",errorList)
     if (signUperror) {
       return
     } else {
-      // navigate("/confirm_email");
-
       clearForm();
       navigate("/articles/all");
     }
@@ -63,7 +62,6 @@ export const SignUp = () => {
       clearForm();
     }
   }
-
 
   return (
     <section className="page-wrapper">

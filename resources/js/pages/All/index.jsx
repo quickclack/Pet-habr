@@ -9,6 +9,7 @@ function All() {
   
   useEffect(()=> {
     console.log("articles dispatch All")
+    window.scroll(0, 0);
     dispatch( getDbArticlesAll(`/api/articles?sort=created_at`));
     dispatch(setArticlesPagesUrl('api/articles?sort=created_at&'))
   },[]) 

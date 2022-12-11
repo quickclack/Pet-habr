@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './login.scss';
 import { useDispatch, useSelector } from "react-redux";
 
-import { logInUserTrunk, getUser } from "../../store/userAuth";
+import { logInUserTrunk, getUser, setErrorAction  } from "../../store/userAuth";
 import { getArticlePassing, setArticlePassingNull} from "../../store/articles";
 import {getErrors} from "../../store/userAuth/selectors";
 import {ErrorField} from "../../components/ErrorField";
@@ -16,10 +16,12 @@ export const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const articlePassing = useSelector(getArticlePassing);
-  console.log("articlePassing  - " + articlePassing )
-
   const errorList = useSelector(getErrors);
   
+  useEffect(()=>{
+    dispatch(setErrorAction('') )
+  },[])
+
   function emailSubmitHandler(event) {
     setEmail(event.target.value);
   }
