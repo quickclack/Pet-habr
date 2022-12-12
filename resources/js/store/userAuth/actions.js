@@ -29,7 +29,8 @@ export const signUpUserTrunk = (user) => async (dispatch) => {
                 .then(({data})=>{
                     // console.log('data', data)
                     const userUp = {
-                        // email: user.email,
+                        id: data.id,
+                        nickName: data.nickName,
                         token: data.access_token,
                     };
                     dispatch(logInUser(userUp));
@@ -84,6 +85,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
 
                     const userIn = {
                         id: data.id,
+                        nickName: data.nickName,
                         token: data.access_token,
                     };
                     if (user.remember) {

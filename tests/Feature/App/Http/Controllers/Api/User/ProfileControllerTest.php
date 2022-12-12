@@ -114,7 +114,7 @@ class ProfileControllerTest extends TestCase
 
         $this->post(action([ProfileController::class, 'getUserArticles']), $this->getToken($user))
             ->assertOk()
-            ->assertJsonCount(1);
+            ->assertJsonCount(3);
     }
 
     public function test_it_not_added_views_success(): void

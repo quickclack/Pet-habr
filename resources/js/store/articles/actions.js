@@ -3,10 +3,23 @@ import axios from 'axios';
 export const SET_ARTICLES_ALL = 'SET_ARTICLES_ALL';
 export const SET_ARTICLE = 'SET_ARTICLE';
 export const SET_ARTICLES_NULL = 'SET_ARTICLES_NULL';
+export const SET_ARTICLE_PASSING = 'SET_ARTICLE_PASSING';
+export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
+export const SET_ARTICLES_PAGES_URL = 'SET_ARTICLES_PAGES_URL'
+export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
     payload: payload
+})
+
+export const setArticlePassing = (payload) => ({
+    type: SET_ARTICLE_PASSING,
+    payload: payload
+})
+
+export const setArticlePassingNull = () => ({
+    type: SET_ARTICLE_PASSING_NULL,
 })
 
 export const setArticle = (payload) => ({
@@ -17,18 +30,30 @@ export const setArticle = (payload) => ({
 export const setArticleNull = () => ({
     type: SET_ARTICLES_NULL,
 })
+export const setArticlesPagesUrl = (payload) => ({
+    type: SET_ARTICLES_PAGES_URL,
+    payload: payload
+})
 
-export const getDbArticlesAll = () => async (dispatch) => {
+export const setArticleCountComments = (payload) => ({
+    type: SET_ARTICLE_COUNT_COMMENTS,
+    payload: payload
+})
+
+export const getDbArticlesAll = (url) => async (dispatch) => {
     console.log("getDbArticlesAll")
     try{
         const config = {
             method: 'post',
-            url: `/api/articles`,
-            headers: { }
+            url: url,
+            headers: { 
+                Accept: 'application/json', 
+                // Authorization: `Bearer ${token}`
+            }
         };
         const articles = await axios(config)
             .then(({data})=>{
-                console.log("getDbArticlesAll ")
+                console.log("getDbArticlesAll - ",  data)
                 dispatch(setArticlesAll(data));
             })
     } catch (e) {
@@ -36,13 +61,16 @@ export const getDbArticlesAll = () => async (dispatch) => {
     }
 }
 
-export const getDbArticle = (articleId) => async (dispatch) => {
+export const getDbArticle = ({url , token = '' }) => async (dispatch) => {
     console.log("getDbArticle")
     try{
         const config = {
             method: 'post',
-            url: `/api/article/${articleId}`,
-            headers: { }
+            url: url ,
+            headers: {
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
           };
         const articles = await axios(config)
             .then(({data})=>{
@@ -55,7 +83,7 @@ export const getDbArticle = (articleId) => async (dispatch) => {
 }
 
 
-export const getDbArticlesPage = ({param,page}) => async (dispatch) => {
+export const getDbArticlesPage = ({param, page, token}) => async (dispatch) => {
     console.log("getDbArticlesPage - ", page)
     console.log("getDbArticlesPage - ", param)
     try{
@@ -63,9 +91,13 @@ export const getDbArticlesPage = ({param,page}) => async (dispatch) => {
         const config = {
             method: 'post',
             url: `${param}page=${page}`,
-            headers: { }
-          };
-        const articles = await axios(config)
+            headers: {
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+            console.log(config.url)
+            const articles = await axios(config)
             .then(({data})=>{
                 dispatch(setArticlesAll(data));
             })
@@ -110,7 +142,8 @@ export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
         data.append('title', article.title);
         data.append('description', article.description);
         data.append('category_id', article.category_id);
-        data.append('tag_id', article.tag_id);
+        article.tag_id.forEach((element,key) => data.append(`tags[${key}]`, element) );
+        // data.append('tags', article.tag_id);
         data.append('image', article.image);
         
         const config = {
@@ -134,4 +167,26 @@ export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
         return e.message
     }
 }
+
+export const getDbArticlesUserProfile = ({url, token}) => async (dispatch) => {
+    console.log("getDbArticlesUserProfile")
+    try{
+        const config = {
+            method: 'post',
+            url: url,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("getDbArticlesUserProfile - ",  data)
+                dispatch(setArticlesAll(data));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
 

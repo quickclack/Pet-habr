@@ -1,7 +1,5 @@
 .header{
-   
-    background-color: rgb(42, 83, 94);
-   
+   background-color: rgb(42, 83, 94);
 }
 .navbar{
    max-width: 1200px;
@@ -13,7 +11,9 @@
 }
 .navbar a{
     font-weight: bold;
-
+}
+.navbar h1{
+    margin: 0;
 }
 .nav-btn{
    color: azure;

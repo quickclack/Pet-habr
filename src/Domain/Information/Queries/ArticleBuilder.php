@@ -44,12 +44,13 @@ final class ArticleBuilder implements QueryBuilder
             ->first();
     }
 
-    public function getUserArticles(): Collection
+    public function getUserArticles(): LengthAwarePaginator
     {
         return $this->getBuilder()
             ->where('user_id', auth()->id())
             ->where('status', ArticleStatus::APPROVED)
-            ->get();
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 
     public function getCountNewArticles(): int

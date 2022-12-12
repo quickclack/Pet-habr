@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 // import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from "react-router-dom";
-import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
+import { getIsAuth, logOutUserAction, getToken, getUserNickName } from "../../store/userAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from '@mui/material/Box';
@@ -14,12 +14,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 import imgAvatar from "../../../image/git.png"
-
 import VievMessage from '../VievMessage'
 
 export const Header = () => {
     const authed = useSelector(getIsAuth);
     const token = useSelector(getToken);
+    const nickName = useSelector(getUserNickName)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export const Header = () => {
         setAnchorElUser(null);
         navigate("/auth/settigs/profile")
     }
-
+    // /user/:nameUser
     const logOutUser = async () => {
         setAnchorElUser(null)
         const logout = await dispatch(logOutUserAction(token))
@@ -46,10 +46,20 @@ export const Header = () => {
         setTimeout(()=>setLogoutMessage(''), 5000)
         console.log("logout - "+  logout)
     }
-// settingsProfile
+    
+    const userProfileArticles = () => {
+        setAnchorElUser(null);
+        navigate(`/user/${nickName}/articles`)
+    }
+
+    const userProfileComments = () => {
+        setAnchorElUser(null);
+        navigate(`/user/${nickName}/comments`)
+    }
+
     const settings = [
-        {title:'Статьи', action: handleCloseUserMenu},
-        {title:'Комментарии', action: handleCloseUserMenu},
+        {title:'Статьи', action: userProfileArticles},
+        {title:'Комментарии', action: userProfileComments},
         {title:'Диалоги', action: handleCloseUserMenu},
         {title:'Закладки', action: handleCloseUserMenu},
         {title:'Как стать автором', action: handleCloseUserMenu},

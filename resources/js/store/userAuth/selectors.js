@@ -1,6 +1,6 @@
 export const getIsAuth = (state) => {
-   // console.log(state.auth)
-   return state.auth.user.token == null;
+   //  console.log(state.auth)
+   return state.auth.user.token === null;
 };
 
 export const getUser = (state) => {
@@ -14,7 +14,7 @@ export const getUserEmail = (state) => {
 }
 
 export const getToken = (state) => {
-   // console.log(state.auth.user.token)
+   //  console.log(state)
    return  state.auth.user !== null ? state.auth.user.token: ''};
 
 export const getErrors = (state) => {
@@ -25,4 +25,9 @@ export const getErrors = (state) => {
 export const getUserId = (state) => {
    // console.log(state.auth)
    return state.auth.user.id
+};
+
+export const getUserNickName = (state) => {
+   //  console.log(state.auth)
+   return state.auth.user.nickName
 };

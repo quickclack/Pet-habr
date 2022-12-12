@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {setArticleCountComments} from '../articles'
 
 export const SET_COMMENTS_ALL = 'SET_COMMENTS_ALL';
 export const SET_COMMENTS_ARTICLE = 'SET_COMMENTS_ARTICLE';
@@ -16,8 +17,9 @@ export const setMainCommentVisible = (payload) => ({
     payload: payload
 })
 
-export const setCommentsLoad = () => ({
+export const setCommentsLoad = (payload) => ({
     type: SET_COMMENTS_LOADER,
+    payload: payload  
 })
 
 
@@ -27,19 +29,22 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
         const config = {
             method: 'post',
             url: `/api/comments/${id}`,
-            headers: { }
+            headers: { 
+
+            }
         };
         const comments = await axios(config)
             .then(({data})=>{
                 console.log("getDbCommentsArticle respons - ", data)
                 dispatch(setCommentsArticle(data.comments));
+                dispatch(setArticleCountComments(data.comments.length))
             })
     } catch (e) {
         console.log(e.message);
     }
 }
 
-export const createDbCommentsArticle = ({comment, articleId, token}) => async (dispatch) => {
+export const createDbCommentsArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
     console.log("createDbCommentsArticle -" + comment + " - " + articleId)
     try{
         const config = {
@@ -51,9 +56,10 @@ export const createDbCommentsArticle = ({comment, articleId, token}) => async (d
             },
             data:{
                 'comment': comment,
-                'article_id':parseInt(articleId)
+                'article_id':parseInt(articleId),
             }
         };
+        if (commentId) config.data.parent_id = commentId
         const comments = await axios(config)
             .then(({data})=>{
                 console.log("createDbCommentsArticle - ", data)
