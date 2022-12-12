@@ -20,7 +20,7 @@ class CategoryFilter extends AbstractFilter
     public function apply(Builder $query): Builder
     {
         return $query->when($this->requestValue(), function (Builder $builder) {
-            $builder->whereIn('category_id',explode(',', $this->requestValue()));
+            $builder->whereIn('category_id', explode(',', $this->requestValue()));
         });
     }
 }

@@ -17,8 +17,6 @@ class RegisteredController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'id' => $user->id,
-            'nickName' => $user->nickName,
             'access_token' => $token,
             'token_type' => 'Bearer'
         ]);
