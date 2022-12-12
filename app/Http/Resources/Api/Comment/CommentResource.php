@@ -13,9 +13,10 @@ class CommentResource extends JsonResource
             'user_id' => $this->user->id,
             'comment' => $this->comment,
             'user_name' => $this->user->nickName,
-            'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}",
+            'created_at' => $this->setDate($this->created_at),
             'replies_comment' => $this->when($this->replies()->count() > 0, function () {
                 return $this->replies()
+                    ->with('user')
                     ->get()
                     ->map(fn($item) => [
                         'id' => $item->id,
@@ -23,7 +24,7 @@ class CommentResource extends JsonResource
                         'user_id' => $item->user->id,
                         'user_name' => $item->user->nickName,
                         'parent_id' => $this->id,
-                        'created_at' => "{$this->setDate($item)} в {$item->created_at->format('h:m')}"
+                        'created_at' => $this->setDate($this->created_at)
                     ])->toArray();
             }),
         ];

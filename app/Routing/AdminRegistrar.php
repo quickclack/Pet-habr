@@ -15,7 +15,7 @@ class AdminRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('web')->group(function () {
-            Route::middleware('guest')->prefix('admin')->group(function () {
+            Route::middleware('admin')->prefix('admin')->group(function () {
 
                 Route::get('/', IndexController::class)
                     ->name('admin.index');

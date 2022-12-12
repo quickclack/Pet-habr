@@ -12,10 +12,11 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'user_name' => $this->user->nickName,
+            'user_name' => $this->user->nickName ?? 'Без автора',
             'views' => $this->views,
             'count_comments' => $this->comments()->count(),
-            'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}",
+            'image' => $this->when($this->image, fn() => $this->image),
+            'created_at' => $this->setDate($this->created_at),
         ];
     }
 }

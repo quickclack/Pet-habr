@@ -2,7 +2,7 @@
 
 namespace Domain\Information\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;

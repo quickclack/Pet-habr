@@ -139,11 +139,9 @@ class CommentControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $article = $this->createArticle();
-
         $request = [
             'comment' => fake()->text(60),
-            'article_id' => $article->getKey(),
+            'article_id' => null,
             'user_id' => auth()->id(),
             'parent_id' => $comment->getKey()
         ];

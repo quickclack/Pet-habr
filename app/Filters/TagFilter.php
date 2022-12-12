@@ -25,8 +25,8 @@ class TagFilter extends AbstractFilter
 
     public function apply(Builder $query): Builder
     {
-        return $query->whereHas('tags', function (Builder $builder) {
-            $builder->when($this->requestValue(), function (Builder $q) {
+        return $query->when($this->requestValue(),function (Builder $builder) {
+            $builder->whereHas('tags', function (Builder $q) {
                 $q->whereIn('tag_id', explode(',', $this->requestValue()));
             });
         });

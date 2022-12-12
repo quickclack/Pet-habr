@@ -6,10 +6,10 @@ use Carbon\Carbon;
 
 trait DateConversion
 {
-    public function setDate(mixed $model): string
+    public function setDate(Carbon $value): string
     {
-        return Carbon::parse($model->created_at)
-            ->subDay()
-            ->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);
+        return Carbon::parse($value)
+            ->subMinutes()
+            ->diffForHumans();
     }
 }

@@ -11,7 +11,7 @@ final class NewCommentDto
 
     public function __construct(
         public readonly string $comment,
-        public readonly int $article_id
+        public readonly ?int $article_id
     ){
     }
 

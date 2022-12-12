@@ -15,7 +15,7 @@ class ArticleProfileResource extends JsonResource
             'image' => $this->image,
             'views' => $this->views,
             'count_comments' => $this->comments()->count(),
-            'created_at' => "{$this->setDate($this)} в {$this->created_at->format('h:m')}"
+            'created_at' => $this->setDate($this->created_at)
         ];
     }
 }

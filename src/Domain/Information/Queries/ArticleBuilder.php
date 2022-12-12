@@ -4,7 +4,6 @@ namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Http\FormRequest;
 use Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
 use Illuminate\Database\Eloquent\Builder;
