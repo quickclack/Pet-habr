@@ -9,14 +9,9 @@ use Domain\User\Queries\UserBuilder;
 
 class UserController extends Controller
 {
-    public function getUser(UserBuilder $builder, int $id): UserResource
+    public function getUser(): UserResource
     {
-        try {
-            return new UserResource($builder->getUserById($id));
-
-        } catch (\Throwable $exception) {
-            throw new \DomainException('Такого пользователя не существует');
-        }
+        return new UserResource(auth()->user());
     }
 
     public function getAllUsers(UserBuilder $builder): UserCollection

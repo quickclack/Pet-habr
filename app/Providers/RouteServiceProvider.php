@@ -10,6 +10,7 @@ use Domain\Information\Routing\TagRegistrar;
 use Domain\User\Routing\CommentRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
+use Domain\User\Routing\UserRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -42,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
         ProfileRegistrar::class,
         CommentRegistrar::class,
         TagRegistrar::class,
+        UserRegistrar::class,
     ];
 
     /**
