@@ -27,7 +27,9 @@ class ArticleController extends Controller
             ]);
         }
 
-        $this->addViews($article);
+        if ($article->user_id !== auth('sanctum')->id()) {
+            $this->addViews($article);
+        }
 
         return response()->json([
             'article' => new ArticleRelationResource($article)
