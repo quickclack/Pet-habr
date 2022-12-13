@@ -47,6 +47,7 @@ final class ArticleBuilder implements QueryBuilder
     public function getUserArticles(): LengthAwarePaginator
     {
         return $this->getBuilder()
+            ->with(['category', 'tags'])
             ->where('user_id', auth()->id())
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')

@@ -103,6 +103,20 @@ class ProfileControllerTest extends TestCase
         ]);
     }
 
+    public function test_it_get_user_articles_success(): void
+    {
+        $user = $this->createUser();
+
+        Sanctum::actingAs($user);
+
+        ArticleFactory::new()->count(5)
+            ->create(['user_id' => $user->getKey()]);
+
+        $this->post(action([ProfileController::class, 'getUserArticles']), $this->getToken($user))
+            ->assertOk()
+            ->assertJsonCount(3);
+    }
+
     public function test_it_not_added_views_success(): void
     {
         $user = $this->createUser();
