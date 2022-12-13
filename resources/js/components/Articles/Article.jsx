@@ -5,8 +5,7 @@ import parse from "html-react-parser";
 
 function Article({item}) {
   const params = useParams();
-  console.log( "params - ", params )
-
+  // console.log( "params - ", params )
   return (
     <div className="article" >
       <div className="article__header ">
@@ -21,10 +20,8 @@ function Article({item}) {
       <div className='article__description'>
         {parse(item.description)}
       </div>
-      
         {
           params.nameUser ? 
-          
           <Link to={`/user/${params.nameUser}/article/${item.id}`} className="nav-btn">
             <div className='article__button'>
               <div >
@@ -32,7 +29,6 @@ function Article({item}) {
               </div>
             </div>
           </Link> :
-          
           <Link to={`/article/${item.id}`} className="nav-btn">
           <div className='article__button'>
             <div >
@@ -40,12 +36,9 @@ function Article({item}) {
             </div>
           </div>
           </Link> 
-
         }
-      
       <ArticleStatsIcons item={item}/>
     </div>
   );
 }
-  
 export default Article;

@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import './Footer.scss'
 import { Link } from "react-router-dom";
 import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
-
-
 import { getDbCategoriesAll, getCategoriesAll, getLinksCategoriesAll} from "../../store/categories"
 
 function up() {
@@ -16,14 +14,12 @@ function up() {
     return false;
 }
 
-
 export const Footer = () => {
     const authed = useSelector(getIsAuth);
     const token = useSelector(getToken);
     const dispatch = useDispatch();
     const categories = useSelector(getCategoriesAll)
     const categoriesLinks = useSelector(getLinksCategoriesAll)
-    console.log("categories - ", categories)
     useEffect(()=> {
         console.log("categories dispatch")
         dispatch( getDbCategoriesAll());

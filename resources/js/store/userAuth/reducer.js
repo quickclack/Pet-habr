@@ -6,7 +6,7 @@ const initialState = {
         password: "",
         token: null,
         id: null,
-        nickName : 'dfgdfg'
+        nickName : ''
     },
     errors: null
 }

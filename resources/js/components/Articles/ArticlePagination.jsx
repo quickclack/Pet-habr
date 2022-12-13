@@ -5,14 +5,14 @@ import { getToken } from "../../store/userAuth"
 import './ArticlesList.scss'
 
 function ArticlePagination() {
-   const dispatch = useDispatch(); 
-   const [currentPage, setCurrentPage] = useState(1)
-   const paginationArray = useSelector(getPaginationLinks).slice(1, -1);
-   const param = useSelector(getArticlesPagesUrl)
-   const token = useSelector(getToken)
-   console.log('pagination - ', paginationArray)
+  const dispatch = useDispatch(); 
+  const [currentPage, setCurrentPage] = useState(1)
+  const paginationArray = useSelector(getPaginationLinks).slice(1, -1);
+  const param = useSelector(getArticlesPagesUrl)
+  const token = useSelector(getToken)
+  // console.log('pagination - ', paginationArray)
    
-   const paginate = (page) =>{
+  const paginate = (page) =>{
     
       let curent = currentPage
       switch (page) {
@@ -50,7 +50,6 @@ function ArticlePagination() {
                   &laquo; Предыдущая
                 </span>
             </div>
-            
             {
               paginationArray.length > 0 ? paginationArray.map((item, key) =>(
                 <div key = { key } className={`articles__pagination-element ${item.active ? 'active':'' }`}
@@ -62,7 +61,6 @@ function ArticlePagination() {
                 </div>
               )) : ''
             }
-
             <div className={`articles__pagination-element `}
               onClick = {()=>paginate('+1')}
             >

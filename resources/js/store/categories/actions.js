@@ -16,9 +16,12 @@ export const getDbCategoriesAll = () => async (dispatch) => {
         const categories = await axios({
             method: 'post',
             url: '/api/categories',
+            headers: { 
+                Accept: 'application/json', 
+            },
         })
             .then(({data})=>{
-                console.log("getDbCategoriesAll respons - ", data)
+                // console.log("getDbCategoriesAll respons - ", data)
                 dispatch(setCategoriesAll(data.categories));
             })
     } catch (e) {
