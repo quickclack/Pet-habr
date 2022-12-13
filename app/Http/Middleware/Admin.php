@@ -9,10 +9,12 @@ class Admin
 {
     public function handle(Request $request, Closure $next)
     {
-        $role = auth()->user()->getRole();
+        if (auth()->check()) {
+            $role = auth()->user()->getRole();
 
-        if (auth()->check() && $role == 'Administrator' || $role == 'Moderator') {
-            return $next($request);
+            if ($role == 'Administrator' || $role == 'Moderator') {
+                return $next($request);
+            }
         }
 
         abort(404);
