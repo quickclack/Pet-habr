@@ -50,12 +50,12 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function getRole(): string
+    public function getRole(): ?string
     {
         foreach ($this->roles as $role) {
             $roles = $role;
         }
 
-        return $roles->name;
+        return $roles->name ?? null;
     }
 }
