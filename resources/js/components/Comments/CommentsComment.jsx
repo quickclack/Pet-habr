@@ -75,7 +75,7 @@ function CommentsComment({comment, articleId}) {
             </div>
             
             <span>
-               {`${comment.comment}`}
+               {`${comment.comment} -ком`}
             </span>
 
             <div className='comments__icons__container  '>
@@ -135,7 +135,7 @@ function CommentsComment({comment, articleId}) {
                   close = {commentCommentAnswerClose}  
                   commenValue = { ''}
                   commentId = { comment.parent_id }
-                  sendComment = {sendCommentAnswer}
+                  sendComment = { sendCommentAnswer }
                   name = {'answer'}
                   articleId ={ null }
                />

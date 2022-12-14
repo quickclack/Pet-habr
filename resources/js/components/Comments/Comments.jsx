@@ -161,7 +161,7 @@ function Comments({id}) {
                   commentId = { item.id }
                   sendComment = {sendCommentAnswer}
                   name = {'answer'}
-                  articleId ={ id }
+                  articleId ={ null }
                />
                : ''
             }

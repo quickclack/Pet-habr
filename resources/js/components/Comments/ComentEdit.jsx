@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector, useDispatch } from "react-redux";
-import { updateDbCommentArticle, createDbCommentsArticle } from "../../store/comments"
+import { updateDbCommentArticle, createDbCommentArticle } from "../../store/comments"
 import { getUserId, getToken } from "../../store/userAuth"
 
 function ComentEdit({title,  commenValue,  commentId, name, close, sendComment, articleId  }) {
@@ -21,7 +21,7 @@ function ComentEdit({title,  commenValue,  commentId, name, close, sendComment, 
             await dispatch(updateDbCommentArticle({comment, commentId, token}));
             break;
          case 'answer':
-            await dispatch(createDbCommentsArticle({comment, articleId, commentId, token}));
+            await dispatch(createDbCommentArticle({comment, articleId, commentId, token}));
             break;
          default:
             break;

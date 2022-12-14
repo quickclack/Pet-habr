@@ -26,7 +26,7 @@ function ArticleId() {
     window.scroll(0, 0);
     const id = articleId
     if (params.nameUser) {
-      const url = `/api/article/${id}`
+      const url = `/api/profile/article/${id}`
       
       dispatch(getDbArticle({url, token}))
     } else { 
@@ -45,7 +45,9 @@ function ArticleId() {
           </div>
           <div className="articleId">
             <div className="articleId__header ">
-              <h4> {article.user.nickName}</h4>
+              {params.nameUser ? "ttt":
+                <h4> {}</h4>}
+                {/* article.user.nickName */}
               <h5> &emsp;{article.created_at}&ensp;</h5>
             </div>
             <div className='articleId__title'>

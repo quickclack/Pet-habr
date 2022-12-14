@@ -22,7 +22,7 @@ function Article({item}) {
       </div>
         {
           params.nameUser ? 
-          <Link to={`/user/${params.nameUser}/article/${item.id}`} className="nav-btn">
+          <Link to={`/users/${params.nameUser}/article/${item.id}`} className="nav-btn">
             <div className='article__button'>
               <div >
                 далее

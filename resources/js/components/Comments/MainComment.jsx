@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import './Comments.scss'
 import { useDispatch, useSelector } from "react-redux";
-import {createDbCommentsArticle, setCommentsLoad, getDbCommentsArticle} from "../../store/comments"
+import {createDbCommentArticle, setCommentsLoad, getDbCommentsArticle} from "../../store/comments"
 import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
 import { Dining } from '@mui/icons-material';
 
@@ -20,7 +20,7 @@ function MainComment({articleId}) {
    async function sendComment(event) {
       console.log("sendComment")
       event.preventDefault();
-      await dispatch(createDbCommentsArticle({comment, articleId, token}));
+      await dispatch(createDbCommentArticle({comment, articleId, token}));
       dispatch(setCommentsLoad)
       await dispatch( getDbCommentsArticle(articleId) )
       dispatch(setCommentsLoad)

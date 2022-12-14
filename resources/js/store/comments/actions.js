@@ -44,8 +44,8 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
     }
 }
 
-export const createDbCommentsArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
-    console.log("createDbCommentsArticle -" + comment + " - " + articleId)
+export const createDbCommentArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
+    console.log("createDbCommentsArticle -" ,{comment, articleId, token, commentId} )
     try{
         const config = {
             method: 'post',
@@ -56,7 +56,8 @@ export const createDbCommentsArticle = ({comment, articleId, token, commentId}) 
             },
             data:{
                 'comment': comment,
-                'article_id':parseInt(articleId),
+                'article_id': articleId,
+                'parent_id': commentId
             }
         };
         if (commentId) config.data.parent_id = commentId
