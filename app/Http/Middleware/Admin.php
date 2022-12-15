@@ -15,6 +15,8 @@ class Admin
             if ($role == 'Administrator' || $role == 'Moderator') {
                 return $next($request);
             }
+
+            abort(404);
         }
 
         abort(404);

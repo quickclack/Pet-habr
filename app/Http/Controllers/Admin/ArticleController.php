@@ -78,7 +78,7 @@ class ArticleController extends Controller
 
         flash()->success('Статья успешно удалена');
 
-        return to_route('admin.articles.trash');
+        return back();
     }
 
     public function approve(int $id): RedirectResponse

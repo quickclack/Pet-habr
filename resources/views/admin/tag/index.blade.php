@@ -5,7 +5,9 @@
         <h1 class="h2">Список тегов</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-outline-secondary">Добавить</a>
+                @can('create', $tags->first())
+                    <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-outline-secondary">Добавить</a>
+                @endcan
             </div>
         </div>
     </div>
@@ -30,17 +32,19 @@
                         <td>{{ $tag->title }}</td>
                         <td>{{ $tag->slug }}</td>
 
-                        <td class="d-flex justify-content-end">
-                            <a href="{{ route('admin.tags.edit', $tag->id) }}"
-                               class="btn btn-primary btn-sm text-white">Изменить</a>
-                            <form action="{{ route('admin.tags.destroy', $tag->id) }}"
-                                  method="post">
-                                @csrf
-                                @method('DELETE')
+                        @canany(['update', 'delete'], $tag)
+                            <td class="d-flex justify-content-end">
+                                <a href="{{ route('admin.tags.edit', $tag->id) }}"
+                                   class="btn btn-primary btn-sm text-white">Изменить</a>
+                                <form action="{{ route('admin.tags.destroy', $tag->id) }}"
+                                      method="post">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <x-forms.delete-button>Удалить</x-forms.delete-button>
-                            </form>
-                        </td>
+                                    <x-forms.delete-button>Удалить</x-forms.delete-button>
+                                </form>
+                            </td>
+                        @endcanany
                     </tr>
                 @endforeach
 

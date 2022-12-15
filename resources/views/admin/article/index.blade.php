@@ -5,7 +5,9 @@
         <h1 class="h2">Список статей</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('admin.articles.create') }}" class="btn btn-sm btn-outline-secondary">Добавить статью</a>
+                @can('create', $articles->first())
+                    <a href="{{ route('admin.articles.create') }}" class="btn btn-sm btn-outline-secondary">Добавить статью</a>
+                @endcan
                 <a href="{{ route('admin.articles.new') }}" class="btn btn-sm btn-outline-secondary">Новые статьи ({{ $countNewArticle }})</a>
                 <a href="{{ route('admin.articles.trash') }}" class="btn btn-sm btn-outline-secondary">Отклонённые статьи ({{ $countRejectedArticle }})</a>
             </div>
@@ -38,19 +40,21 @@
                         <td>{{ $article->category_id }}</td>
                         <td>{{ $article->status->name }}</td>
 
-                        <td>
-                            <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}"
-                               class="btn btn-primary btn-sm text-white">Изменить</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.articles.destroy', ['article' => $article->id]) }}"
-                                  method="post">
-                                @csrf
-                                @method('DELETE')
+                        @canany(['update', 'delete'], $article)
+                            <td>
+                                <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}"
+                                   class="btn btn-primary btn-sm text-white">Изменить</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('admin.articles.destroy', ['article' => $article->id]) }}"
+                                      method="post">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <x-forms.delete-button>Удалить</x-forms.delete-button>
-                            </form>
-                        </td>
+                                    <x-forms.delete-button>Удалить</x-forms.delete-button>
+                                </form>
+                            </td>
+                        @endcanany
                     </tr>
                 @endforeach
 
