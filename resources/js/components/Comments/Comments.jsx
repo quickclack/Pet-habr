@@ -20,8 +20,7 @@ function Comments({id}) {
    const token = useSelector(getToken)
    const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(Array.from({length:comments.length}).map(()=>false))
    const [commentsEditVisible, setCommentsEditVisible] = useState(Array.from({length:comments.length}).map(()=>false))
-   console.log("authed - ", authed)
-   
+      
    useEffect(()=>{
       dispatch(setCommentsArticle(''))
       updatingСomments()
@@ -35,12 +34,11 @@ function Comments({id}) {
    }
 
    function openCommentAnswer({key, idComment}){
-      console.log("openCommentAnswer")
       const copy = Array.from({length:comments.length}).map(()=>false)
       copy[key] = !copy[key] 
-      console.log("copy - ", copy, key)
-      console.log("key - ", key)
       setCommentsCommentsVisible(copy);
+      const editcopy = Array.from({length:comments.length}).map(()=>false)
+      setCommentsEditVisible(editcopy);
       dispatch( setMainCommentVisible(false) )
    }
 
@@ -52,13 +50,13 @@ function Comments({id}) {
    
    function openCommentEdit({key, comment}) {
       const copy = Array.from({length:comments.length}).map(()=>false)
-      copy[key] = !copy[key] 
-      console.log("copy - ", copy, key)
-      console.log("key - ", key)
-      setCommentsEditVisible(copy);
+      setCommentsCommentsVisible(copy);
+      const editcopy = Array.from({length:comments.length}).map(()=>false)
+      editcopy[key] = !editcopy[key] 
+      setCommentsEditVisible(editcopy);
       dispatch( setMainCommentVisible(false) )
    }
-
+   
    function commentCommentEditClose() {
       const copy = Array.from({length:comments.length}).map(()=>false)
       setCommentsEditVisible(copy);
@@ -66,21 +64,20 @@ function Comments({id}) {
    }
    
    function sendCommentEdit() {
-      console.log("sendCommentEdit")
       commentCommentEditClose()
       updatingСomments()
    }
-
+   
    async function  deleteComment(commentId) { 
       await dispatch(deleteDbCommentArticle({ commentId, token}));
       updatingСomments()
    }
+   
    async function sendCommentAnswer() {
-      console.log("sendCommentAnswer - " , id )
       commentCommentAnswerClose()
       updatingСomments()
-      
    }
+   
    return (
    <>
       <div className="h3">Комментарии { comments.length }</div>
@@ -182,7 +179,9 @@ function Comments({id}) {
                      // <div>gggggg</div>
                      <CommentsComment key={item.id} comment={item} articleId={id}/>
                   ))}
-               </div>: ''
+                 
+               </div>
+               : ''
             }
          </div> 
          ))

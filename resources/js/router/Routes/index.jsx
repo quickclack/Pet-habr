@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import All from '../../pages/All';
 import ArticlesFiltersCategori  from '../../pages/ArticlesFiltersCategori';
-import ArticleId from '../../pages/ArticleId'
+import ArticleIdPage from '../../pages/ArticleId'
 import { LogIn } from '../../pages/Login';
 import { SignUp } from '../../pages/SignUp';
 import { ConfirmEmail } from '../../pages/ConfirmEmail';
@@ -33,8 +33,8 @@ const Router = () => {
                         <Route exact path='/articles/tags/:id' element={<ArticlesFiltersTags/>}/>
                         <Route exact path='/search' element={<Search/>}/>
                         <Route exact path='/confirm_email' element={<ConfirmEmail/>}/>
-                        <Route exact path='/article/:articleId' element={<ArticleId/>}/>
-                        <Route exact path='/article/:articleId/:comments' element={<ArticleId/>}/>
+                        <Route exact path='/article/:articleId' element={<ArticleIdPage/>}/>
+                        <Route exact path='/article/:articleId/:comments' element={<ArticleIdPage/>}/>
                         
                         <Route element={<PublicRoute />}>
                             <Route exact path='/login' element={<LogIn/>}/>

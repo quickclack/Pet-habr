@@ -1,0 +1,49 @@
+.articleId{
+   background-color:rgb(255, 255, 255);
+   padding: 15px;
+   margin-top: 3px;
+   &__header{
+      display: flex;
+      align-items: center;
+      h4{
+         font-weight:600;
+      }
+      h4,h5{
+         font-size: 16px;
+      }
+      h5{
+        color: #777; 
+      }
+   }
+   &__title{
+     h4{
+      font-weight:700;
+      font-size: 26px;
+     }
+     a:hover{
+      h4{color: #4da7a7;} 
+      }
+   }
+   
+   &__button{
+      border: 2px solid #9bd3d3;
+      padding: 7px; 
+      width: 124px;
+      &:hover{
+         cursor: pointer;
+         background-color:rgb(182 239 239 / 28%);
+      }
+      a{
+         color: #9bd3d3;
+      }
+   }
+   &__tags{
+      &-span{
+         font-weight: 700;
+      }
+   }
+   &-icons{
+      padding: 1px 15px;
+   }
+
+}

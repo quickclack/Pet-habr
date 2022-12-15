@@ -26,19 +26,12 @@ function CommentsComment({comment, articleId}) {
       dispatch(setCommentsLoad(false))
    }
 
-   // function openCommentAnswer({idComment}){
-   //    console.log("openCommentAnswer")
-   //    setCommentsCommentsVisible(true);
-   //    dispatch( setMainCommentVisible(false) )
-   // }
-
    function commentCommentAnswerClose(){
       setCommentsCommentsVisible(false);
       dispatch( setMainCommentVisible(true))
    }
    
-   function openCommentEdit({comment}) {
-      console.log("openCommentEdit - ")
+   function openCommentEdit() {
       setCommentsEditVisible(true);
       dispatch( setMainCommentVisible(false) )
    }
@@ -49,21 +42,25 @@ function CommentsComment({comment, articleId}) {
    }
    
    function sendCommentEdit() {
-      console.log("sendCommentEdit")
       commentCommentEditClose()
       updatingСomments()
+   }
+
+   function openCommentAnswer() {
+      if (commentsCommentsVisible) return
+      setCommentsCommentsVisible(true)
+      dispatch( setMainCommentVisible(false) )
    }
 
    async function  deleteComment(commentId) { 
       await dispatch(deleteDbCommentArticle({ commentId, token}));
       updatingСomments()
    }
-   // async function sendCommentAnswer() {
-   //    console.log("sendCommentAnswer - " , id )
-   //    commentCommentAnswerClose()
-   //    updatingСomments()
-   //    setComment('');
-   // }
+
+   async function sendCommentAnswer() {
+      commentCommentAnswerClose()
+      updatingСomments()
+   }
    return (
    <>
       {/* <div className="h3">Ответ @ { comment.id }</div> */}
@@ -75,7 +72,7 @@ function CommentsComment({comment, articleId}) {
             </div>
             
             <span>
-               {`${comment.comment} -ком`}
+               {comment.comment}
             </span>
 
             <div className='comments__icons__container  '>
@@ -87,7 +84,7 @@ function CommentsComment({comment, articleId}) {
                      { comment.rating || 0}
                   </div>
                </div>
-               {/* {   comment.user_id !== userId &&  !authed ?
+               {   comment.user_id !== userId &&  !authed ?
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
@@ -98,7 +95,7 @@ function CommentsComment({comment, articleId}) {
                      </div>
                   </div>
                   : ''
-               }    */}
+               }   
                <div className="article-stats-icons__block ">
                   <div className="article-stats-icons__elem hover"title="Добавить в закладки">
                      <img src={ bookmarks } alt="" />
