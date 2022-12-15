@@ -6,6 +6,7 @@ use Domain\Information\Models\Category;
 use Domain\Information\Models\Article;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Support\Enums\ArticleStatus;
 
 /**
  * @extends Factory<Article>
@@ -26,9 +27,9 @@ class ArticleFactory extends Factory
             'category_id' => Category::query()
                 ->inRandomOrder()
                 ->value('id'),
-            'status' => 5,
+            'status' => ArticleStatus::APPROVED,
             'created_at' => $this->faker->unique()
-                ->dateTimeBetween('-2 days', '+1 days')
+                ->dateTimeBetween('-2 days', now())
                 ->format('Y-m-d h:m:s'),
         ];
     }

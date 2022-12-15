@@ -34,7 +34,7 @@
                         <td>{{ $article->description }}</td>
                         <td>{{ $article->user->nickName ?? '-' }}</td>
                         <td>{{ $article->category->title ?? '-' }}</td>
-                        <td>{{ $article->status->name }}</td>
+                        <td>{{ $article->status->getStatus() }}</td>
 
                         <td>
                             <form action="{{ route('admin.article.approve', ['id' => $article->id]) }}"

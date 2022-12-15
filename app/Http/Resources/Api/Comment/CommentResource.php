@@ -24,7 +24,7 @@ class CommentResource extends JsonResource
                         'user_id' => $item->user->id,
                         'user_name' => $item->user->nickName,
                         'parent_id' => $this->id,
-                        'created_at' => $this->setDate($this->created_at)
+                        'created_at' => $this->setDate($item->created_at)
                     ])->toArray();
             }),
         ];

@@ -7,6 +7,7 @@ use Database\Factories\Domain\Information\Models\ArticleFactory;
 use Database\Factories\Domain\Information\Models\CategoryFactory;
 use Domain\Information\Models\Article;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Support\Enums\ArticleStatus;
 use Tests\TestCase;
 
 class ArticleControllerTest extends TestCase
@@ -30,7 +31,7 @@ class ArticleControllerTest extends TestCase
         ];
     }
 
-    private function createArticle(int $status): Article
+    private function createArticle(ArticleStatus $status): Article
     {
         return ArticleFactory::new()
             ->createOne([
@@ -56,7 +57,7 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_get_all_article_success(): void
     {
-        $expectedArticle = $this->createArticle(5);
+        $expectedArticle = $this->createArticle(ArticleStatus::APPROVED);
 
         $this->get(action([ArticleController::class, 'index']))
             ->assertOk()
@@ -65,7 +66,7 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_get_new_article_success(): void
     {
-        $expectedArticle = $this->createArticle(0);
+        $expectedArticle = $this->createArticle(ArticleStatus::NEW);
 
         $this->get(action([ArticleController::class, 'show'], ['article' => $expectedArticle->getKey()]))
             ->assertOk()
@@ -83,7 +84,7 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_get_trash_article_success(): void
     {
-        $expectedArticles = $this->createArticle(10);
+        $expectedArticles = $this->createArticle(ArticleStatus::REJECTED);
 
         $this->get(action([ArticleController::class, 'trash']))
             ->assertSee($expectedArticles->title);
@@ -108,7 +109,7 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_get_edit_article_page_success(): void
     {
-        $article = $this->createArticle(5);
+        $article = $this->createArticle(ArticleStatus::APPROVED);
 
         $this->get(action([ArticleController::class, 'edit'], $article->getKey()))
             ->assertOk()
@@ -130,7 +131,7 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_article_success_destroy(): void
     {
-        $article = $this->createArticle(5);
+        $article = $this->createArticle(ArticleStatus::APPROVED);
 
         $this->delete(action([ArticleController::class, 'destroy'], $article->getKey()));
 
@@ -141,25 +142,25 @@ class ArticleControllerTest extends TestCase
 
     public function test_it_article_success_approve(): void
     {
-        $article = $this->createArticle(0);
+        $article = $this->createArticle(ArticleStatus::NEW);
 
         $this->post(action([ArticleController::class, 'approve'], $article->getKey()));
 
         $this->assertDatabaseHas('articles', [
             'id' => $article->getKey(),
-            'status' => 5
+            'status' => ArticleStatus::APPROVED
         ]);
     }
 
     public function test_it_article_success_reject(): void
     {
-        $article = $this->createArticle(0);
+        $article = $this->createArticle(ArticleStatus::NEW);
 
         $this->post(action([ArticleController::class, 'reject'], $article->getKey()));
 
         $this->assertDatabaseHas('articles', [
             'id' => $article->getKey(),
-            'status' => 10
+            'status' => ArticleStatus::REJECTED
         ]);
     }
 }

@@ -10,16 +10,6 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
-    {
-        return true;
-    }
-
-    public function view(): bool
-    {
-        return true;
-    }
-
     public function create(User $user): Response
     {
         return $user->roles->containsStrict('id', 1)

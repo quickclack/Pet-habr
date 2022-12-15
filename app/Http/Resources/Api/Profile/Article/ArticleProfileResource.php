@@ -18,7 +18,7 @@ class ArticleProfileResource extends JsonResource
             'views' => $this->views,
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
-            'status' => $this->status->name,
+            'status' => $this->status->getStatus(),
             'count_comments' => $this->comments()->count(),
             'created_at' => $this->setDate($this->created_at)
         ];

@@ -38,7 +38,7 @@
                         <td>{{ $article->description }}</td>
                         <td>{{ $article->user->email ?? '-' }}</td>
                         <td>{{ $article->category_id }}</td>
-                        <td>{{ $article->status->name }}</td>
+                        <td>{{ $article->status->getStatus() }}</td>
 
                         @canany(['update', 'delete'], $article)
                             <td>

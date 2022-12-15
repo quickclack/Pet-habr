@@ -2,6 +2,7 @@
 
 namespace Domain\Information\Models;
 
+use Domain\Information\Facades\Sorter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 use Support\Enums\ArticleStatus;
@@ -68,15 +69,7 @@ class Article extends Model
 
     public function scopeSorted(Builder $query): void
     {
-        $query->when(request('sort'), function (Builder $builder) {
-            $column = request()->str('sort');
-
-            if ($column->contains(['views', 'created_at'])) {
-                $direction = $column->contains('-') ? 'ASC' : 'DESC';
-
-                $builder->orderBy((string) $column->remove('-'), $direction);
-            }
-        });
+        Sorter::run($query);
     }
 
     public function scopeSearch(Builder $query): void
