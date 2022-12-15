@@ -16,11 +16,38 @@
    p{
       color: rgb(42, 83, 94);
       margin: 0;
-      position: relative;
    }
-
-
 }
+
+
+.error{
+   &__container{
+      position: absolute;
+      height:100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      }
+   &__block {
+      min-height: 50px;
+      min-width: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #d6ffff;
+      border-radius: 10px;
+      animation: move 5s 1 linear;
+      text-align: center;
+      padding: 15px;
+      }
+   p{
+      color: rgb(42, 83, 94);
+      margin: 0;
+   }
+}
+
 
 @keyframes move {
    0% {

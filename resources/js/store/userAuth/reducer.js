@@ -6,7 +6,7 @@ const initialState = {
         password: "",
         token: null,
         id: null,
-        nickName : 'dfgdfg'
+        nickName : ''
     },
     errors: null
 }
@@ -15,16 +15,19 @@ export const userAuthReducer = (state = initialState, {type, payload})=> {
     switch(type){
         case(SIGNUP_USER): {
             return {
+                ...state,
                 user:{...state.user, ...payload}
             }
         }
         case(LOGIN_USER): {
             return {
+                ...state,
                 user:{...state.user, ...payload}
             }
         }
         case(LOGOUT_USER): {
             return {
+                ...state,
                 user: {...state.user, token: null, id: null}
             }
         }

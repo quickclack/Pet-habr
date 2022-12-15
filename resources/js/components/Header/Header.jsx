@@ -49,12 +49,12 @@ export const Header = () => {
     
     const userProfileArticles = () => {
         setAnchorElUser(null);
-        navigate(`/user/${nickName}/articles`)
+        navigate(`/users/${nickName}/articles`)
     }
 
     const userProfileComments = () => {
         setAnchorElUser(null);
-        navigate(`/user/${nickName}/comments`)
+        navigate(`/users/${nickName}/comments`)
     }
 
     const settings = [

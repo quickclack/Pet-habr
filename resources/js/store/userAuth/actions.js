@@ -74,29 +74,25 @@ export const logInUserTrunk = (user) => async (dispatch) => {
     console.log("logInUserTrunk")
     console.log(user)
     try{
-        // axios.get('/sanctum/csrf-cookie').then(()=>{
-         await    axios.post("api/auth/login",{
-                email: user.email,
-                password: user.password,
-                remember: user.remember,
-            })
-                .then(({data})=>{
-                    console.log('data', data)
-
-                    const userIn = {
-                        id: data.id,
-                        nickName: data.nickName,
-                        token: data.access_token,
-                    };
-                    if (user.remember) {
-                        userIn.email =  user.email
-                        userIn.password = user.password
-                    }
-                    dispatch(logInUser(userIn));
-                    dispatch(setErrorAction(null))
-                    return false
-                })
-        // })
+        await    axios.post("api/auth/login",{
+            email: user.email,
+            password: user.password,
+            remember: user.remember,
+        })
+        .then(({data})=>{
+            console.log('data', data)
+            const userIn = {
+                token: data.access_token,
+            };
+            if (user.remember) {
+                userIn.email =  user.email
+                userIn.password = user.password
+            }
+            dispatch(logInUser(userIn));
+            setTimeout(()=> dispatch(UserInfoTrunk(data.access_token)),100)
+            dispatch(setErrorAction(null))
+            return false
+        })
     } catch (e) {
         console.log(e);
         console.log("ошибка - ",e.response.data.message)
@@ -108,7 +104,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
 export const logOutUserAction =(token) => async (dispatch) => {
     console.log("logOutUserAction - " + token)
     try{
-         const config = {
+        const config = {
             method: 'post',
             url: '/api/auth/logout',
             headers: { 
@@ -116,18 +112,16 @@ export const logOutUserAction =(token) => async (dispatch) => {
               Authorization: `Bearer ${token}`, 
             },
             
-          };
-        
-            const logout = await axios(config)
-            .then(({data})=>{
-                console.log('data', data)
-                dispatch(logOutUser());
-                dispatch(setErrorAction(null))
-                return data.message 
-            })
-            return logout
+        };
+        const logout = await axios(config)
+        .then(({data})=>{
+            console.log('data', data)
+            dispatch(logOutUser());
+            dispatch(setErrorAction(null))
+            return data.message 
+        })
+        return logout
     } catch (e) {
-        
         console.log("ошибка - ", e)
         // dispatch(setErrorAction(e.response.data.message))
         return true
@@ -153,5 +147,29 @@ export const signUpUserServicesTrunk = (driver) => async (dispatch) => {
         console.log("ошибка - ",e.response.data.message)
         dispatch(setErrorAction(e.response.data.message))
         return true
+    }
+}
+//запрос данных пользователя
+export const UserInfoTrunk = (token) => async (dispatch) => {
+    console.log("UserInfoTrunk")
+    console.log(token)
+    try{
+        const config = {
+            method: 'post',
+            url: '/api/user/info',
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        await   axios(config)
+            .then(({data})=>{
+                console.log('data', data)
+                dispatch(logInUser(data));
+                dispatch(setErrorAction(null))
+            })
+    } catch (e) {
+        console.log("ошибка - ",e)
+        // dispatch(setErrorAction(e.response.data.message))
     }
 }

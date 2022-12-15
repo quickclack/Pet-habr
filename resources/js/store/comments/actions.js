@@ -1,11 +1,13 @@
 import axios from 'axios';
 import {setArticleCountComments} from '../articles'
+import { setErrorAction }  from '../userAuth'
 
 export const SET_COMMENTS_ALL = 'SET_COMMENTS_ALL';
 export const SET_COMMENTS_ARTICLE = 'SET_COMMENTS_ARTICLE';
 export const SET_COMMENTS_USER = 'SET_COMMENTS_USER';
 export const SET_COMMENTS_MAIN_VISIBLE = 'SET_COMMENTS_MAIN_VISIBLE';
 export const SET_COMMENTS_LOADER = 'SET_COMMENTS_LOADER';
+
 
 export const setCommentsArticle = (payload) => ({
     type: SET_COMMENTS_ARTICLE,
@@ -22,7 +24,7 @@ export const setCommentsLoad = (payload) => ({
     payload: payload  
 })
 
-
+//запрос комментариев для статьи
 export const getDbCommentsArticle = (id) => async (dispatch) => {
     console.log("getDbCommentsArticle -" , id)
     try{
@@ -43,9 +45,9 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
         console.log(e.message);
     }
 }
-
-export const createDbCommentsArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
-    console.log("createDbCommentsArticle -" + comment + " - " + articleId)
+//добавление комментария к статье или комментарию
+export const createDbCommentArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
+    console.log("createDbCommentsArticle -" ,{comment, articleId, token, commentId} )
     try{
         const config = {
             method: 'post',
@@ -56,17 +58,20 @@ export const createDbCommentsArticle = ({comment, articleId, token, commentId}) 
             },
             data:{
                 'comment': comment,
-                'article_id':parseInt(articleId),
+                'article_id': articleId,
+                'parent_id': commentId
             }
         };
         if (commentId) config.data.parent_id = commentId
-        const comments = await axios(config)
+        await axios(config)
             .then(({data})=>{
                 console.log("createDbCommentsArticle - ", data)
-                // dispatch(setCommentsArticle(data.comments));
             })
+        return true
     } catch (e) {
-        console.log(e.message);
+        console.log(e.response.data.message);
+        dispatch(setErrorAction(e.response.data.message))
+        return false
     }
 }
 
@@ -84,13 +89,15 @@ export const updateDbCommentArticle = ({comment, commentId, token}) => async (di
                 'comment': comment,
             }
         };
-        const comments = await axios(config)
+        await axios(config)
             .then(({data})=>{
                 console.log("updateDbCommentsArticleResp - ", data)
-                // dispatch(setCommentsArticle(data.comments));
             })
+        return true
     } catch (e) {
-        console.log(e.message);
+        console.log(e.response.data.message);
+        dispatch(setErrorAction(e.response.data.message))
+        return false
     }
 }
 
