@@ -3,7 +3,9 @@
 namespace Domain\Information\Models;
 
 use Domain\Information\Facades\Sorter;
+use Domain\User\Models\Like;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Pipeline\Pipeline;
 use Support\Enums\ArticleStatus;
 use Domain\User\Models\Comment;
@@ -57,6 +59,11 @@ class Article extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(Like::class, 'likeable');
     }
 
     public function scopeFilter(Builder $query): mixed

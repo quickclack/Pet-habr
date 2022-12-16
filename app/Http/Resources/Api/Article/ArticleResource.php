@@ -14,6 +14,7 @@ class ArticleResource extends JsonResource
             'description' => $this->description,
             'user_name' => $this->user->nickName ?? 'Без автора',
             'views' => $this->views,
+            'likes' => $this->likes[0]->quantity ?? 0,
             'count_comments' => $this->comments()->count(),
             'image' => $this->when($this->image, fn() => $this->image),
             'created_at' => $this->setDate($this->created_at),
