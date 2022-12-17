@@ -20,7 +20,7 @@ final class ArticleBuilder implements QueryBuilder
     public function getAllApprovedArticles(): LengthAwarePaginator
     {
         return $this->getBuilder()
-            ->with('user')
+            ->with(['user', 'likes'])
             ->where('status', ArticleStatus::APPROVED)
             ->filter()
             ->sorted()
@@ -47,7 +47,7 @@ final class ArticleBuilder implements QueryBuilder
     public function getUserArticles(): LengthAwarePaginator
     {
         return $this->getBuilder()
-            ->with(['category', 'tags'])
+            ->with(['category', 'tags', 'likes'])
             ->where('user_id', auth()->id())
             ->where('status', ArticleStatus::APPROVED)
             ->orderByDesc('created_at')

@@ -12,11 +12,11 @@ use Domain\User\Actions\Contracts\UpdateProfileContract;
 use Domain\User\DTO\UpdateProfileDto;
 use Illuminate\Http\JsonResponse;
 use Support\Enums\ArticleStatus;
-use Support\Traits\Validated;
+use Support\Traits\HasValidated;
 
 class ProfileController extends Controller
 {
-    use Validated;
+    use HasValidated;
 
     public function __construct(
         protected ArticleBuilder $builder

@@ -4,7 +4,7 @@ namespace Support\Traits;
 
 use Carbon\Carbon;
 
-trait DateConversion
+trait HasDateConversion
 {
     public function setDate(Carbon $value): string
     {

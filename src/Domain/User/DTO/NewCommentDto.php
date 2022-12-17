@@ -3,11 +3,11 @@
 namespace Domain\User\DTO;
 
 use Illuminate\Http\Request;
-use Support\Traits\Makeable;
+use Support\Traits\HasMakeable;
 
 final class NewCommentDto
 {
-    use Makeable;
+    use HasMakeable;
 
     public function __construct(
         public readonly string $comment,

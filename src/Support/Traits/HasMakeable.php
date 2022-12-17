@@ -2,7 +2,7 @@
 
 namespace Support\Traits;
 
-trait Makeable
+trait HasMakeable
 {
     public static function make(mixed ...$arguments): static
     {
