@@ -3,16 +3,17 @@
 namespace Domain\User\Models;
 
 use Domain\Information\Models\Article;
+use Domain\Interactive\Models\Like;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Support\Traits\DateConversion;
+use Support\Traits\HasDateConversion;
 
 class Comment extends Model
 {
-    use HasFactory, DateConversion;
+    use HasFactory, HasDateConversion;
 
     protected $fillable = [
         'comment',

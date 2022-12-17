@@ -2,24 +2,24 @@
 
 namespace App\Providers;
 
+use App\Contracts\RouteRegistrar;
 use App\Routing\AdminRegistrar;
 use App\Routing\AppRegistrar;
 use Domain\Information\Routing\ArticleRegistrar;
 use Domain\Information\Routing\CategoryRegistrar;
 use Domain\Information\Routing\TagRegistrar;
+use Domain\Interactive\Routing\LikeRegistrar;
+use Domain\User\Routing\AuthRegistrar;
 use Domain\User\Routing\CommentRegistrar;
-use Domain\User\Routing\LikeRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
 use Domain\User\Routing\UserRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
-use App\Contracts\RouteRegistrar;
-use Domain\User\Routing\AuthRegistrar;
-use Illuminate\Contracts\Routing\Registrar;
 use RuntimeException;
 
 class RouteServiceProvider extends ServiceProvider

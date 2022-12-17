@@ -4,7 +4,7 @@ use Domain\Information\ArticleManager;
 use Domain\Information\CategoryManager;
 use Domain\Information\Filters\FilterManager;
 use Domain\Information\TagManager;
-use Domain\User\LikeManager;
+use Domain\Interactive\LikeManager;
 use Support\Flash\Flash;
 use Support\Uploads\Contract\Upload;
 

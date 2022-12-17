@@ -10,11 +10,11 @@ use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Enums\ArticleStatus;
-use Support\Traits\Validated;
+use Support\Traits\HasValidated;
 
 final class ArticleManager
 {
-    use Validated;
+    use HasValidated;
 
     public function store(FormRequest $request): void
     {

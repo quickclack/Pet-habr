@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\User;
+namespace Domain\Interactive;
 
-use Domain\User\Queries\LikeBuilder;
+use Domain\Interactive\Queries\LikeBuilder;
 
 final class LikeManager
 {

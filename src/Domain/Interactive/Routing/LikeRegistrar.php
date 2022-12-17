@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User\Routing;
+namespace Domain\Interactive\Routing;
 
 use App\Contracts\RouteRegistrar;
 use App\Http\Controllers\Api\LikeController;

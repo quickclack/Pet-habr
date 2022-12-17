@@ -13,6 +13,7 @@ class ArticleResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'user_name' => $this->user->nickName ?? 'Без автора',
+            'avatar' => $this->user->avatar ?? null,
             'views' => $this->views,
             'likes' => $this->likes[0]->quantity ?? 0,
             'count_comments' => $this->comments()->count(),

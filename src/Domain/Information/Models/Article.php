@@ -3,23 +3,23 @@
 namespace Domain\Information\Models;
 
 use Domain\Information\Facades\Sorter;
-use Domain\User\Models\Like;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Pipeline\Pipeline;
-use Support\Enums\ArticleStatus;
+use Domain\Interactive\Models\Like;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Support\Traits\DateConversion;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Pipeline\Pipeline;
+use Support\Enums\ArticleStatus;
+use Support\Traits\HasDateConversion;
 
 class Article extends Model
 {
-    use HasFactory, DateConversion;
+    use HasFactory, HasDateConversion;
 
     protected $fillable = [
         'title',

@@ -1,9 +1,9 @@
 <?php
 
-namespace Domain\User\Queries;
+namespace Domain\Interactive\Queries;
 
 use App\Contracts\QueryBuilder;
-use Domain\User\Models\Like;
+use Domain\Interactive\Models\Like;
 use Illuminate\Database\Eloquent\Builder;
 
 class LikeBuilder implements QueryBuilder
