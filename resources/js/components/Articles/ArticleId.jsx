@@ -24,6 +24,7 @@ function ArticleId() {
   console.log('article - ', Object.entries(article).length !== 0 )
   
   useEffect(()=>{ 
+    dispatch(getDbArticle({ url: `/api/article/${articleId}` }));
     window.scroll(0, 0);
   },[])
 

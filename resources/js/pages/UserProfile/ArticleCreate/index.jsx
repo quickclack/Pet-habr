@@ -1,15 +1,20 @@
 import React, { useState, useEffect} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import './articleCreate.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAll } from "../../../store/categories"
 import { getDbTagsAll, getTagsAll } from "../../../store/tags"
-import { getDbArticleCreate } from "../../../store/articles"
+import { getDbArticleCreate, getArticle, getDbArticle } from "../../../store/articles"
 import { getToken } from "../../../store/userAuth"
 import VievMessage from '../../../components/VievMessage'
 
 export const ArticleCreate = () => {
+   const params = useParams();
    const dispatch = useDispatch(); 
+   const articleId = params.articleId
+   const editTrue = Object.entries(params).length !== 0
+   const articleDb = useSelector(getArticle) 
+   console.log ("articleDb - ", articleDb)
    const [article, setArticle] = useState({
       title: '', 
       description: '', 
@@ -18,11 +23,24 @@ export const ArticleCreate = () => {
       image:''
    })
    const [message, setMessage] = useState('');
+   
    useEffect(()=> {
       console.log("getDbTagsAll")
       dispatch( getDbTagsAll() );
-    },[]) 
-   
+      dispatch(getDbArticle({ url: `/api/article/${articleId}` }));
+      window.scroll(0, 0);
+      if (editTrue) {
+         setArticle({
+            title: articleDb.title,  
+            description: articleDb.description, 
+            category_id:articleDb.category.id, 
+            image:'',
+            tag_id: articleDb.tags.map((tag)=> tag.id),
+         })
+      }
+   },[]) 
+
+   console.log ("article - ", article)
    const categories = useSelector(getCategoriesAll)
    const tags = useSelector(getTagsAll)
    const token = useSelector(getToken )
@@ -30,8 +48,25 @@ export const ArticleCreate = () => {
    const articleCreate = async (event) =>{
       event.preventDefault();
       dispatch( getDbTagsAll(article));
-      const res = await dispatch( getDbArticleCreate({article, token}));
-      
+      const res = await dispatch( getDbArticleCreate({ 
+         url:'/api/profile/article/create',
+         article, 
+         token,
+         metod: 'post'
+      }));
+      setMessage(res)
+      setTimeout(()=>setMessage(''), 5000)
+
+   }
+   const articleUbdate = async (event) =>{
+      event.preventDefault();
+      // dispatch( getDbTagsAll(article));
+      const res = await dispatch( getDbArticleCreate({
+         url:`/api/profile/article/${articleId}/update`,
+         article, 
+         token,
+         metod:'put'
+      }));
       setMessage(res)
       setTimeout(()=>setMessage(''), 5000)
 
@@ -52,8 +87,10 @@ export const ArticleCreate = () => {
    return (
       <section className="wrapper">
          <div className="article__edit-page">
-            <form onSubmit={articleCreate} enctype="multipart/form-data">
-               <div className="article__edit-page-text">Новая статья</div>
+            <form onSubmit={editTrue ? articleUbdate :articleCreate} enctype="multipart/form-data">
+               <div className="article__edit-page-text">
+                  {editTrue ? "Отредактируйте статью":"Новая статья" }
+               </div>
                <div className="form">
                   <div className="text-field">
                      <label className="text-field__label" >Название</label>

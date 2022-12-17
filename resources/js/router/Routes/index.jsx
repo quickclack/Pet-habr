@@ -18,7 +18,7 @@ import UserProfile from '../../pages/UserProfile'
 import UserProfileArticles from '../../pages/UserProfile/Articles'
 import UserProfileComments from '../../pages/UserProfile/Сomments'
 import UserProfileArticle from '../../pages/UserProfile/Article'
-
+// import UserProfileArticleEdit from '../../pages/UserProfile/ArticleEdit'
 const Router = () => {
     const dispatch = useDispatch();
     const categoriesLinks = useSelector(getLinksCategoriesAll)
@@ -48,6 +48,7 @@ const Router = () => {
                                 <Route exact path='articles' element={<UserProfileArticles/>}/>
                                 <Route exact path='comments' element={<UserProfileComments/>}/>
                                 <Route exact path='article/:articleId' element={<UserProfileArticle/>}/>
+                                <Route exact path='article/:articleId/edit' element={<ArticleCreate/>}/>
                             </Route>
                         </Route>
                     </Routes>

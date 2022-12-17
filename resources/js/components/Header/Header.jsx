@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 // import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from "react-router-dom";
-import { getIsAuth, logOutUserAction, getToken, getUserNickName } from "../../store/userAuth";
+import { getIsAuth, logOutUserAction, getToken, getUserNickName, getUserRoles } from "../../store/userAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from '@mui/material/Box';
@@ -19,6 +19,7 @@ import VievMessage from '../VievMessage'
 export const Header = () => {
     const authed = useSelector(getIsAuth);
     const token = useSelector(getToken);
+    const roles = useSelector(getUserRoles);
     const nickName = useSelector(getUserNickName)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,11 +35,6 @@ export const Header = () => {
         setAnchorElUser(null);
     };
 
-    const settingsProfile = () => {
-        setAnchorElUser(null);
-        navigate("/auth/settigs/profile")
-    }
-    // /user/:nameUser
     const logOutUser = async () => {
         setAnchorElUser(null)
         const logout = await dispatch(logOutUserAction(token))
@@ -47,23 +43,20 @@ export const Header = () => {
         console.log("logout - "+  logout)
     }
     
-    const userProfileArticles = () => {
+    const userProfileTransfer = (url) => {
         setAnchorElUser(null);
-        navigate(`/users/${nickName}/articles`)
-    }
-
-    const userProfileComments = () => {
-        setAnchorElUser(null);
-        navigate(`/users/${nickName}/comments`)
+        setTimeout(() => {
+            navigate(url)
+        }, 1)
     }
 
     const settings = [
-        {title:'Статьи', action: userProfileArticles},
-        {title:'Комментарии', action: userProfileComments},
+        {title:'Статьи', action: () => userProfileTransfer(`/users/${nickName}/articles`)},
+        {title:'Комментарии', action: () => userProfileTransfer(`/users/${nickName}/comments`)},
         {title:'Диалоги', action: handleCloseUserMenu},
         {title:'Закладки', action: handleCloseUserMenu},
         {title:'Как стать автором', action: handleCloseUserMenu},
-        {title:'Настройки профиля', action: settingsProfile},
+        {title:'Настройки профиля', action: () => userProfileTransfer("/auth/settigs/profile")},
         {title:'Выход', action: logOutUser}
     ];
 
@@ -119,6 +112,14 @@ export const Header = () => {
                                             <Typography textAlign="center">{setting.title}</Typography>
                                         </MenuItem>
                                     ))}
+                                    { roles ? 
+                                        <MenuItem  onClick={() => {userProfileTransfer(`admin`)
+                                            setTimeout(()=>window.location.reload(),1) 
+                                        }}>
+                                                <Typography textAlign="center">Перейти в админку</Typography>
+                                        </MenuItem> 
+                                        :''
+                                    }
                                 </Menu>
                             </Box>
                                 

@@ -82,12 +82,8 @@ export const getDbArticle = ({url , token = '' }) => async (dispatch) => {
     }
 }
 
-
 export const getDbArticlesPage = ({param, page, token}) => async (dispatch) => {
-    console.log("getDbArticlesPage - ", page)
-    console.log("getDbArticlesPage - ", param)
     try{
-        
         const config = {
             method: 'post',
             url: `${param}page=${page}`,
@@ -96,8 +92,7 @@ export const getDbArticlesPage = ({param, page, token}) => async (dispatch) => {
                 Authorization: `Bearer ${token}`
             }
         };
-            console.log(config.url)
-            const articles = await axios(config)
+        const articles = await axios(config)
             .then(({data})=>{
                 dispatch(setArticlesAll(data));
             })
@@ -112,10 +107,10 @@ export const getDbArticlesSearch = (value) => async (dispatch) => {
         await axios.post("/api/search",{
             search: value,
         })
-            .then(({data})=>{
-                console.log(data);
-                dispatch(setArticlesAll(data));
-            })
+        .then(({data})=>{
+            console.log(data);
+            dispatch(setArticlesAll(data));
+        })
     } catch (e) {
         console.log(e.message);
     }
@@ -128,14 +123,14 @@ export const getDbArticlesFilters = (url) => async (dispatch) => {
             url: url,
             headers: { }
         })
-            .then(({data})=>{
-                dispatch(setArticlesAll(data));
-            })
+        .then(({data})=>{
+            dispatch(setArticlesAll(data));
+        })
     } catch (e) {
         console.log(e.message);
     }
 }
-export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
+export const getDbArticleCreate = ({url,article, token, metod}) => async (dispatch) => {
     console.log("getDbArticleCreate - ", article)
     try{
         const data = new FormData();
@@ -145,29 +140,28 @@ export const getDbArticleCreate = ({article, token}) => async (dispatch) => {
         article.tag_id.forEach((element,key) => data.append(`tags[${key}]`, element) );
         // data.append('tags', article.tag_id);
         data.append('image', article.image);
-        
+        console.log("data - ", data)
         const config = {
-            method: 'post',
-            url: '/api/profile/article/create',
+            method: metod,
+            url: url,
             headers: { 
                 Accept: 'application/json', 
                 Authorization: `Bearer ${token}`
-                
             },
             data:data
         }
-       const res =  await axios(config)
-            .then(({data})=>{
-               return data.message
-            })
-
-            return res
-            
+        const res =  await axios(config)
+        .then(({data})=>{
+            return data.message
+        })
+        return res
     } catch (e) {
-        return e.message
+        console.log("ошибка - ", e)
+        return e.response.data.message
+
     }
 }
-
+//запрос статей для вывода в профиле пользователя
 export const getDbArticlesUserProfile = ({url, token}) => async (dispatch) => {
     console.log("getDbArticlesUserProfile")
     try{
@@ -189,4 +183,23 @@ export const getDbArticlesUserProfile = ({url, token}) => async (dispatch) => {
     }
 }
 
-
+export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
+    console.log("getDbArticleDelete")
+    try{
+        const config = {
+            method: 'delete',
+            url: `/api/profile/article/${articleId}/delete`,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("ggetDbArticleDelete - ",  data)
+               
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
