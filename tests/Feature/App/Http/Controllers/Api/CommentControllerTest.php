@@ -77,7 +77,10 @@ class CommentControllerTest extends TestCase
 
         $this->post(action([CommentController::class, 'store']), $request, $this->authorize($user))
             ->assertOk()
-            ->assertJson(['message' => 'Комментарий успешно добавлен']);
+            ->assertJson([
+                'status' => 201,
+                'message' => 'Комментарий успешно добавлен(a)'
+            ]);
 
         $this->assertDatabaseHas('comments', [
             'comment' => $request['comment'],
@@ -101,7 +104,10 @@ class CommentControllerTest extends TestCase
 
         $this->put(action([CommentController::class, 'update'], $comment->getKey()), $request, $this->authorize($user))
             ->assertOk()
-            ->assertJson(['message' => 'Комментарий успешно обновлен']);
+            ->assertJson([
+                'status' => 200,
+                'message' => 'Комментарий успешно обновлен(а)'
+            ]);
 
         $this->assertDatabaseHas('comments', [
             'comment' => $request['comment']
@@ -122,7 +128,10 @@ class CommentControllerTest extends TestCase
 
         $this->delete(action([CommentController::class, 'destroy'], $comment->getKey()), $this->authorize($user))
             ->assertOk()
-            ->assertJson(['message' => 'Комментарий успешно удален']);
+            ->assertJson([
+                'status' => 200,
+                'message' => 'Комментарий успешно удален(а)'
+            ]);
 
         $this->assertDatabaseMissing('comments', [
             'comment' => 'Test',
@@ -148,7 +157,10 @@ class CommentControllerTest extends TestCase
 
         $this->post(action([CommentController::class, 'store']), $request, $this->authorize($user))
             ->assertOk()
-            ->assertJson(['message' => 'Комментарий успешно добавлен']);
+            ->assertJson([
+                'status' => 201,
+                'message' => 'Комментарий успешно добавлен(a)'
+            ]);
 
         $this->assertEquals(2, $comment->count());
 

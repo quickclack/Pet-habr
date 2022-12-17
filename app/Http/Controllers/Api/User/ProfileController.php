@@ -51,9 +51,7 @@ class ProfileController extends Controller
         $article = $this->builder->getArticleById($id);
 
         if (!$article) {
-            return response()->json([
-                'message' => 'Такой статьи нет'
-            ]);
+            return $this->missing('статьи');
         }
 
         return response()->json([
@@ -82,6 +80,6 @@ class ProfileController extends Controller
 
         $article->delete();
 
-        return response()->json(['message' => 'Статья успешно удалена']);
+        return $this->deleteSuccess('Статья');
     }
 }

@@ -35,6 +35,6 @@ class CategoryPageTest extends TestCase
     public function test_it_show_one_category_fail(): void
     {
         $this->post('/api/category/fail')
-            ->assertJson(['message' => 'Такой категории нет']);
+            ->assertJson(['message' => 'Нет такой категории']);
     }
 }

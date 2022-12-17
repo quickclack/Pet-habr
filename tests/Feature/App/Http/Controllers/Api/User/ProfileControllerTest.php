@@ -164,7 +164,10 @@ class ProfileControllerTest extends TestCase
 
         $this->delete(action([ProfileController::class, 'destroy'], $article->getKey()), $this->getToken($user))
             ->assertOk()
-            ->assertJson(['message' => 'Статья успешно удалена']);
+            ->assertJson([
+                'status' => 200,
+                'message' => 'Статья успешно удален(а)',
+            ]);
 
         $this->assertDatabaseMissing('articles', [
             'id' => $article->getKey()

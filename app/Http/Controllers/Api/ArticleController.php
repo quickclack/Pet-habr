@@ -22,9 +22,7 @@ class ArticleController extends Controller
         $article = $builder->getArticleById($id);
 
         if (!$article) {
-            return response()->json([
-                'message' => 'Такой статьи нет'
-            ]);
+            return $this->missing('статьи');
         }
 
         if ($article->user_id !== auth('sanctum')->id()) {

@@ -50,10 +50,3 @@ if (!function_exists('tag')) {
         return app(TagManager::class);
     }
 }
-
-if (!function_exists('like')) {
-    function like(): LikeManager
-    {
-        return app(LikeManager::class);
-    }
-}

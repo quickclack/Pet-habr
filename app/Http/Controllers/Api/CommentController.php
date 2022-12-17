@@ -29,7 +29,7 @@ class CommentController extends Controller
 
         $this->addReplyToComment($request, $comment);
 
-        return response()->json(['message' => 'Комментарий успешно добавлен']);
+        return $this->addSuccess('Комментарий');
     }
 
     public function update(CommentRequest $request, int $id): JsonResponse
@@ -40,7 +40,7 @@ class CommentController extends Controller
 
         $comment->update($request->validated());
 
-        return response()->json(['message' => 'Комментарий успешно обновлен']);
+        return $this->updateSuccess('Комментарий');
     }
 
     public function destroy(int $id): JsonResponse
@@ -51,7 +51,7 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return response()->json(['message' => 'Комментарий успешно удален']);
+        return $this->deleteSuccess('Комментарий');
     }
 
     private function addReplyToComment(CommentRequest $request, Comment $comment): void

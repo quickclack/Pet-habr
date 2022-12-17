@@ -19,7 +19,7 @@ final class LikeManager
 
         $like = !$model->likes()->exists()
             ? $model->likes()->create()
-            : $this->builder->getLike($id);
+            : $this->builder->getLike($id, $key);
 
         $like->quantity += 1;
 

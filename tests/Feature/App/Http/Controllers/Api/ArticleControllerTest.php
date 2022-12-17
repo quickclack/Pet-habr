@@ -40,7 +40,10 @@ class ArticleControllerTest extends TestCase
     public function test_it_show_one_article_fail(): void
     {
         $this->post(action([ArticleController::class, 'getArticleById'], 500))
-            ->assertJson(['message' => 'Такой статьи нет']);
+            ->assertJson([
+                'status' => 404,
+                'message' => 'Нет такой статьи'
+            ]);
     }
 
     public function test_it_search_response_success(): void
