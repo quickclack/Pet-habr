@@ -31,3 +31,7 @@ export const getUserNickName = (state) => {
    //  console.log(state.auth)
    return state.auth.user.nickName
 };
+export const getUserRoles = (state) => {
+   //  console.log(state.auth)
+   return (state.auth.user.roles === "Administrator" || state.auth.user.roles === "Moderator")
+};

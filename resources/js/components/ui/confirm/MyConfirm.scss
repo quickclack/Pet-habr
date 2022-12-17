@@ -1,0 +1,59 @@
+.confirm{
+   &__container{
+      position: absolute;
+      background-color: rgb(70 108 106 / 61%);
+      width: 97%;
+      height: 100%;
+      bottom: 0;
+      justify-content: center;
+      align-items: center;
+      display: none;
+   }
+   &__window{
+      
+      width: 300px;
+      height: 150px;
+      background-color: rgb(253 253 253);
+      border: 3px solid #9bd3d3;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: vizible 0.1s linear;
+   }
+   &__cont-button{
+      margin-top: 20px;
+      display: flex;
+   }
+   &__children{
+      margin: 10px;
+      text-align: center;
+   }
+   &__button{
+      margin: 0 15px;
+      width: 60px;
+      
+      border: 1px solid #9bd3d3;
+      border-radius: 5px;
+      text-align: center;
+      &:hover{
+         cursor: pointer;
+         background-color: rgb(162 228 233 / 52%);
+      }
+   }
+   &__active{
+      display: flex;
+     
+   }
+
+}
+
+@keyframes vizible {
+   0% {
+      transform: scale(0.1);
+     }
+   100% {
+      transform: scale(1);
+     }
+ }
