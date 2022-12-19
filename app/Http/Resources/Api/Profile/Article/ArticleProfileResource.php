@@ -16,7 +16,7 @@ class ArticleProfileResource extends JsonResource
             'description' => $this->description,
             'image' => $this->image,
             'views' => $this->views,
-            'likes' => $this->likes[0]->quantity ?? 0,
+            'likes' => $this->likes()->count(),
             'category' => new CategoryResource($this->category),
             'tags' => TagResource::collection($this->tags),
             'status' => $this->status->getStatus(),

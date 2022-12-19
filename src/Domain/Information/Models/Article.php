@@ -3,7 +3,6 @@
 namespace Domain\Information\Models;
 
 use Domain\Information\Facades\Sorter;
-use Domain\Interactive\Models\Like;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Pipeline\Pipeline;
 use Support\Enums\ArticleStatus;
 use Support\Traits\HasDateConversion;
@@ -61,9 +59,9 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function likes(): MorphMany
+    public function likes(): BelongsToMany
     {
-        return $this->morphMany(Like::class, 'likeable');
+        return $this->belongsToMany(User::class, 'likes');
     }
 
     public function scopeFilter(Builder $query): mixed
