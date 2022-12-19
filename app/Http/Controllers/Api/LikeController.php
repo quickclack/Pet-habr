@@ -13,13 +13,13 @@ class LikeController extends Controller
     {
         $article->likes()->toggle(auth('sanctum')->id());
 
-        return $this->addSuccess('Лайк');
+        return $this->amount($article->likes()->count());
     }
 
     public function toggleComment(Comment $comment): JsonResponse
     {
         $comment->likes()->toggle(auth('sanctum')->id());
 
-        return $this->addSuccess('Лайк');
+        return $this->amount($comment->likes()->count());
     }
 }

@@ -182,7 +182,7 @@ export const UserInfoTrunk = (token) => async (dispatch) => {
     }
 }
 //запрос колличества статей комментариев закладок для профиля
-export const AmountInfoTrunk = (token) => async (dispatch) => {
+export const getDbAmountInfoTrunk = (token) => async (dispatch) => {
     console.log("UserInfoTrunk")
     console.log(token)
     try{

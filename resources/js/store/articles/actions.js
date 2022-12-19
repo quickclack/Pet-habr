@@ -7,6 +7,7 @@ export const SET_ARTICLE_PASSING = 'SET_ARTICLE_PASSING';
 export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
 export const SET_ARTICLES_PAGES_URL = 'SET_ARTICLES_PAGES_URL'
 export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
+export const SET_ARTICLE_LIKE_AMOUNT = 'SET_ARTICLE_LIKE_AMOUNT'
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
@@ -37,6 +38,11 @@ export const setArticlesPagesUrl = (payload) => ({
 
 export const setArticleCountComments = (payload) => ({
     type: SET_ARTICLE_COUNT_COMMENTS,
+    payload: payload
+})
+
+export const setArticleLikeAmount = (payload) => ({
+    type: SET_ARTICLE_LIKE_AMOUNT,
     payload: payload
 })
 
@@ -205,12 +211,12 @@ export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
     }
 }
 
-export const getDbArticlesAmount = ({ token}) => async (dispatch) => {
+export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
     console.log("getDbArticlesAmount")
     try{
         const config = {
-            method: 'delete',
-            url: `/api/profile/article/${articleId}/delete`,
+            method: 'post',
+            url: `/api/article/${articleId}/like`,
             headers: { 
                 Accept: 'application/json', 
                 Authorization: `Bearer ${token}`
@@ -218,8 +224,8 @@ export const getDbArticlesAmount = ({ token}) => async (dispatch) => {
         };
         const articles = await axios(config)
             .then(({data})=>{
-                console.log("ggetDbArticleDelete - ",  data)
-               
+                console.log("getDbArticleLike - ",  data)
+                dispatch(setArticleLikeAmount(data.amount));
             })
     } catch (e) {
         console.log(e.message);

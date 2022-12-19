@@ -4,20 +4,21 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import {Link, useNavigate} from "react-router-dom";
-import { getUserAmount } from "../../../store/userAuth"
+import { getUserAmount, getToken, getDbAmountInfoTrunk } from "../../../store/userAuth"
 
 export default function LabTabs({link, nickName }) {
    const navigate = useNavigate();
    const [value, setValue] = useState(link);
    const amount = useSelector(getUserAmount)
+   const token = useSelector(getToken)
    console.log (amount)
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
-
+   const dispatch = useDispatch(); 
    useEffect(()=>{ 
       setValue(link);
-
+      dispatch(getDbAmountInfoTrunk(token))
     },[link])
 
    const userProfileTransfer = (url) => {
