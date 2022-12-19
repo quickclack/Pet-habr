@@ -34,7 +34,8 @@ class ProfileController extends Controller
     {
         article()->store($request);
 
-        return response()->json(['message' => 'Статья отправлена на модерацию']);
+        return response()
+            ->json(['message' => 'Статья отправлена на модерацию']);
     }
 
     public function getUserArticles(): ArticleProfileCollection
@@ -57,11 +58,18 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function getCountUserArticles(): JsonResponse
+    {
+        return response()
+            ->json(['count' => $this->builder->getCountUserArticles()]);
+    }
+
     public function update(ArticleRequest $request, int $id): JsonResponse
     {
         article()->updateInProfile($request, $id);
 
-        return response()->json(['message' => 'Статья успешно обновлена и отправлена на модерацию']);
+        return response()
+            ->json(['message' => 'Статья успешно обновлена и отправлена на модерацию']);
     }
 
     public function destroy(int $id): JsonResponse
