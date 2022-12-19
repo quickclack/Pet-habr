@@ -18,6 +18,8 @@ import UserProfile from '../../pages/UserProfile'
 import UserProfileArticles from '../../pages/UserProfile/Articles'
 import UserProfileComments from '../../pages/UserProfile/Сomments'
 import UserProfileArticle from '../../pages/UserProfile/Article'
+import UserProfileBookmarks from '../../pages/UserProfile/Bookmarks'
+import UserProfileProfile from '../../pages/UserProfile/Profile'
 // import UserProfileArticleEdit from '../../pages/UserProfile/ArticleEdit'
 const Router = () => {
     const dispatch = useDispatch();
@@ -47,6 +49,8 @@ const Router = () => {
                             <Route exact path='/users/:nameUser' element={<UserProfile/>}>
                                 <Route exact path='articles' element={<UserProfileArticles/>}/>
                                 <Route exact path='comments' element={<UserProfileComments/>}/>
+                                <Route exact path='bookmarks' element={<UserProfileBookmarks/>}/>
+                                <Route exact path='profile' element={<UserProfileProfile/>}/>
                                 <Route exact path='article/:articleId' element={<UserProfileArticle/>}/>
                                 <Route exact path='article/:articleId/edit' element={<ArticleCreate/>}/>
                             </Route>

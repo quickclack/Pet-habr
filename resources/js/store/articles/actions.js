@@ -130,7 +130,7 @@ export const getDbArticlesFilters = (url) => async (dispatch) => {
         console.log(e.message);
     }
 }
-export const getDbArticleCreate = ({url,article, token, metod}) => async (dispatch) => {
+export const getDbArticleCreate = ({url,article, token, method}) => async (dispatch) => {
     console.log("getDbArticleCreate - ", article)
     try{
         const data = new FormData();
@@ -140,9 +140,10 @@ export const getDbArticleCreate = ({url,article, token, metod}) => async (dispat
         article.tag_id.forEach((element,key) => data.append(`tags[${key}]`, element) );
         // data.append('tags', article.tag_id);
         data.append('image', article.image);
+        data.append('_method', method);
         console.log("data - ", data)
         const config = {
-            method: metod,
+            method: 'post',
             url: url,
             headers: { 
                 Accept: 'application/json', 

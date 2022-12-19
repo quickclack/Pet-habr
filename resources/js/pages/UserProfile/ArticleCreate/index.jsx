@@ -13,7 +13,8 @@ export const ArticleCreate = () => {
    const dispatch = useDispatch(); 
    const articleId = params.articleId
    const editTrue = Object.entries(params).length !== 0
-   const articleDb = useSelector(getArticle) 
+   const articleDb = useSelector(getArticle)
+  
    console.log ("articleDb - ", articleDb)
    const [article, setArticle] = useState({
       title: '', 
@@ -27,7 +28,7 @@ export const ArticleCreate = () => {
    useEffect(()=> {
       console.log("getDbTagsAll")
       dispatch( getDbTagsAll() );
-      dispatch(getDbArticle({ url: `/api/article/${articleId}` }));
+      dispatch(getDbArticle({ url: `/api/article/${articleId}`, token }));
       window.scroll(0, 0);
       if (editTrue) {
          setArticle({
@@ -38,7 +39,7 @@ export const ArticleCreate = () => {
             tag_id: articleDb.tags.map((tag)=> tag.id),
          })
       }
-   },[]) 
+   },[articleId]) 
 
    console.log ("article - ", article)
    const categories = useSelector(getCategoriesAll)
@@ -52,7 +53,7 @@ export const ArticleCreate = () => {
          url:'/api/profile/article/create',
          article, 
          token,
-         metod: 'post'
+         method: 'post'
       }));
       setMessage(res)
       setTimeout(()=>setMessage(''), 5000)
@@ -65,7 +66,7 @@ export const ArticleCreate = () => {
          url:`/api/profile/article/${articleId}/update`,
          article, 
          token,
-         metod:'put'
+         method:'put'
       }));
       setMessage(res)
       setTimeout(()=>setMessage(''), 5000)
@@ -134,8 +135,12 @@ export const ArticleCreate = () => {
                         defaultValue={article.tag_id}
                         multiple="multiple"
                         >
-                        {tags.map(option =>
-                           <option key={option.id} value={option.id} onClick={e => setTags(e)}>
+                        {tags.map((option, key) =>
+                           <option key={option.id} 
+                              value={option.id} 
+                              onClick={e => setTags(e)}
+                              // {article.tag_id.forEach(tag => tag === option.id ? selected : '')}
+                           >
                               {option.title}
                            </option>
                         )}

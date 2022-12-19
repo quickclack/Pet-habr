@@ -1,0 +1,23 @@
+.profile{
+    &__container{
+        padding: 15px 0 0 15px;
+        background-color: rgb(255, 255, 255);
+        margin-bottom: 3px;
+        p{
+            margin: 0;
+        }
+    }
+    &__header{
+        display: flex;
+        h3 {margin: 0;}
+        p {
+            margin: 0 10px;
+            color:rgb(165 162 162)
+        }
+    }
+    &__menu{
+        background-color: rgb(255, 255, 255);
+        padding-left: 20px;
+    }
+    
+}

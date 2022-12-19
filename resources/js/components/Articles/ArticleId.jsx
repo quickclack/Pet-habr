@@ -24,7 +24,7 @@ function ArticleId() {
   console.log('article - ', Object.entries(article).length !== 0 )
   
   useEffect(()=>{ 
-    dispatch(getDbArticle({ url: `/api/article/${articleId}` }));
+    dispatch(getDbArticle({ url: `/api/article/${articleId}` , token}));
     window.scroll(0, 0);
   },[])
 
@@ -38,7 +38,7 @@ function ArticleId() {
           <div className="articleId">
             <div className="articleId__header ">
               {params.nameUser ? "ttt":
-                <h4> {userName}</h4>}
+                <h4> {article.user.nickName}</h4>}
                 
               <h5> &emsp;{article.created_at}&ensp;</h5>
             </div>
