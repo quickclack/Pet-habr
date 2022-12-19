@@ -61,7 +61,8 @@ class Article extends Model
 
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'likes');
+        return $this->belongsToMany(User::class, 'likes')
+            ->withTimestamps();
     }
 
     public function scopeFilter(Builder $query): mixed
