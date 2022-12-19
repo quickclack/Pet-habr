@@ -34,7 +34,7 @@ export const ArticleCreate = () => {
          setArticle({
             title: articleDb.title,  
             description: articleDb.description, 
-            category_id:articleDb.category.id, 
+            category_id:articleDb.category.id ||'', 
             image:'',
             tag_id: articleDb.tags.map((tag)=> tag.id),
          })

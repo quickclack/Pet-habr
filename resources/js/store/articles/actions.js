@@ -204,3 +204,24 @@ export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
         console.log(e.message);
     }
 }
+
+export const getDbArticlesAmount = ({ token}) => async (dispatch) => {
+    console.log("getDbArticlesAmount")
+    try{
+        const config = {
+            method: 'delete',
+            url: `/api/profile/article/${articleId}/delete`,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("ggetDbArticleDelete - ",  data)
+               
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}

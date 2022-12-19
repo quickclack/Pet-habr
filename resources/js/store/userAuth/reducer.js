@@ -1,4 +1,4 @@
-import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, SET_ERROR} from "./actions"
+import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, SET_ERROR, AMOUNT_IN_USER} from "./actions"
 
 const initialState = {
     user: {
@@ -8,7 +8,8 @@ const initialState = {
         id: null,
         nickName : ''
     },
-    errors: null
+    errors: null,
+    amount:{}
 }
 
 export const userAuthReducer = (state = initialState, {type, payload})=> {
@@ -35,6 +36,12 @@ export const userAuthReducer = (state = initialState, {type, payload})=> {
             return {
                 ...state,
                 errors: payload
+            }
+        }
+        case(AMOUNT_IN_USER):{
+            return {
+                ...state,
+                amount: payload
             }
         }
         default : {

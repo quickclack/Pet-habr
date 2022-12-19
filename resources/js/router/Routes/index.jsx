@@ -52,8 +52,9 @@ const Router = () => {
                                 <Route exact path='bookmarks' element={<UserProfileBookmarks/>}/>
                                 <Route exact path='profile' element={<UserProfileProfile/>}/>
                                 <Route exact path='article/:articleId' element={<UserProfileArticle/>}/>
-                                <Route exact path='article/:articleId/edit' element={<ArticleCreate/>}/>
+                                
                             </Route>
+                            <Route exact path='/users/:nameUser/article/:articleId/edit' element={<ArticleCreate/>}/>
                         </Route>
                     </Routes>
                 </div>

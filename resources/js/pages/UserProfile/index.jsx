@@ -33,9 +33,9 @@ function UserProfile() {
           </div> 
           <p> {user.roles ? user.roles : "Пользователь"} </p>
         </div>
-        <div className="profile__menu">
+        {link[3] === "article"? "" : <div className="profile__menu">
           <LabTabs link={link[3]} nickName={user.nickName}/>
-        </div>
+        </div>}
         <Outlet />
         
       </>
