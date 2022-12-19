@@ -8,10 +8,8 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileCollection;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileResource;
 use Domain\Information\Queries\ArticleBuilder;
-use Domain\User\Actions\Contracts\UpdateProfileContract;
-use Domain\User\DTO\UpdateProfileDto;
+use Domain\User\Queries\UserBuilder;
 use Illuminate\Http\JsonResponse;
-use Support\Enums\ArticleStatus;
 use Support\Traits\HasValidated;
 
 class ProfileController extends Controller
@@ -23,13 +21,13 @@ class ProfileController extends Controller
     ){
     }
 
-    public function updateProfile(ProfileRequest $request, UpdateProfileContract $contract, int $id): JsonResponse
+    public function updateProfile(ProfileRequest $request, UserBuilder $builder): JsonResponse
     {
-        $contract(UpdateProfileDto::formRequest(
-            $this->validated($request, 'avatar', 'avatars')
-        ), $id);
+        $user = $builder->getUserById();
 
-        return response()->json(['message' => 'Профиль успешно обновлен']);
+        $user->update($this->validated($request, 'avatar', 'avatars'));
+
+        return $this->updateSuccess('Профиль');
     }
 
     public function createArticle(ArticleRequest $request): JsonResponse
@@ -61,24 +59,14 @@ class ProfileController extends Controller
 
     public function update(ArticleRequest $request, int $id): JsonResponse
     {
-        $article = $this->builder->getArticleById($id);
-
-        $this->authorize('update-article', $article);
-
-        $article->status = ArticleStatus::NEW;
-
-        $article->update($request->validated());
+        article()->updateInProfile($request, $id);
 
         return response()->json(['message' => 'Статья успешно обновлена и отправлена на модерацию']);
     }
 
     public function destroy(int $id): JsonResponse
     {
-        $article = $this->builder->getArticleById($id);
-
-        $this->authorize('delete-article', $article);
-
-        $article->delete();
+        article()->destroyInProfile($id);
 
         return $this->deleteSuccess('Статья');
     }

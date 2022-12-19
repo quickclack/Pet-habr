@@ -22,10 +22,10 @@ final class UserBuilder implements QueryBuilder
             ->firstOrFail();
     }
 
-    public function getUserById(int $id): ?Model
+    public function getUserById(): ?Model
     {
         return $this->getBuilder()
-            ->findOrFail($id);
+            ->findOrFail(auth('sanctum')->id());
     }
 
     public function getAllUsers(): Collection

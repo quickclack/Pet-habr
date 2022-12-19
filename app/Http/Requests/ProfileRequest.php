@@ -15,7 +15,7 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => ['string', 'max:10', 'min:1'],
+            'firstName' => ['required', 'string', 'max:10', 'min:1'],
             'lastName' => ['string', 'max:15', 'min:1'],
             'password' => [Password::default()],
             'description' => ['string', 'max:50', 'min:1'],

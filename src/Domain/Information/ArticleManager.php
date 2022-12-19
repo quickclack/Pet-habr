@@ -8,13 +8,14 @@ use App\Jobs\ArticleApprovalJob;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Enums\ArticleStatus;
 use Support\Traits\HasValidated;
 
 final class ArticleManager
 {
-    use HasValidated;
+    use HasValidated, AuthorizesRequests;
 
     public function store(FormRequest $request): void
     {
@@ -34,9 +35,29 @@ final class ArticleManager
         $article->tags()->sync($request->tags);
     }
 
+    public function updateInProfile(FormRequest $request, int $id): void
+    {
+        $article = Article::findOrFail($id);
+
+        $this->authorize('update-article', $article);
+
+        $article->status = ArticleStatus::NEW;
+
+        $article->update($this->validated($request, 'image', 'articles'));
+    }
+
     public function destroy(Article $article): void
     {
         $article->tags()->sync([]);
+
+        $article->delete();
+    }
+
+    public function destroyInProfile(int $id): void
+    {
+        $article = Article::findOrFail($id);
+
+        $this->authorize('delete-article', $article);
 
         $article->delete();
     }
