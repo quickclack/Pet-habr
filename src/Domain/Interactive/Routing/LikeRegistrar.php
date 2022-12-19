@@ -12,7 +12,8 @@ class LikeRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         Route::middleware('api')->prefix('api')->group(function () {
-            Route::post('/like', LikeController::class);
+            Route::post('/article/{article}/like', [LikeController::class, 'toggleArticle']);
+            Route::post('/comment/{comment}/like', [LikeController::class, 'toggleComment']);
         });
     }
 }

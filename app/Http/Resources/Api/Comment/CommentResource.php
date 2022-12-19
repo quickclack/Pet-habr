@@ -11,7 +11,7 @@ class CommentResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,
-            'likes' => $this->likes[0]->quantity ?? 0,
+            'likes' => $this->likes()->count(),
             'comment' => $this->comment,
             'user_name' => $this->user->nickName,
             'avatar' => $this->user->avatar ?? null,
@@ -24,7 +24,9 @@ class CommentResource extends JsonResource
                         'id' => $item->id,
                         'comment' => $item->comment,
                         'user_id' => $item->user->id,
+                        'likes' => $this->likes()->count(),
                         'user_name' => $item->user->nickName,
+                        'avatar' => $this->user->avatar ?? null,
                         'parent_id' => $this->id,
                         'created_at' => $this->setDate($item->created_at)
                     ])->toArray();
