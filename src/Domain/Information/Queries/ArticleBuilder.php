@@ -67,11 +67,4 @@ final class ArticleBuilder implements QueryBuilder
             ->where('status', ArticleStatus::REJECTED)
             ->count();
     }
-
-    public function getCountUserArticles(): int
-    {
-        return $this->getBuilder()
-            ->where('user_id', auth('sanctum')->id())
-            ->count();
-    }
 }

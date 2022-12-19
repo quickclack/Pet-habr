@@ -10,6 +10,7 @@ use App\Http\Resources\Api\Profile\Article\ArticleProfileResource;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Queries\UserBuilder;
 use Illuminate\Http\JsonResponse;
+use Support\Enums\ArticleStatus;
 use Support\Traits\HasValidated;
 
 class ProfileController extends Controller
@@ -17,13 +18,14 @@ class ProfileController extends Controller
     use HasValidated;
 
     public function __construct(
-        protected ArticleBuilder $builder
+        protected ArticleBuilder $articleBuilder,
+        protected UserBuilder $userBuilder,
     ){
     }
 
-    public function updateProfile(ProfileRequest $request, UserBuilder $builder): JsonResponse
+    public function updateProfile(ProfileRequest $request): JsonResponse
     {
-        $user = $builder->getUserById();
+        $user = $this->userBuilder->getUserById();
 
         $user->update($this->validated($request, 'avatar', 'avatars'));
 
@@ -41,13 +43,13 @@ class ProfileController extends Controller
     public function getUserArticles(): ArticleProfileCollection
     {
         return new ArticleProfileCollection(
-            $this->builder->getUserArticles()
+            $this->articleBuilder->getUserArticles()
         );
     }
 
     public function getArticleById(int $id): JsonResponse
     {
-        $article = $this->builder->getArticleById($id);
+        $article = $this->articleBuilder->getArticleById($id);
 
         if (!$article) {
             return $this->missing('статьи');
@@ -58,10 +60,16 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function getCountUserArticles(): JsonResponse
+    public function getAllAmountForUser(): JsonResponse
     {
-        return response()
-            ->json(['count' => $this->builder->getCountUserArticles()]);
+        $user = $this->userBuilder->getUserById();
+
+        return response()->json([
+                'amount_articles' => $user->articles()
+                    ->where('status', ArticleStatus::APPROVED)
+                    ->count(),
+                'amount_comments' => $user->comments()->count(),
+            ]);
     }
 
     public function update(ArticleRequest $request, int $id): JsonResponse
