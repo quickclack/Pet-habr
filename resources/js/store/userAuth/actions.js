@@ -3,6 +3,8 @@ export const SIGNUP_USER = "SIGNUP_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_ERROR = "SET_ERROR";
+export const AMOUNT_IN_USER = "AMOUNT_IN_USER";
+
 export const setErrorAction = (error) => ({
     type: SET_ERROR,
     payload: error
@@ -14,6 +16,12 @@ export const logInUser = (user) => ({
 export const logOutUser = () => ({
     type: LOGOUT_USER,
 });
+export const setAmountInUser = (amount) => ({
+    type: AMOUNT_IN_USER,
+    payload: amount
+})
+setAmountInUser
+
 //регистрация
 export const signUpUserTrunk = (user) => async (dispatch) => {
     console.log("signUpUser")
@@ -166,6 +174,30 @@ export const UserInfoTrunk = (token) => async (dispatch) => {
             .then(({data})=>{
                 console.log('data', data)
                 dispatch(logInUser(data));
+                dispatch(setErrorAction(null))
+            })
+    } catch (e) {
+        console.log("ошибка - ",e)
+        // dispatch(setErrorAction(e.response.data.message))
+    }
+}
+//запрос колличества статей комментариев закладок для профиля
+export const getDbAmountInfoTrunk = (token) => async (dispatch) => {
+    console.log("UserInfoTrunk")
+    console.log(token)
+    try{
+        const config = {
+            method: 'post',
+            url: '/api/profile/amount',
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        await   axios(config)
+            .then(({data})=>{
+                console.log('data', data)
+                dispatch(setAmountInUser(data));
                 dispatch(setErrorAction(null))
             })
     } catch (e) {

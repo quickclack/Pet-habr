@@ -38,4 +38,11 @@ trait HasResponseWrapper
             'message' => 'Нет такой ' . $name,
         ]);
     }
+
+    public function amount(int $amount): JsonResponse
+    {
+        return response()->json([
+            'amount' => $amount,
+        ]);
+    }
 }

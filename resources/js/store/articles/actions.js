@@ -7,6 +7,7 @@ export const SET_ARTICLE_PASSING = 'SET_ARTICLE_PASSING';
 export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
 export const SET_ARTICLES_PAGES_URL = 'SET_ARTICLES_PAGES_URL'
 export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
+export const SET_ARTICLE_LIKE_AMOUNT = 'SET_ARTICLE_LIKE_AMOUNT'
 
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
@@ -37,6 +38,11 @@ export const setArticlesPagesUrl = (payload) => ({
 
 export const setArticleCountComments = (payload) => ({
     type: SET_ARTICLE_COUNT_COMMENTS,
+    payload: payload
+})
+
+export const setArticleLikeAmount = (payload) => ({
+    type: SET_ARTICLE_LIKE_AMOUNT,
     payload: payload
 })
 
@@ -130,7 +136,7 @@ export const getDbArticlesFilters = (url) => async (dispatch) => {
         console.log(e.message);
     }
 }
-export const getDbArticleCreate = ({url,article, token, metod}) => async (dispatch) => {
+export const getDbArticleCreate = ({url,article, token, method}) => async (dispatch) => {
     console.log("getDbArticleCreate - ", article)
     try{
         const data = new FormData();
@@ -140,9 +146,10 @@ export const getDbArticleCreate = ({url,article, token, metod}) => async (dispat
         article.tag_id.forEach((element,key) => data.append(`tags[${key}]`, element) );
         // data.append('tags', article.tag_id);
         data.append('image', article.image);
+        data.append('_method', method);
         console.log("data - ", data)
         const config = {
-            method: metod,
+            method: 'post',
             url: url,
             headers: { 
                 Accept: 'application/json', 
@@ -198,6 +205,27 @@ export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
             .then(({data})=>{
                 console.log("ggetDbArticleDelete - ",  data)
                
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
+    console.log("getDbArticlesAmount")
+    try{
+        const config = {
+            method: 'post',
+            url: `/api/article/${articleId}/like`,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("getDbArticleLike - ",  data)
+                dispatch(setArticleLikeAmount(data.amount));
             })
     } catch (e) {
         console.log(e.message);

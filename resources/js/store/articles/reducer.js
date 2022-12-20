@@ -4,7 +4,8 @@ import {
     SET_ARTICLE_PASSING, 
     SET_ARTICLE_PASSING_NULL,
     SET_ARTICLES_PAGES_URL,
-    SET_ARTICLE_COUNT_COMMENTS
+    SET_ARTICLE_COUNT_COMMENTS,
+    SET_ARTICLE_LIKE_AMOUNT
 } from "./actions";
 
 
@@ -33,7 +34,7 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             // console.log("articleReducer", payload)
             return {
                 ...state,
-                article:payload
+                article:{...payload}
             }
         }
         case SET_ARTICLES_NULL: {
@@ -68,6 +69,13 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 article: {...state.article, count_comments: payload}
+            }
+        }
+        case SET_ARTICLE_LIKE_AMOUNT: {
+
+            return {
+                ...state,
+                article: {...state.article, likes: payload}
             }
         }
         default:{
