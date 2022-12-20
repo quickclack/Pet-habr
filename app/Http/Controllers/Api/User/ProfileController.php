@@ -86,4 +86,23 @@ class ProfileController extends Controller
 
         return $this->deleteSuccess('Статья');
     }
+
+    public function getUserFavoriteArticles(): ArticleProfileCollection
+    {
+        return new ArticleProfileCollection(
+            $this->articleBuilder->getUserFavoriteArticles()
+        );
+    }
+    public function addToFavorites(int $id)
+    {
+        $user = $this->userBuilder->getUserById();
+        $user->favoriteArticles()->syncWithoutDetaching($id);
+        return response()->json(['message' => 'Статья добавлена в избранное']);
+    }
+    public function removeFromFavorites(int $id)
+    {
+        $user = $this->userBuilder->getUserById();
+        $user->favoriteArticles()->detach($id);
+        return response()->json(['message' => 'Статья убрана из избранного']);
+    }
 }

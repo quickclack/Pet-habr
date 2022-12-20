@@ -3,6 +3,7 @@
 namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
@@ -66,5 +67,16 @@ final class ArticleBuilder implements QueryBuilder
         return $this->getBuilder()
             ->where('status', ArticleStatus::REJECTED)
             ->count();
+    }
+
+    public function getUserFavoriteArticles(): LengthAwarePaginator
+    {
+        $user = User::findOrFail(auth()->id());
+        return $user
+            ->favoriteArticles()
+            ->with(['category', 'tags', 'likes'])
+            ->where('status', ArticleStatus::APPROVED)
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 }

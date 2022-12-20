@@ -59,4 +59,10 @@ class User extends Authenticatable
 
         return $roles->name ?? null;
     }
+
+    public function favoriteArticles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class, 'user_favorite_articles');
+    }
+
 }

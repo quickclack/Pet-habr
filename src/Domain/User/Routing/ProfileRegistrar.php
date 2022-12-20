@@ -27,6 +27,12 @@ class ProfileRegistrar implements RouteRegistrar
                 Route::delete('/profile/article/{article:id}/delete', 'destroy');
 
                 Route::post('/profile/article/{article:id}', 'getArticleById');
+
+                Route::post('/profile/favoriteArticles', 'getUserFavoriteArticles');
+
+                Route::post('/profile/favoriteArticle/{article:id}/add', 'addToFavorites');
+
+                Route::post('/profile/favoriteArticle/{article:id}/remove', 'removeFromFavorites');
             });
         });
     }
