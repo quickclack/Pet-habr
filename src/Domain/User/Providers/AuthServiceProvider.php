@@ -5,6 +5,7 @@ namespace Domain\User\Providers;
 use App\Policies\ArticlePolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\TagPolicy;
+use App\Policies\UserPolicy;
 use Domain\Information\Models\Article;
 use Domain\Information\Models\Category;
 use Domain\Information\Models\Tag;
@@ -19,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         Article::class => ArticlePolicy::class,
         Category::class => CategoryPolicy::class,
         Tag::class => TagPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     public function register(): void
