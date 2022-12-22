@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\View\ViewModels\User\UserEditViewModel;
+use App\View\ViewModels\User\UserIndexViewModel;
+use Domain\User\Models\User;
+use Domain\User\Queries\UserBuilder;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function index(UserBuilder $builder): UserIndexViewModel
+    {
+        return (new UserIndexViewModel($builder))
+            ->view('admin.users.index');
+    }
+
+    public function edit(User $user): UserEditViewModel
+    {
+        return (new UserEditViewModel($user))
+            ->view('admin.users.edit');
+    }
+
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        user()->update($request, $user);
+
+        flash()->success('Пользователь успешно обновлен');
+
+        return to_route('admin.users.index');
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+        user()->destroy($user);
+
+        flash()->success('Пользователь успешно обновлен');
+
+        return to_route('admin.users.index');
+    }
+}

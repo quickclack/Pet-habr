@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,9 @@ class AdminRegistrar implements RouteRegistrar
 
                 Route::resource('/tags', TagController::class)
                     ->names('admin.tags');
+
+                Route::resource('/users', UserController::class)
+                    ->names('admin.users');
             });
         });
     }
