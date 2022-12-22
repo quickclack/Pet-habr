@@ -31,6 +31,6 @@ final class UserBuilder implements QueryBuilder
     public function getAllUsers(): Collection
     {
         return $this->getBuilder()
-            ->all();
+            ->get();
     }
 }

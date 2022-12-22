@@ -14,11 +14,8 @@ class RegisteredController extends Controller
     {
         $user = $contract(NewUserDto::formRequest($request));
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+        return $this->getToken(
+            $user->createToken('auth_token')->plainTextToken
+        );
     }
 }

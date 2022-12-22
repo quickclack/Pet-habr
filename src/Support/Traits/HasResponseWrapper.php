@@ -7,6 +7,14 @@ use Illuminate\Http\Response;
 
 trait HasResponseWrapper
 {
+    public function getToken(string $token): JsonResponse
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ]);
+    }
+
     public function addSuccess(string $name): JsonResponse
     {
         return response()->json([
@@ -36,6 +44,13 @@ trait HasResponseWrapper
         return response()->json([
             'status' => Response::HTTP_NOT_FOUND,
             'message' => 'Нет такой ' . $name,
+        ]);
+    }
+
+    public function message(string $message): JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
         ]);
     }
 

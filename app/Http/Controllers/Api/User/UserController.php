@@ -9,13 +9,18 @@ use Domain\User\Queries\UserBuilder;
 
 class UserController extends Controller
 {
-    public function getUser(): UserResource
-    {
-        return new UserResource(auth()->user());
+    public function __construct(
+        protected UserBuilder $builder
+    ){
     }
 
-    public function getAllUsers(UserBuilder $builder): UserCollection
+    public function getUser(): UserResource
     {
-        return new UserCollection($builder->getAllUsers());
+        return new UserResource($this->builder->getUserById());
+    }
+
+    public function getAllUsers(): UserCollection
+    {
+        return new UserCollection($this->builder->getAllUsers());
     }
 }

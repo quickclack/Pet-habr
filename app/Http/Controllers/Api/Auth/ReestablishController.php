@@ -25,6 +25,6 @@ class ReestablishController extends Controller
 
         $user->save();
 
-        return response()->json(['message' => 'Временный пароль был отправлен на вашу почту']);
+        return $this->message('Временный пароль был отправлен на вашу почту');
     }
 }

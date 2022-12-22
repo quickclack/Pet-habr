@@ -15,16 +15,15 @@ class AuthenticatedController extends Controller
 
         $user = $builder->getUserByEmail($request->email);
 
-        return response()->json([
-            'access_token' => $user->createToken('auth_token')->plainTextToken,
-            'token_type' => 'Bearer'
-        ]);
+        return $this->getToken(
+            $user->createToken('auth_token')->plainTextToken
+        );
     }
 
     public function logout(): JsonResponse
     {
         auth()->user()->tokens()->delete();
 
-        return response()->json(['message' => 'Вы вышли']);
+        return $this->message('Вы вышли');
     }
 }
