@@ -92,7 +92,7 @@ function CommentsComment({comment, articleId, index, parent }) {
                         ()=>commentLike({commentId:comment.id, key:index, parent})
                         : ()=>{}}
                      >
-                     <AutoAwesomeIcon sx={{ color: `${ userLike ? '#6e8c96': '#bbcdd6' }` }}/>
+                     <AutoAwesomeIcon sx={{ color: `${ comment.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                   </div>
                   <div className="article-stats-icons__elem">
                      { comment.likes || 0}
