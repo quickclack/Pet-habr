@@ -3,15 +3,19 @@
 namespace App\Http\Resources\Api\Comment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Traits\HasLikeable;
 
 class CommentResource extends JsonResource
 {
+    use HasLikeable;
+
     public function toArray($request): array
     {
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,
             'likes' => $this->likes()->count(),
+            'auth_liked' => $this->getBoolean($this->likes()),
             'comment' => $this->comment,
             'user_name' => $this->user->nickName,
             'avatar' => $this->user->avatar ?? null,

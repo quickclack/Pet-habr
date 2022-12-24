@@ -67,7 +67,7 @@ class ProfileController extends Controller
                 'amount_articles' => $user->articles()
                     ->where('status', ArticleStatus::APPROVED)
                     ->count(),
-                'amount_comments' => $user->comments()->count(),
+                'amount_comments' => $this->getCount($user->comments()),
             ]);
     }
 
