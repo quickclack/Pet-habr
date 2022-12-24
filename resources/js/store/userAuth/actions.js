@@ -5,6 +5,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_ERROR = "SET_ERROR";
 export const AMOUNT_IN_USER = "AMOUNT_IN_USER";
 
+
 export const setErrorAction = (error) => ({
     type: SET_ERROR,
     payload: error
@@ -20,7 +21,7 @@ export const setAmountInUser = (amount) => ({
     type: AMOUNT_IN_USER,
     payload: amount
 })
-setAmountInUser
+// setAmountInUser
 
 //регистрация
 export const signUpUserTrunk = (user) => async (dispatch) => {

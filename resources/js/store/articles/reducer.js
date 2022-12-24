@@ -72,7 +72,6 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             }
         }
         case SET_ARTICLE_LIKE_AMOUNT: {
-
             return {
                 ...state,
                 article: {...state.article, likes: payload}

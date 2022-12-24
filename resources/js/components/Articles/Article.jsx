@@ -65,13 +65,15 @@ function Article({item}) {
          
           </div>
           :
-          <Link to={`/article/${item.id}`} className="nav-btn">
+          
           <div className='article__button'>
-            <div >
-              Читать далее
-            </div>
+            <Link to={`/article/${item.id}`} className="nav-btn">
+              <div >
+                Читать далее
+              </div>
+            </Link> 
           </div>
-          </Link> 
+          
         }
       <ArticleStatsIcons item={item}/>
       <MyConfirm visible={modal} setVisible={setModal} setYes={deleteArticle}>Вы действительно хотите удалить статью?</MyConfirm>
