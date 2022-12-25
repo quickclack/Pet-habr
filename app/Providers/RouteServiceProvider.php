@@ -8,6 +8,7 @@ use App\Routing\AppRegistrar;
 use Domain\Information\Routing\ArticleRegistrar;
 use Domain\Information\Routing\CategoryRegistrar;
 use Domain\Information\Routing\TagRegistrar;
+use Domain\Interactive\Routing\BookmarkRegistrar;
 use Domain\Interactive\Routing\LikeRegistrar;
 use Domain\User\Routing\AuthRegistrar;
 use Domain\User\Routing\CommentRegistrar;
@@ -46,6 +47,7 @@ class RouteServiceProvider extends ServiceProvider
         TagRegistrar::class,
         UserRegistrar::class,
         LikeRegistrar::class,
+        BookmarkRegistrar::class,
     ];
 
     /**
