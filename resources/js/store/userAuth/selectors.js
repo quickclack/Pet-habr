@@ -1,5 +1,5 @@
 export const getIsAuth = (state) => {
-   //  console.log(state.auth)
+   // console.log(state.auth)
    return state.auth.user.token === null;
 };
 
@@ -14,7 +14,7 @@ export const getUserEmail = (state) => {
 }
 
 export const getToken = (state) => {
-   //  console.log(state)
+   // console.log(state)
    return  state.auth.user !== null ? state.auth.user.token: ''};
 
 export const getErrors = (state) => {
@@ -28,11 +28,11 @@ export const getUserId = (state) => {
 };
 
 export const getUserNickName = (state) => {
-   //  console.log(state.auth)
+   // console.log(state.auth)
    return state.auth.user.nickName
 };
 export const getUserRoles = (state) => {
-   //  console.log(state.auth)
+   // console.log(state.auth)
    return (state.auth.user.roles === "Administrator" || state.auth.user.roles === "Moderator")
 };
 export const getUserAmount = (state) => {

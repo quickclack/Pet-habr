@@ -79,11 +79,13 @@ export const LogIn = () => {
                   />
                </div>
                <div>
-                <label className="text-field__label checkbox" >
-                  <input type="checkbox" 
+                <label className="checkbox__container" >
+                  <input type="checkbox"  className="checkbox__highload"
                     checked = {remember}
                     onChange={rememberSubmitHandler}
-                  />&emsp; запомнить меня
+                  />
+                  <span className="checkbox__highload2"></span>
+                  запомнить меня
                 </label>
                </div>
                <div className="text-login">

@@ -2,11 +2,13 @@
    background-color:rgb(255, 255, 255);
    padding: 15px;
    margin-top: 3px;
+   
    &__header{
       display: flex;
       align-items: center;
       h4{
          font-weight:600;
+
       }
       h4,h5{
          font-size: 16px;
@@ -19,6 +21,7 @@
      h4{
       font-weight:700;
       font-size: 26px;
+      color: var(--color-dark);
      }
      a:hover{
       h4{color: #4da7a7;} 
@@ -29,6 +32,7 @@
       border: 2px solid #9bd3d3;
       padding: 7px; 
       width: 124px;
+      color: var(--color-dark);
       &:hover{
          cursor: pointer;
          background-color:rgb(182 239 239 / 28%);
@@ -40,6 +44,11 @@
    &__tags{
       &-span{
          font-weight: 700;
+
+      }
+      span {
+         color: var(--color-dark);
+         
       }
    }
    &-icons{

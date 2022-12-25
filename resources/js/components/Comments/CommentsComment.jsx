@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbCommentArticle,
-   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, setCommentsArticle} from "../../store/comments"
+   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, getDbCommentLike,
+   setCommentsArticle, setCommentsVisibleStatus, setOpenCommentCommentsAnswer} from "../../store/comments"
 import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
-
 import './Comments.scss'
-import voices from "../../../image/voices.png"
-import bookmarks from "../../../image/bookmarks.png"
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import BookmarkIcon from '@mui/icons-material/Bookmark'
 import CloseIcon from '@mui/icons-material/Close';
 import ComentEdit from "./ComentEdit"
 
-function CommentsComment({comment, articleId}) {
+function CommentsComment({comment, articleId, index, parent }) {
    const dispatch = useDispatch(); 
    const authed = useSelector(getIsAuth);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
-   const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(false)
-   const [commentsEditVisible, setCommentsEditVisible] = useState(false)
+    
+   const [userLike, setUserLike] = useState(false);
+   const  [bookmark, setBookmark] = useState(false);
    console.log("CommentsComment authed - ", authed)
    
    const updatingСomments = async () =>{
@@ -26,29 +27,30 @@ function CommentsComment({comment, articleId}) {
       dispatch(setCommentsLoad(false))
    }
 
-   function commentCommentAnswerClose(){
-      setCommentsCommentsVisible(false);
+   function commentCommentAnswerClose({index, parent}){
+      dispatch(setOpenCommentCommentsAnswer({index, parent, value:false, pole:"ansverVisible"}))
       dispatch( setMainCommentVisible(true))
    }
    
-   function openCommentEdit() {
-      setCommentsEditVisible(true);
+   async function openCommentEdit({index, parent}) {
+      await dispatch(setCommentsVisibleStatus())
+      dispatch(setOpenCommentCommentsAnswer({index, parent, value:true, pole:"editVisible"}))
       dispatch( setMainCommentVisible(false) )
    }
 
-   function commentCommentEditClose() {
-      setCommentsEditVisible(false);
+   function commentCommentEditClose({index, parent}) {
+      dispatch(setOpenCommentCommentsAnswer({index, parent, value:false, pole:"editVisible"}))
       dispatch( setMainCommentVisible(true))
    }
    
-   function sendCommentEdit() {
-      commentCommentEditClose()
+   function sendCommentEdit({index, parent}) {
+      commentCommentEditClose({index, parent})
       updatingСomments()
    }
 
-   function openCommentAnswer() {
-      if (commentsCommentsVisible) return
-      setCommentsCommentsVisible(true)
+   async function openCommentAnswer({index, parent}) {
+      await dispatch(setCommentsVisibleStatus())
+      dispatch(setOpenCommentCommentsAnswer({index, parent, value:true, pole:"ansverVisible"}))
       dispatch( setMainCommentVisible(false) )
    }
 
@@ -57,10 +59,17 @@ function CommentsComment({comment, articleId}) {
       updatingСomments()
    }
 
-   async function sendCommentAnswer() {
-      commentCommentAnswerClose()
+   async function sendCommentAnswer({index, parent}) {
+      commentCommentAnswerClose({index, parent})
       updatingСomments()
    }
+
+   async function commentLike({commentId, key, parent}){
+      console.log("acommentLike")
+      await dispatch (getDbCommentLike({token,  commentId, key, parent}))
+      setUserLike(!userLike)
+   }
+
    return (
    <>
       {/* <div className="h3">Ответ @ { comment.id }</div> */}
@@ -77,18 +86,23 @@ function CommentsComment({comment, articleId}) {
 
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
-                  <div className="article-stats-icons__elem" title={comment.rating == undefined ? "Комментарий не оценивали" :"Всего голосов"}>
-                     <img src={ voices } alt="" />
+                  <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} 
+                     title={comment.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
+                     onClick={ !authed ? 
+                        ()=>commentLike({commentId:comment.id, key:index, parent})
+                        : ()=>{}}
+                     >
+                     <AutoAwesomeIcon sx={{ color: `${ comment.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                   </div>
                   <div className="article-stats-icons__elem">
-                     { comment.rating || 0}
+                     { comment.likes || 0}
                   </div>
                </div>
                {   comment.user_id !== userId &&  !authed ?
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
-                           openCommentAnswer({ parent_id: comment.parent_id})// подумать
+                           openCommentAnswer({ parent_id: comment.parent_id, index, parent})
                         }}
                      >
                         Ответить
@@ -97,8 +111,10 @@ function CommentsComment({comment, articleId}) {
                   : ''
                }   
                <div className="article-stats-icons__block ">
-                  <div className="article-stats-icons__elem hover"title="Добавить в закладки">
-                     <img src={ bookmarks } alt="" />
+                  <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} title="Добавить в закладки">
+                     <BookmarkIcon 
+                        sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
+                     />
                   </div>
                   <div className="article-stats-icons__elem">
                      0
@@ -109,7 +125,7 @@ function CommentsComment({comment, articleId}) {
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
                            onClick={()=>{
-                              openCommentEdit({ comment: comment.comment})
+                              openCommentEdit({ comment: comment.comment, index, parent})
                            }}
                            >
                            Редактировать
@@ -126,25 +142,25 @@ function CommentsComment({comment, articleId}) {
                   : '' 
                }
             </div>
-            { commentsCommentsVisible ?
+            { comment.ansverVisible ?
                <ComentEdit 
                   title = {`Ответить @${comment.user_name}`} 
-                  close = {commentCommentAnswerClose}  
+                  close = { () => {commentCommentAnswerClose({ index, parent })}}  
                   commenValue = { ''}
                   commentId = { comment.parent_id }
-                  sendComment = { sendCommentAnswer }
+                  sendComment = { () => {sendCommentAnswer({ index, parent })} }
                   name = {'answer'}
                   articleId ={ null }
                />
                : ''
             }
-            { commentsEditVisible ?
+            { comment.editVisible ?
                <ComentEdit 
                   title = { 'Редактировать' } 
-                  close = { commentCommentEditClose } 
+                  close = { () => {commentCommentEditClose({ index, parent })}} 
                   commenValue = { comment.comment }
                   commentId = { comment.id }
-                  sendComment = { sendCommentEdit }
+                  sendComment = {() => sendCommentEdit({ index, parent }) }
                   name = {'edit'}
                />
                : ''

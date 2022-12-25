@@ -7,7 +7,14 @@ export const SET_COMMENTS_ARTICLE = 'SET_COMMENTS_ARTICLE';
 export const SET_COMMENTS_USER = 'SET_COMMENTS_USER';
 export const SET_COMMENTS_MAIN_VISIBLE = 'SET_COMMENTS_MAIN_VISIBLE';
 export const SET_COMMENTS_LOADER = 'SET_COMMENTS_LOADER';
-
+export const SET_COMMENTS_VISIBLE_STATUS = "SET_COMMENTS_VISIBLE_STATUS"
+export const SET_OPEN_COMMENTS_ANSWER = "SET_OPEN_COMMENTS_ANSWER"
+export const SET_OPEN_COMMENTS_EDIT = "SET_OPEN_COMMENTS_EDIT"
+export const SET_CLOSE_COMMENTS_EDIT = "SET_CLOSE_COMMENTS_EDIT"
+export const SET_CLOSE_COMMENTS_ANSWER = "SET_CLOSE_COMMENTS_ANSWER"
+export const SET_OPEN_COMMENTS_COMMENTS_ANSWER = "SET_OPEN_COMMENTS_COMMENTS_ANSWER"
+export const SET_COMMENT_LIKE_AMOUNT = "SET_COMMENT_LIKE_AMOUNT"
+export const SET_COMMENT_COMMENT_LIKE_AMOUNT = "SET_COMMENT_COMMENT_LIKE_AMOUNT"
 
 export const setCommentsArticle = (payload) => ({
     type: SET_COMMENTS_ARTICLE,
@@ -24,6 +31,33 @@ export const setCommentsLoad = (payload) => ({
     payload: payload  
 })
 
+export const setCommentsVisibleStatus = () => ({
+    type: SET_COMMENTS_VISIBLE_STATUS,
+})
+
+export const setOpenCommentAnswer = (payload) => ({
+    type: SET_OPEN_COMMENTS_ANSWER,
+    payload: payload
+})
+
+export const setOpenCommentEdit = (payload) => ({
+    type: SET_OPEN_COMMENTS_EDIT,
+    payload: payload
+})
+
+export const setOpenCommentCommentsAnswer = (payload) => ({
+    type: SET_OPEN_COMMENTS_COMMENTS_ANSWER,
+    payload: payload
+})
+export const setCommentLikeAmount = (payload) => ({
+    type: SET_COMMENT_LIKE_AMOUNT,
+    payload: payload
+})
+
+export const setCommentCommentLikeAmount = (payload) => ({
+    type: SET_COMMENT_COMMENT_LIKE_AMOUNT,
+    payload: payload
+})
 //запрос комментариев для статьи
 export const getDbCommentsArticle = (id) => async (dispatch) => {
     console.log("getDbCommentsArticle -" , id)
@@ -45,6 +79,8 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
         console.log(e.message);
     }
 }
+
+
 //добавление комментария к статье или комментарию
 export const createDbCommentArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
     console.log("createDbCommentsArticle -" ,{comment, articleId, token, commentId} )
@@ -117,6 +153,30 @@ export const deleteDbCommentArticle = ({ commentId, token}) => async (dispatch) 
             .then(({data})=>{
                 console.log("deleteDbCommentArticleResp - ", data)
                 // dispatch(setCommentsArticle(data.comments));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+export const getDbCommentLike = ({ token, commentId, key, parent }) => async (dispatch) => {
+    console.log("getDbCommentLike")
+    try{
+        const config = {
+            method: 'post',
+            url: `/api/comment/${commentId}/like`,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                if (parent >= 0) {
+                    dispatch(setCommentCommentLikeAmount({value: data.amount, key, parent}))
+                } else { 
+                    dispatch(setCommentLikeAmount({value: data.amount, key})) 
+                }
             })
     } catch (e) {
         console.log(e.message);

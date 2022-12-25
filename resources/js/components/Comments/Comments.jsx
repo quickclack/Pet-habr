@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbCommentArticle,
-   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, setCommentsArticle} from "../../store/comments"
+   updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, 
+   setCommentsArticle, setCommentsVisibleStatus,
+   setOpenCommentAnswer, setOpenCommentEdit, getDbCommentLike } from "../../store/comments"
 import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
 import CachedIcon from '@mui/icons-material/Cached';
 import './Comments.scss'
-import voices from "../../../image/voices.png"
-import bookmarks from "../../../image/bookmarks.png"
+
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import BookmarkIcon from '@mui/icons-material/Bookmark'
 import CloseIcon from '@mui/icons-material/Close';
 import ComentEdit from "./ComentEdit"
 import CommentsComment from "./CommentsComment"
@@ -15,12 +18,15 @@ function Comments({id}) {
    const commentsLoad = useSelector(getCommentsLoad)
    const dispatch = useDispatch(); 
    const authed = useSelector(getIsAuth);
+   const isAuth = !useSelector(getIsAuth);
    const comments =  useSelector(getCommentsArticle);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
-   const [commentsCommentsVisible, setCommentsCommentsVisible] = useState(Array.from({length:comments.length}).map(()=>false))
-   const [commentsEditVisible, setCommentsEditVisible] = useState(Array.from({length:comments.length}).map(()=>false))
-      
+   console.log('comments - ', comments)
+   const [userLike, setUserLike] = useState(false); 
+   const  [bookmark, setBookmark] = useState(false);
+   console.log('comments - ', comments)
+   
    useEffect(()=>{
       dispatch(setCommentsArticle(''))
       updatingСomments()
@@ -29,42 +35,34 @@ function Comments({id}) {
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch( getDbCommentsArticle(id) )
+      await dispatch(getDbCommentsArticle(id))
       dispatch(setCommentsLoad(false))
    }
 
-   function openCommentAnswer({key, idComment}){
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      copy[key] = !copy[key] 
-      setCommentsCommentsVisible(copy);
-      const editcopy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsEditVisible(editcopy);
-      dispatch( setMainCommentVisible(false) )
+   async function openCommentAnswer({key}){
+      await dispatch(setCommentsVisibleStatus())
+      dispatch(setOpenCommentAnswer({key, value:true}))
+      dispatch(setMainCommentVisible(false))
    }
 
-   function commentCommentAnswerClose(){
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsCommentsVisible(copy);
+   function commentCommentAnswerClose({key}){
+      dispatch(setOpenCommentAnswer({key, value:false}))
       dispatch( setMainCommentVisible(true))
    }
    
-   function openCommentEdit({key, comment}) {
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsCommentsVisible(copy);
-      const editcopy = Array.from({length:comments.length}).map(()=>false)
-      editcopy[key] = !editcopy[key] 
-      setCommentsEditVisible(editcopy);
+   async function openCommentEdit({key}) {
+      await dispatch(setCommentsVisibleStatus())
+      dispatch(setOpenCommentEdit({key, value:true}))
       dispatch( setMainCommentVisible(false) )
    }
    
-   function commentCommentEditClose() {
-      const copy = Array.from({length:comments.length}).map(()=>false)
-      setCommentsEditVisible(copy);
+   function commentCommentEditClose({key}) {
+      dispatch(setOpenCommentEdit({key, value:false}))
       dispatch( setMainCommentVisible(true))
    }
    
-   function sendCommentEdit() {
-      commentCommentEditClose()
+   function sendCommentEdit({key}) {
+      commentCommentEditClose({key})
       updatingСomments()
    }
    
@@ -73,9 +71,14 @@ function Comments({id}) {
       updatingСomments()
    }
    
-   async function sendCommentAnswer() {
-      commentCommentAnswerClose()
+   async function sendCommentAnswer({key}) {
+      commentCommentAnswerClose({key})
       updatingСomments()
+   }
+   async function  commentLike({commentId, key}) {
+      console.log("acommentLike")
+      await dispatch (getDbCommentLike({token,  commentId, key}))
+      setUserLike(!userLike)
    }
    
    return (
@@ -99,18 +102,23 @@ function Comments({id}) {
 
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
-                  <div className="article-stats-icons__elem" title={item.rating == undefined ? "Комментарий не оценивали" :"Всего голосов"}>
-                     <img src={ voices } alt="" />
+                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
+                     title={item.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
+                     onClick={ isAuth ? 
+                        ()=>commentLike({commentId:item.id, key})
+                        : ()=>{}}
+                  >
+                     <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                   </div>
                   <div className="article-stats-icons__elem">
-                     { item.rating || 0}
+                     { item.likes || 0}
                   </div>
                </div>
                {   item.user_id !== userId &&  !authed ?
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
-                           openCommentAnswer({key, idComment: item.id})
+                           openCommentAnswer({key})
                         }}
                      >
                         Ответить
@@ -119,8 +127,13 @@ function Comments({id}) {
                   : ''
                }   
                <div className="article-stats-icons__block ">
-                  <div className="article-stats-icons__elem hover"title="Добавить в закладки">
-                     <img src={ bookmarks } alt="" />
+                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
+                     title="Добавить в закладки"
+                     onClick={ isAuth ? ()=>commentsBookmark(): ()=>{}}
+                  >
+                     <BookmarkIcon 
+                        sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
+                     />
                   </div>
                   <div className="article-stats-icons__elem">
                      0
@@ -131,7 +144,7 @@ function Comments({id}) {
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
                            onClick={()=>{
-                              openCommentEdit({key, comment: item.comment})
+                              openCommentEdit({key})
                            }}
                            >
                            Редактировать
@@ -150,34 +163,40 @@ function Comments({id}) {
                
 
             </div>
-            { commentsCommentsVisible[key] ?
+            { item.ansverVisible ?
                <ComentEdit 
-                  title = {`Ответить @${item.user_name}`} 
-                  close = {commentCommentAnswerClose}  
-                  commenValue = { ''}
+                  title = { `Ответить @${item.user_name}` } 
+                  close = { ()=>{commentCommentAnswerClose({key})} }  
+                  commenValue = { '' }
                   commentId = { item.id }
-                  sendComment = {sendCommentAnswer}
-                  name = {'answer'}
+                  sendComment = { ()=>{sendCommentAnswer({key})} }
+                  name = {'answer' }
                   articleId ={ null }
                />
                : ''
             }
-            { commentsEditVisible[key] ?
+            { item.editVisible ?
                <ComentEdit 
                   title = { 'Редактировать' } 
-                  close = { commentCommentEditClose } 
+                  close = { ()=>{commentCommentEditClose({key})} } 
                   commenValue = { item.comment }
                   commentId = { item.id }
-                  sendComment = { sendCommentEdit }
+                  sendComment = { ()=>{ sendCommentEdit({key})} }
                   name = {'edit'}
                />
                : ''
             }
             { item.replies_comment ? 
                <div className="col mx-5">
-                  {item.replies_comment.map((item) => (
+                  {item.replies_comment.map((it, index) => (
                      // <div>gggggg</div>
-                     <CommentsComment key={item.id} comment={item} articleId={id}/>
+                     <CommentsComment 
+                        key = { it.id } 
+                        comment = { it } 
+                        articleId = { id } 
+                        index = { index }
+                        parent = { key }
+                     />
                   ))}
                  
                </div>

@@ -60,7 +60,7 @@ function ArticleId() {
                 {
                   article.tags.length > 0 ? article.tags.map((item, key) =>(
                     <Link to={`/articles/tags/${item.id}`} className="nav-btn" key = {item.id}>
-                      <span> {item.title}{key<article.tags.length - 1 ? ',' : '' } </span>
+                      <span> {item.title}{key < article.tags.length - 1 ? ',' : '' } </span>
                     </Link>
                   )) : ''
                 }

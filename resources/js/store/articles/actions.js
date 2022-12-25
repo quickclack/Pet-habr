@@ -212,7 +212,7 @@ export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
 }
 
 export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
-    console.log("getDbArticlesAmount")
+    console.log("getDbArticleLike")
     try{
         const config = {
             method: 'post',
