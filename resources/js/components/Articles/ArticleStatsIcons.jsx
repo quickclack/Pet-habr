@@ -20,10 +20,11 @@ function ArticleStatsIcons({articleId, item}) {
    };
    const dispatch = useDispatch(); 
    const token = useSelector(getToken)
+   const isAuth = !useSelector(getIsAuth)
    const handleMouseOut = () => {
       setIsBooped(false);
    };
-
+   console.log("isAuth ", isAuth)
    async function  articleLike() {
       console.log("articleLike")
       await dispatch (getDbArticleLike({token,  articleId: item.id}))
@@ -42,8 +43,8 @@ function ArticleStatsIcons({articleId, item}) {
       <>
          <div className="article-stats-icons">
             <div className="article-stats-icons__block">
-               <div className={`article-stats-icons__elem ${articleId && getIsAuth? "hover": ""}`} title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}
-                  onClick={articleId && getIsAuth ? ()=>articleLike(): ()=>{}}
+               <div className={`article-stats-icons__elem ${articleId && isAuth? "hover": ""}`} title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}
+                  onClick={articleId && isAuth ? ()=>articleLike(): ()=>{}}
                >
                   <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                </div>
@@ -63,9 +64,9 @@ function ArticleStatsIcons({articleId, item}) {
             </div>
             <div className="article-stats-icons__block ">
                <div 
-                  className={`article-stats-icons__elem ${articleId && getIsAuth ? "hover": ""}`} 
+                  className={`article-stats-icons__elem ${articleId && isAuth ? "hover": ""}`} 
                   title="Добавить в закладки"
-                  onClick={articleId && getIsAuth ? ()=>articleBookmark(): ()=>{}}
+                  onClick={articleId && isAuth ? ()=>articleBookmark(): ()=>{}}
                >
                   <BookmarkIcon 
                      sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 

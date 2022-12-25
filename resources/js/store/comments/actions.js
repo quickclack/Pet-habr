@@ -172,13 +172,11 @@ export const getDbCommentLike = ({ token, commentId, key, parent }) => async (di
         };
         const articles = await axios(config)
             .then(({data})=>{
-                console.log("getDbCommentLike - ",  data)
-                if (parent) {
+                if (parent >= 0) {
                     dispatch(setCommentCommentLikeAmount({value: data.amount, key, parent}))
-                } else { dispatch(setCommentLikeAmount({value: data.amount, key})) }
-                
-
-                
+                } else { 
+                    dispatch(setCommentLikeAmount({value: data.amount, key})) 
+                }
             })
     } catch (e) {
         console.log(e.message);

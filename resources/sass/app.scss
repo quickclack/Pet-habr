@@ -45,9 +45,6 @@ code {
   line-height: 22px;
   font-weight: 300;
   letter-spacing: 0.24px;
-
-
-
   cursor: nw-default;
 }
 
@@ -71,10 +68,7 @@ ul {margin-top: 0;
   font-weight: 600;
   display: block;
   margin-bottom: 0.25rem;
-  &.checkbox{
-    display: flex;
-    align-items: center;
-  }
+  
 }
 
 .text-field__input,
@@ -133,6 +127,7 @@ textarea:hover,
   font-family: "Nunito";
   font-size: 0.8em;
   font-weight: bold;
+  color: #204242;
 }
 
 .text-login p:hover {
@@ -202,3 +197,50 @@ textarea:hover,
       }
    }
 };
+
+.checkbox{
+  &__container{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    &:hover .checkbox__highload ~ .checkbox__highload2 {
+      background-color: #ccc;
+    }
+  }
+  &__highload{
+    position: absolute;
+    opacity: 0;
+    &:checked ~ .checkbox__highload2:after {
+      display: block;
+    }
+  }
+  &__highload2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgb(247, 243, 243);
+    border: 1px solid  rgb(11, 13, 14);
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 2px;
+      width: 8px;
+      height: 12px;
+      border: solid rgb(11, 13, 14);
+      border-width: 0 4px 4px 0;
+      transform: rotate(45deg);
+    
+    }}
+  // display: flex;
+  // align-items: center;
+  // color:#002033
+
+}

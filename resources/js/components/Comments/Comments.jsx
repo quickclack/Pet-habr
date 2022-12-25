@@ -18,6 +18,7 @@ function Comments({id}) {
    const commentsLoad = useSelector(getCommentsLoad)
    const dispatch = useDispatch(); 
    const authed = useSelector(getIsAuth);
+   const isAuth = !useSelector(getIsAuth);
    const comments =  useSelector(getCommentsArticle);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
@@ -101,9 +102,9 @@ function Comments({id}) {
 
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
-                  <div className={`article-stats-icons__elem ${ getIsAuth ? "hover" :""} `} 
+                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
                      title={item.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
-                     onClick={ getIsAuth ? 
+                     onClick={ isAuth ? 
                         ()=>commentLike({commentId:item.id, key})
                         : ()=>{}}
                   >
@@ -126,9 +127,9 @@ function Comments({id}) {
                   : ''
                }   
                <div className="article-stats-icons__block ">
-                  <div className={`article-stats-icons__elem ${ getIsAuth ? "hover" :""} `} 
+                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
                      title="Добавить в закладки"
-                     onClick={ getIsAuth ? ()=>commentsBookmark(): ()=>{}}
+                     onClick={ isAuth ? ()=>commentsBookmark(): ()=>{}}
                   >
                      <BookmarkIcon 
                         sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 

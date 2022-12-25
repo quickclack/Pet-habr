@@ -86,9 +86,9 @@ function CommentsComment({comment, articleId, index, parent }) {
 
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
-                  <div className={`article-stats-icons__elem ${ getIsAuth ? "hover" :""} `} 
+                  <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} 
                      title={comment.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
-                     onClick={ getIsAuth ? 
+                     onClick={ !authed ? 
                         ()=>commentLike({commentId:comment.id, key:index, parent})
                         : ()=>{}}
                      >
@@ -102,7 +102,7 @@ function CommentsComment({comment, articleId, index, parent }) {
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
                         onClick={()=>{
-                           openCommentAnswer({ parent_id: comment.parent_id, index, parent})// подумать
+                           openCommentAnswer({ parent_id: comment.parent_id, index, parent})
                         }}
                      >
                         Ответить
@@ -111,7 +111,7 @@ function CommentsComment({comment, articleId, index, parent }) {
                   : ''
                }   
                <div className="article-stats-icons__block ">
-                  <div className={`article-stats-icons__elem ${ getIsAuth ? "hover" :""} `} title="Добавить в закладки">
+                  <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} title="Добавить в закладки">
                      <BookmarkIcon 
                         sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
                      />

@@ -92,6 +92,7 @@ export const commentsReducer = (state = initialState, { type, payload }) => {
         case SET_COMMENT_LIKE_AMOUNT: {
             const arr = [...state.comments]
             arr[payload.key].likes = payload.value
+            arr[payload.key].auth_liked = !arr[payload.key].auth_liked
             return {
                 ...state,
                 comments: [...arr]
@@ -101,6 +102,7 @@ export const commentsReducer = (state = initialState, { type, payload }) => {
         case SET_COMMENT_COMMENT_LIKE_AMOUNT: {
             const arr = [...state.comments]
             arr[payload.parent].replies_comment[payload.key].likes = payload.value
+            arr[payload.parent].replies_comment[payload.key].auth_liked = !arr[payload.parent].replies_comment[payload.key].auth_liked 
             return {
                 ...state,
                 comments: [...arr]
