@@ -26,7 +26,7 @@
                     <label class="form-label" for="role">Роль</label>
                     <select class="form-control mb-2 w-50" id="role" name="role">
                         @foreach($roles as $key => $values)
-                            <option value="{{ $key }}">{{ $values }}</option>
+                            <option value="{{ $key }}" @if($user->getRole() == $values) selected @endif>{{ $values }}</option>
                         @endforeach
                     </select>
                 </div>
