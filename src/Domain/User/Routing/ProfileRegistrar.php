@@ -14,19 +14,7 @@ class ProfileRegistrar implements RouteRegistrar
         Route::middleware('api')->prefix('api')->group(function () {
             Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(function () {
 
-                Route::post('/profile/amount', 'getAllAmountForUser');
-
-                Route::put('/profile/update', 'updateProfile');
-
-                Route::post('/profile/article/create', 'createArticle');
-
-                Route::post('/profile/articles', 'getUserArticles');
-
-                Route::put('/profile/article/{article:id}/update', 'update');
-
-                Route::delete('/profile/article/{article:id}/delete', 'destroy');
-
-                Route::post('/profile/article/{article:id}', 'getArticleById');
+                Route::put('/profile/update', 'update');
             });
         });
     }

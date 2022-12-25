@@ -8,11 +8,13 @@ use App\Routing\AppRegistrar;
 use Domain\Information\Routing\ArticleRegistrar;
 use Domain\Information\Routing\CategoryRegistrar;
 use Domain\Information\Routing\TagRegistrar;
+use Domain\Interactive\Routing\BookmarkRegistrar;
 use Domain\Interactive\Routing\LikeRegistrar;
 use Domain\User\Routing\AuthRegistrar;
 use Domain\User\Routing\CommentRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
+use Domain\User\Routing\UserArticleRegistrar;
 use Domain\User\Routing\UserRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -46,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
         TagRegistrar::class,
         UserRegistrar::class,
         LikeRegistrar::class,
+        BookmarkRegistrar::class,
+        UserArticleRegistrar::class,
     ];
 
     /**

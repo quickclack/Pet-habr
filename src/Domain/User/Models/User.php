@@ -51,6 +51,12 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function bookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class, 'bookmarks')
+            ->withTimestamps();
+    }
+
     public function getRole(): ?string
     {
         foreach ($this->roles as $role) {
