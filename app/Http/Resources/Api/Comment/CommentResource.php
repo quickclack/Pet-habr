@@ -29,7 +29,7 @@ class CommentResource extends JsonResource
                         'comment' => $item->comment,
                         'user_id' => $item->user->id,
                         'likes' => $item->likes()->count(),
-                        'auth_liked' => $item->getBoolean($item->likes()),
+                        'auth_liked' => $this->getBoolean($item->likes()),
                         'user_name' => $item->user->nickName,
                         'avatar' => $this->user->avatar ?? null,
                         'parent_id' => $this->id,
