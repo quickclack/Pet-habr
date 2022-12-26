@@ -22,7 +22,7 @@ class BookmarkController extends Controller
         return new ArticleProfileCollection(
             $user->bookmarks()
                 ->with(['category', 'tags'])
-                ->get()
+                ->paginate(5)
         );
     }
 

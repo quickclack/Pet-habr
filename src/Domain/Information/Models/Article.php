@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\DB;
 use Support\Enums\ArticleStatus;
 use Support\Traits\HasDateConversion;
 
@@ -65,6 +66,12 @@ class Article extends Model
             ->withTimestamps();
     }
 
+    public function bookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')
+            ->withTimestamps();
+    }
+
     public function scopeFilter(Builder $query): mixed
     {
         return app(Pipeline::class)
@@ -84,5 +91,12 @@ class Article extends Model
             ->when(request('search'), function (Builder $builder) {
                 $builder->whereFullText(['title', 'description'], request('search'));
             })->get();
+    }
+
+    public function getCountBookmarks(): int
+    {
+        return DB::table('bookmarks')
+            ->where('article_id', $this->id)
+            ->count();
     }
 }

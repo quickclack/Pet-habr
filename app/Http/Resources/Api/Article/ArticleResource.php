@@ -3,11 +3,11 @@
 namespace App\Http\Resources\Api\Article;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Support\Traits\HasLikeable;
+use Support\Traits\HasBoolean;
 
 class ArticleResource extends JsonResource
 {
-    use HasLikeable;
+    use HasBoolean;
 
     public function toArray($request): array
     {
@@ -20,7 +20,9 @@ class ArticleResource extends JsonResource
             'views' => $this->views,
             'likes' => $this->likes()->count(),
             'auth_liked' => $this->getBoolean($this->likes()),
+            'auth_bookmarks' => $this->getBoolean($this->bookmarks()),
             'count_comments' => $this->comments()->count(),
+            'count_bookmarks' => $this->getCountBookmarks(),
             'image' => $this->when($this->image, fn() => $this->image),
             'created_at' => $this->setDate($this->created_at),
         ];

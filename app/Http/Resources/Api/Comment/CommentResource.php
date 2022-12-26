@@ -3,11 +3,11 @@
 namespace App\Http\Resources\Api\Comment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Support\Traits\HasLikeable;
+use Support\Traits\HasBoolean;
 
 class CommentResource extends JsonResource
 {
-    use HasLikeable;
+    use HasBoolean;
 
     public function toArray($request): array
     {
