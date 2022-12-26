@@ -46,8 +46,8 @@ export const setArticleLikeAmount = (payload) => ({
     payload: payload
 })
 
-export const getDbArticlesAll = (url) => async (dispatch) => {
-    console.log("getDbArticlesAll")
+export const getDbArticlesAll = ({ url, token}) => async (dispatch) => {
+    console.log("getDbArticlesAll", url, "- ",token)
     try{
         const config = {
             method: 'post',
@@ -57,6 +57,7 @@ export const getDbArticlesAll = (url) => async (dispatch) => {
                 // Authorization: `Bearer ${token}`
             }
         };
+        if (token) config.headers.Authorization = `Bearer ${token}`
         const articles = await axios(config)
             .then(({data})=>{
                 console.log("getDbArticlesAll - ",  data)
@@ -210,7 +211,7 @@ export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
         console.log(e.message);
     }
 }
-
+// лайк статье
 export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
     console.log("getDbArticleLike")
     try{
@@ -226,6 +227,28 @@ export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
             .then(({data})=>{
                 console.log("getDbArticleLike - ",  data)
                 dispatch(setArticleLikeAmount(data.amount));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+// добавление статьи в закладки
+export const getDbArticleBookmarks = ({ token, articleId}) => async (dispatch) => {
+    console.log("getDbArticleBookmark")
+    try{
+        const config = {
+            method: 'post',
+            url: `/api/bookmark/${articleId}/toggle`,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("getDbArticleBookmark - ",  data)
+                // dispatch(setArticleBookmarksAmount(data.amount));
             })
     } catch (e) {
         console.log(e.message);

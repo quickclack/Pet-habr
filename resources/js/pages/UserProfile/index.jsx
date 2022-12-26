@@ -13,9 +13,9 @@ function UserProfile() {
   let location = useLocation();
   const link = location.pathname.split('/')
 
-  console.log("articles dispatch All param- ", param)
-  console.log("articles dispatch All location- ", location)
-  console.log("articles dispatch All link- ", link[3])
+  // console.log("articles dispatch All param- ", param)
+  // console.log("articles dispatch All location- ", location)
+  // console.log("articles dispatch All link- ", link[3])
   const dispatch = useDispatch(); 
   const user = useSelector(getUser)
   // useEffect(()=> {

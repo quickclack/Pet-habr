@@ -9,7 +9,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { getToken, getIsAuth } from "../../store/userAuth"
-import { getDbArticleLike, getDbArticle} from "../../store/articles"
+import { getDbArticleLike, getDbArticle, getDbArticleBookmarks} from "../../store/articles"
 
 function ArticleStatsIcons({articleId, item}) {
    const [isBooped, setIsBooped] = useState(false);
@@ -34,7 +34,7 @@ function ArticleStatsIcons({articleId, item}) {
 
    async function  articleBookmark() {
       console.log("articleBookmark")
-      // await dispatch (getDbArticleLike({token,  articleId: item.id}))
+      await dispatch (getDbArticleBookmarks({token,  articleId: item.id}))
       //  dispatch(getDbArticle({ url: `/api/article/${item.id}` , token}));
       setBookmark(!bookmark)
    }
@@ -64,9 +64,9 @@ function ArticleStatsIcons({articleId, item}) {
             </div>
             <div className="article-stats-icons__block ">
                <div 
-                  className={`article-stats-icons__elem ${articleId && isAuth ? "hover": ""}`} 
-                  title="Добавить в закладки"
-                  onClick={articleId && isAuth ? ()=>articleBookmark(): ()=>{}}
+                  className={`article-stats-icons__elem ${ isAuth ? "hover" : "" }`} 
+                  title={bookmark ? "Убрать из закладок" : "Добавить в закладки"}
+                  onClick={ isAuth ? ()=>articleBookmark() : ()=>{}}
                >
                   <BookmarkIcon 
                      sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 

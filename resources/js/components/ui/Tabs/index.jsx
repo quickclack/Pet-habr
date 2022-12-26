@@ -16,9 +16,12 @@ export default function LabTabs({link, nickName }) {
       setValue(newValue);
    };
    const dispatch = useDispatch(); 
+   // let [settings, setSettings] = useState([]);
+   
    useEffect(()=>{ 
       setValue(link);
       dispatch(getDbAmountInfoTrunk(token))
+      // setSettings ();
     },[link])
 
    const userProfileTransfer = (url) => {
@@ -31,13 +34,17 @@ export default function LabTabs({link, nickName }) {
       {label:'Профиль', value: 'profile', 
          action:() => userProfileTransfer(`/users/${nickName}/profile`),
          amount: ''},
-      {label:'Публикации', value: 'articles', action:() => userProfileTransfer(`/users/${nickName}/articles`),
+      {label:'Публикации', value: 'articles', 
+         action:() => userProfileTransfer(`/users/${nickName}/articles`),
          amount: amount.amount_articles  ?  amount.amount_articles : ''},
-      {label:'Комментарии', value: 'comments', action:() => userProfileTransfer(`/users/${nickName}/comments`),
+      {label:'Комментарии', value: 'comments', 
+         action:() => userProfileTransfer(`/users/${nickName}/comments`),
          amount: amount.amount_comments ?  amount.amount_comments : ''},
-      {label:'Закладки', value: 'bookmarks', action:() => userProfileTransfer(`/users/${nickName}/bookmarks`),
-      amount: ''},
-   ];
+      {label:'Закладки', value: 'bookmarks', 
+         action:() => userProfileTransfer(`/users/${nickName}/bookmarks`),
+         amount: amount.amount_bookmarks ? amount.amount_bookmarks : ''},
+   ]
+   
 
    return (
       <Box sx={{ width: '100%', typography: 'body1' }}>

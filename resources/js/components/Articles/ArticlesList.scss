@@ -35,18 +35,23 @@
       &:hover{
          cursor: pointer;
          background-color:rgb(182 239 239 / 28%);
+         color: #9bd3d3;
          a{color: #9bd3d3;}
+
       }
       a{
          color: var(--color-dark);
       }
-   &-profile{
-      margin: 5px;
-      &-container{
-         display: flex;
+      &-profile{
          margin: 5px;
+         a{
+            color: var(--color-dark);
+         }
+         &-container{
+            display: flex;
+            margin: 5px;
+         }
       }
-   }
    }
 
 }
