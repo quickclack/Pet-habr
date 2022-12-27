@@ -9,6 +9,7 @@ use Database\Factories\Domain\User\Models\UserFactory;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
+use Support\Enums\ArticleStatus;
 use Tests\TestCase;
 
 class ArticleApprovalJobTest extends TestCase
@@ -26,7 +27,7 @@ class ArticleApprovalJobTest extends TestCase
 
         $article = ArticleFactory::new()
             ->createOne([
-                'status' => 0,
+                'status' => ArticleStatus::NEW,
                 'user_id' => $user->getKey()
             ]);
 
@@ -40,7 +41,7 @@ class ArticleApprovalJobTest extends TestCase
 
         $this->assertDatabaseHas('articles', [
             'id' => $article->getKey(),
-            'status' => 5
+            'status' => ArticleStatus::APPROVED
         ]);
     }
 }

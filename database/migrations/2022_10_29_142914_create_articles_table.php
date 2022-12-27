@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('description');
 
             $table->integer('views')
-                ->default(0);
+                ->default(1);
 
             $table->foreignIdFor(User::class)
                 ->nullable()

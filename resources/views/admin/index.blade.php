@@ -44,8 +44,8 @@
     </div>
 
     <div class="d-flex flex-column">
-        <h5 class="fw-light">0 - Новая</h5>
-        <h5 class="fw-light">5 - Подтверждена</h5>
-        <h5 class="fw-light">10 - Отклонена</h5>
+        <h5 class="fw-light">5 - Новая</h5>
+        <h5 class="fw-light">10 - Подтверждена</h5>
+        <h5 class="fw-light">15 - Отклонена</h5>
     </div>
 @endsection
