@@ -8,7 +8,8 @@ export const SET_ARTICLE_PASSING_NULL = 'SET_ARTICLE_PASSING_NULL'
 export const SET_ARTICLES_PAGES_URL = 'SET_ARTICLES_PAGES_URL'
 export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
 export const SET_ARTICLE_LIKE_AMOUNT = 'SET_ARTICLE_LIKE_AMOUNT'
-
+export const SET_ARTICLE_BOOKMARK_TOOGLE = 'SET_ARTICLE_BOOKMARK_TOOGLE'
+export const SET_ARTICLES_ID_BOOKMARK_TOOGLE = 'SET_ARTICLES_ID_BOOKMARK_TOOGLE'
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
     payload: payload
@@ -43,6 +44,16 @@ export const setArticleCountComments = (payload) => ({
 
 export const setArticleLikeAmount = (payload) => ({
     type: SET_ARTICLE_LIKE_AMOUNT,
+    payload: payload
+})
+
+export const setArticleBookmarkToogle = (payload) => ({
+    type: SET_ARTICLE_BOOKMARK_TOOGLE,
+    payload: payload
+})
+
+export const setArticlesIdBookmarkToogle = (payload) => ({
+    type: SET_ARTICLES_ID_BOOKMARK_TOOGLE,
     payload: payload
 })
 
@@ -234,7 +245,7 @@ export const getDbArticleLike = ({ token, articleId}) => async (dispatch) => {
 }
 
 // добавление статьи в закладки
-export const getDbArticleBookmarks = ({ token, articleId}) => async (dispatch) => {
+export const getDbArticleBookmarks = ({ token, articleId, articleIdSign, num}) => async (dispatch) => {
     console.log("getDbArticleBookmark")
     try{
         const config = {
@@ -248,7 +259,33 @@ export const getDbArticleBookmarks = ({ token, articleId}) => async (dispatch) =
         const articles = await axios(config)
             .then(({data})=>{
                 console.log("getDbArticleBookmark - ",  data)
-                // dispatch(setArticleBookmarksAmount(data.amount));
+                console.log('articleIdSign- ', articleIdSign)
+                if (articleIdSign) {
+                    dispatch(setArticleBookmarkToogle(data.amount));
+                } else {
+                    dispatch(setArticlesIdBookmarkToogle({amount:data.amount, num}));
+                }
+                
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+// запрос статей в закладках
+export const getDbBookmarksArticle = ({token}) => async (dispatch) => {
+    console.log("getDbBookmarksArticle")
+    try{
+        const bookmarks = await axios({
+            method: 'post',
+            url: '/api/bookmarks',
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(({data})=>{
+                console.log("getDbBookmarksArticle respons - ", data)
+                dispatch(setArticlesAll(data));
             })
     } catch (e) {
         console.log(e.message);

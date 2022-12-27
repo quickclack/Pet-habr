@@ -73,7 +73,7 @@ function ArticleId() {
             </div>  
           </div>
           <div className="articleId articleId-icons">
-            <ArticleStatsIcons articleId="true" item={article}/>
+            <ArticleStatsIcons articleIdSign={true} item={article}/>
           </div> 
           <div className="articleId ">
             <Comments id = { articleId } />

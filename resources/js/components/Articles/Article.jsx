@@ -8,10 +8,11 @@ import { getToken } from "../../store/userAuth"
 import   MyConfirm   from "../ui/confirm/MyConfirm"
 import   ButtonArticle   from "../ui/Buttons/ButtonArticle"
 
-function Article({item}) {
+function Article({item, num}) {
   const [modal, setModal] = useState(false);
   const [value, setValue] = useState(false);
   const params = useParams();
+  // console.log("params - ", params)
   const dispatch = useDispatch(); 
   const token = useSelector(getToken)
   const buttons =[
@@ -57,7 +58,7 @@ function Article({item}) {
           :
           <ButtonArticle link={`/article/${item.id}`} value={'Читать далее'} />
         }
-      <ArticleStatsIcons item={item}/>
+      <ArticleStatsIcons item={item} articleIdSign={false} num={num}/>
       <MyConfirm visible={modal} setVisible={setModal} setYes={deleteArticle}>Вы действительно хотите удалить статью?</MyConfirm>
     </div>
   );

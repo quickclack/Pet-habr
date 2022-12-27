@@ -32,6 +32,10 @@ class BookmarkController extends Controller
 
         $user->bookmarks()->toggle($article);
 
-        return $this->amount($user->bookmarks()->count());
+        return $this->amount(
+            $article->bookmarks()
+                ->where('article_id', $article->getKey())
+                ->count()
+        );
     }
 }

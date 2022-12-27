@@ -5,7 +5,9 @@ import {
     SET_ARTICLE_PASSING_NULL,
     SET_ARTICLES_PAGES_URL,
     SET_ARTICLE_COUNT_COMMENTS,
-    SET_ARTICLE_LIKE_AMOUNT
+    SET_ARTICLE_LIKE_AMOUNT,
+    SET_ARTICLE_BOOKMARK_TOOGLE,
+    SET_ARTICLES_ID_BOOKMARK_TOOGLE
 } from "./actions";
 
 
@@ -77,12 +79,24 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
                 article: {...state.article, likes: payload, auth_liked:!state.article.auth_liked }
             }
         }
-        case SET_ARTICLE_LIKE_AMOUNT: {
+        case SET_ARTICLE_BOOKMARK_TOOGLE: {
+            console.log('TOOGLE -', )
             return {
                 ...state,
-                article: {...state.article, likes: payload, auth_liked:!state.article.auth_liked }
+                article: {...state.article, count_bookmarks: payload, auth_bookmarks: !state.article.auth_bookmarks
+                }
             }
         }
+        case SET_ARTICLES_ID_BOOKMARK_TOOGLE: {
+            const arr = {...state.articles}
+            arr.data.articles[payload.num].count_bookmarks = payload.amount
+            arr.data.articles[payload.num].auth_bookmarks = !arr.data.articles[payload.num].auth_bookmarks
+            return {
+                ...state,  
+                articles: {...arr}
+            }
+        }
+
         default:{
             return state;
         }

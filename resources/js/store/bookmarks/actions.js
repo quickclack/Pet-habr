@@ -10,24 +10,5 @@ export const setBookmarksArticle = (payload) => ({
 
 
 
-export const getDbBookmarksArticle = ({token}) => async (dispatch) => {
-    console.log("getDbBookmarksArticle")
-    try{
-        const bookmarks = await axios({
-            method: 'post',
-            url: '/api/bookmarks',
-            headers: { 
-                Accept: 'application/json', 
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then(({data})=>{
-                console.log("getDbBookmarksArticle respons - ", data)
-                dispatch(setBookmarksArticle(data));
-            })
-    } catch (e) {
-        console.log(e.message);
-    }
-}
 
 
