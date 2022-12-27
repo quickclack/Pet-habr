@@ -9,9 +9,9 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { getToken, getIsAuth } from "../../store/userAuth"
-import { getDbArticleLike, getDbArticle} from "../../store/articles"
+import { getDbArticleLike, getDbArticle, getDbArticleBookmarks} from "../../store/articles"
 
-function ArticleStatsIcons({articleId, item}) {
+function ArticleStatsIcons({articleIdSign, item, num}) {
    const [isBooped, setIsBooped] = useState(false);
    const [userLike, setUserLike] = useState(false);
    const  [bookmark, setBookmark] = useState(false);
@@ -24,7 +24,8 @@ function ArticleStatsIcons({articleId, item}) {
    const handleMouseOut = () => {
       setIsBooped(false);
    };
-   console.log("isAuth ", isAuth)
+    console.log("articleIdSign ", articleIdSign)
+   // console.log('item - ', item)
    async function  articleLike() {
       console.log("articleLike")
       await dispatch (getDbArticleLike({token,  articleId: item.id}))
@@ -34,7 +35,7 @@ function ArticleStatsIcons({articleId, item}) {
 
    async function  articleBookmark() {
       console.log("articleBookmark")
-      // await dispatch (getDbArticleLike({token,  articleId: item.id}))
+      await dispatch (getDbArticleBookmarks({token,  articleId: item.id, articleIdSign, num}))
       //  dispatch(getDbArticle({ url: `/api/article/${item.id}` , token}));
       setBookmark(!bookmark)
    }
@@ -43,8 +44,8 @@ function ArticleStatsIcons({articleId, item}) {
       <>
          <div className="article-stats-icons">
             <div className="article-stats-icons__block">
-               <div className={`article-stats-icons__elem ${articleId && isAuth? "hover": ""}`} title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}
-                  onClick={articleId && isAuth ? ()=>articleLike(): ()=>{}}
+               <div className={`article-stats-icons__elem ${articleIdSign && isAuth? "hover": ""}`} title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}
+                  onClick={articleIdSign && isAuth ? ()=>articleLike(): ()=>{}}
                >
                   <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                </div>
@@ -64,16 +65,16 @@ function ArticleStatsIcons({articleId, item}) {
             </div>
             <div className="article-stats-icons__block ">
                <div 
-                  className={`article-stats-icons__elem ${articleId && isAuth ? "hover": ""}`} 
-                  title="Добавить в закладки"
-                  onClick={articleId && isAuth ? ()=>articleBookmark(): ()=>{}}
+                  className={`article-stats-icons__elem ${ isAuth ? "hover" : "" }`} 
+                  title={item.auth_bookmarks ? "Убрать из закладок" : "Добавить в закладки"}
+                  onClick={ isAuth ? ()=>articleBookmark() : ()=>{}}
                >
                   <BookmarkIcon 
-                     sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
+                     sx={{ color: `${ item.auth_bookmarks ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
                   />
                </div>
                <div className="article-stats-icons__elem">
-                  0
+               { item.count_bookmarks }
                </div>
             </div>
             <div className="article-stats-icons__block">
@@ -88,12 +89,12 @@ function ArticleStatsIcons({articleId, item}) {
                   { item.count_comments || 0 }
                </div>
             </div>
-            { articleId ? <div className="article-stats-icons__block">
+            {  <div className="article-stats-icons__block">
                <div className="article-stats-icons__elem hover" title="Поделиться" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                   <img src={ isBooped ? toShareH : toShare  } alt="" />
                </div>
                
-            </div>: ''}
+            </div>}
          </div>
       </>
    );

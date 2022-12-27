@@ -13,29 +13,28 @@ function ArticlePagination() {
   // console.log('pagination - ', paginationArray)
    
   const paginate = (page) =>{
-    
-      let curent = currentPage
-      switch (page) {
-         case '-1' : {
-         if (currentPage > 1) {
-            setCurrentPage( prev => prev - 1)
-            curent--
-         }
-         break;
-         }
-         case '+1' : {
-         if  (currentPage < paginationArray.length) {
-            setCurrentPage( prev => prev + 1)
-            curent++
-         }
-         break;
-         }
-         default:{
-         setCurrentPage(page)
-         curent = page 
-         }
+    let curent = currentPage
+    switch (page) {
+      case '-1' : {
+      if (currentPage > 1) {
+        setCurrentPage( prev => prev - 1)
+        curent--
       }
-      dispatch( getDbArticlesPage({param, page: curent, token}) );
+      break;
+      }
+      case '+1' : {
+      if  (currentPage < paginationArray.length) {
+        setCurrentPage( prev => prev + 1)
+        curent++
+      }
+      break;
+      }
+      default:{
+      setCurrentPage(page)
+      curent = page 
+      }
+    }
+    dispatch( getDbArticlesPage({param, page: curent, token}) );
   }
    
   return (

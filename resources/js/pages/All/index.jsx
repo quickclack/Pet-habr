@@ -1,17 +1,23 @@
 import React, {useEffect} from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getDbArticlesAll, setArticlesPagesUrl} from "../../store/articles"
 import ArticlesList from '../../components/Articles/ArticlesList';
 
+import { getToken } from "../../store/userAuth"
+
 function All() {
   const dispatch = useDispatch(); 
-  
+  const token = useSelector(getToken);
   useEffect(()=> {
     console.log("articles dispatch All")
     window.scroll(0, 0);
-    dispatch( getDbArticlesAll(`/api/articles?sort=created_at`));
-    dispatch(setArticlesPagesUrl('api/articles?sort=created_at&'))
+    const api = {
+      url:`/api/articles?sort=created_at`
+    }
+    if ( getToken !== null ) api.token = token
+    dispatch( getDbArticlesAll( api ));
+    dispatch( setArticlesPagesUrl('api/articles?sort=created_at&'))
   },[]) 
 
   return (

@@ -6,10 +6,13 @@ import parse from "html-react-parser";
 import { getDbArticleDelete, getDbArticlesUserProfile  } from "../../store/articles"
 import { getToken } from "../../store/userAuth"
 import   MyConfirm   from "../ui/confirm/MyConfirm"
-function Article({item}) {
+import   ButtonArticle   from "../ui/Buttons/ButtonArticle"
+
+function Article({item, num}) {
   const [modal, setModal] = useState(false);
   const [value, setValue] = useState(false);
   const params = useParams();
+  // console.log("params - ", params)
   const dispatch = useDispatch(); 
   const token = useSelector(getToken)
   const buttons =[
@@ -48,34 +51,14 @@ function Article({item}) {
         {
           params.nameUser ? 
           <div className='article__button-profile-container'>
-          {buttons.map((button, key) =>(
-            <div className='article__button-profile' 
-              key = { key }
-              onClick={()=>button.action()}
-            >
-              <Link to={ button.link } className="nav-btn">
-                <div className='article__button'>
-                  <div >
-                    { button.title }
-                  </div>
-                </div>
-              </Link> 
-            </div>
-          ))}
-         
+            {buttons.map((button, key) =>(
+              <ButtonArticle link={button.link} value={button.title} key={key} action={button.action}/>
+            ))}
           </div>
           :
-          
-          <div className='article__button'>
-            <Link to={`/article/${item.id}`} className="nav-btn">
-              <div >
-                Читать далее
-              </div>
-            </Link> 
-          </div>
-          
+          <ButtonArticle link={`/article/${item.id}`} value={'Читать далее'} />
         }
-      <ArticleStatsIcons item={item}/>
+      <ArticleStatsIcons item={item} articleIdSign={false} num={num}/>
       <MyConfirm visible={modal} setVisible={setModal} setYes={deleteArticle}>Вы действительно хотите удалить статью?</MyConfirm>
     </div>
   );

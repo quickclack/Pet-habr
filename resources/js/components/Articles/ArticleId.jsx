@@ -8,10 +8,13 @@ import ArticleStatsIcons from './ArticleStatsIcons.jsx'
 import Comments from '../Comments/Comments';
 import MainComment from '../Comments/MainComment';
 import { getToken, getUserNickName } from "../../store/userAuth"
+import Loader from "../ui/Loader/Loader"
+
 
 function ArticleId() {
   const dispatch = useDispatch(); 
   const params = useParams();
+  const [loading, setLoading] = useState(true)
   const mainCommentVisible = useSelector(getMainCommentVisible);
   const commentsParam = params.comments === 'comments'
   const articleId = parseInt(params.articleId);
@@ -26,11 +29,13 @@ function ArticleId() {
   useEffect(()=>{ 
     dispatch(getDbArticle({ url: `/api/article/${articleId}` , token}));
     window.scroll(0, 0);
+    setLoading(false)
   },[])
 
   return (
     <>
-      { Object.entries(article).length !== 0 ? 
+      { loading  ? <Loader/> :
+       Object.entries(article).length !== 0 ? 
         <>
           <div className="pages-header">
             <h3 >articleId { articleId } </h3> 
@@ -68,7 +73,7 @@ function ArticleId() {
             </div>  
           </div>
           <div className="articleId articleId-icons">
-            <ArticleStatsIcons articleId="true" item={article}/>
+            <ArticleStatsIcons articleIdSign={true} item={article}/>
           </div> 
           <div className="articleId ">
             <Comments id = { articleId } />
@@ -80,6 +85,7 @@ function ArticleId() {
           }
         </> : ''
       }
+      
     </>
   );
 }

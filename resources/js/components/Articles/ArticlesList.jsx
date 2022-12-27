@@ -16,7 +16,7 @@ function ArticlesList() {
     <>
       {
         articles.length > 0 ? articles.map((item, key) =>(
-         <Article key={key} item={item} />
+         <Article key={key} item={item} num={key}/>
         )) : <h2>Статей нет</h2>
       
       } 
