@@ -8,7 +8,7 @@ import toShareH from "../../../image/to_share_h.png"
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { getToken, getIsAuth } from "../../store/userAuth"
+import { getToken, getIsAuth, getUserNickName } from "../../store/userAuth"
 import { getDbArticleLike, getDbArticle, getDbArticleBookmarks} from "../../store/articles"
 
 function ArticleStatsIcons({articleIdSign, item, num}) {
@@ -21,6 +21,7 @@ function ArticleStatsIcons({articleIdSign, item, num}) {
    const dispatch = useDispatch(); 
    const token = useSelector(getToken)
    const isAuth = !useSelector(getIsAuth)
+   const userAutchNickName = useSelector(getUserNickName) === item.user_name
    const handleMouseOut = () => {
       setIsBooped(false);
    };
@@ -65,9 +66,10 @@ function ArticleStatsIcons({articleIdSign, item, num}) {
             </div>
             <div className="article-stats-icons__block ">
                <div 
-                  className={`article-stats-icons__elem ${ isAuth ? "hover" : "" }`} 
-                  title={item.auth_bookmarks ? "Убрать из закладок" : "Добавить в закладки"}
-                  onClick={ isAuth ? ()=>articleBookmark() : ()=>{}}
+                  className={`article-stats-icons__elem ${ isAuth && !userAutchNickName ? "hover" : "" }`} 
+                  title={userAutchNickName ? "Закладки" :
+                     item.auth_bookmarks ? "Убрать из закладок" : "Добавить в закладки"}
+                  onClick={ isAuth && !userAutchNickName ? ()=>articleBookmark() : ()=>{}}
                >
                   <BookmarkIcon 
                      sx={{ color: `${ item.auth_bookmarks ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 

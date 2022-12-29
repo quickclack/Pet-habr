@@ -4,6 +4,7 @@ export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_ERROR = "SET_ERROR";
 export const AMOUNT_IN_USER = "AMOUNT_IN_USER";
+export const PROFILE_ARTICLES = "PROFILE_ARTICLES"
 
 
 export const setErrorAction = (error) => ({
@@ -21,7 +22,10 @@ export const setAmountInUser = (amount) => ({
     type: AMOUNT_IN_USER,
     payload: amount
 })
-// setAmountInUser
+export const setProfileArticles = (payload) => ({
+    type: PROFILE_ARTICLES,
+    payload: payload
+})
 
 //регистрация
 export const signUpUserTrunk = (user) => async (dispatch) => {
@@ -204,5 +208,40 @@ export const getDbAmountInfoTrunk = (token) => async (dispatch) => {
     } catch (e) {
         console.log("ошибка - ",e)
         // dispatch(setErrorAction(e.response.data.message))
+    }
+}
+//запрос на обновление данных пользователя
+export const getDbUpdatingUserData = ({ token, user}) => async (dispatch) => {
+    console.log("getDbUpdatingUserData - ", user)
+    try{
+        const data = new FormData();
+        data.append('firstName', user.firstName);
+        data.append('lastName', user.lastName);
+        data.append('description', user.description);
+        data.append('sex', user.sex);
+        if (typeof user.avatar === 'object') data.append('avatar', user.avatar);
+        data.append('_method', 'PUT');
+        console.log("data - ", data)
+        const config = {
+            method: 'post',
+            url: '/api/profile/update',
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`,
+            },
+            data:data
+        }
+        const res =  await axios(config)
+        .then(({data})=>{
+            console.log("data resp- ", data.message)
+            
+            return data.message
+        })
+        return res
+    } catch (e) {
+        console.log("ошибка - ", e)
+        dispatch(setErrorAction(e.response.data.message))
+        return true
+
     }
 }

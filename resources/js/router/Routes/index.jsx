@@ -11,7 +11,7 @@ import { PublicRoute } from "../PublicRoute/Index"
 import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
-import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
+import {UserSettingsProfile }from '../../pages/UserProfile/Settings';
 import ArticlesFiltersTags from '../../pages/ArticlesFiltersTags';
 import { ArticleCreate } from '../../pages/UserProfile/ArticleCreate';
 import UserProfile from '../../pages/UserProfile'

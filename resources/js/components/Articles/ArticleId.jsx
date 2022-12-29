@@ -9,7 +9,8 @@ import Comments from '../Comments/Comments';
 import MainComment from '../Comments/MainComment';
 import { getToken, getUserNickName } from "../../store/userAuth"
 import Loader from "../ui/Loader/Loader"
-
+import Avatar from '@mui/material/Avatar';
+import imgAvatar from "../../../image/git.png"
 
 function ArticleId() {
   const dispatch = useDispatch(); 
@@ -42,17 +43,23 @@ function ArticleId() {
           </div>
           <div className="articleId">
             <div className="articleId__header ">
-              {params.nameUser ? "ttt":
-                <h4> {article.user.nickName}</h4>}
-                
+              {article.use ?
+              article.user.avatar !== null 
+                ? <Avatar alt="Remy Sharp" src={article.user.avatar}/> 
+                : <Avatar alt="Remy Sharp" src={imgAvatar} />:''
+              }
+              <h4> &emsp;
+                {params.nameUser ? params.nameUser : article.user.nickName || ''}
+              </h4>
               <h5> &emsp;{article.created_at}&ensp;</h5>
             </div>
             <div className='articleId__title'>
-              {commentsParam ? <Link to={`/article/${article.id}`} className="nav-btn">
-                <h4>{article.title}</h4>
-              </Link> :
-                
-                <h4>{article.title}</h4>}
+              {commentsParam 
+                ? <Link to={`/article/${article.id}`} className="nav-btn">
+                    <h4>{article.title}</h4>
+                  </Link> 
+                : <h4>{article.title}</h4>
+              }
             </div>
             {
               commentsParam ? '':  
