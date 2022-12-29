@@ -49,7 +49,7 @@ final class ArticleBuilder implements QueryBuilder
         return $this->getBuilder()
             ->with(['category', 'tags'])
             ->where('user_id', auth()->id())
-            ->where('status', ArticleStatus::APPROVED)
+            ->where('status', request('status'))
             ->orderByDesc('created_at')
             ->paginate(5);
     }

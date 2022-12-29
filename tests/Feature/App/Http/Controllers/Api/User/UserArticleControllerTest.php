@@ -11,6 +11,7 @@ use Domain\Information\Models\Category;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Support\Enums\ArticleStatus;
 use Tests\TestCase;
 
 class UserArticleControllerTest extends TestCase
@@ -121,7 +122,7 @@ class UserArticleControllerTest extends TestCase
         $this->assertDatabaseHas('articles', [
             'id' => $article->getKey(),
             'user_id' => $user->getKey(),
-            'status' => 0
+            'status' => ArticleStatus::NEW
         ]);
     }
 
