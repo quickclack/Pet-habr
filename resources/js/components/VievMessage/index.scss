@@ -1,3 +1,27 @@
+.message{
+   &__container{
+      position: relative;
+      width: 100%;
+   }
+   position: absolute;
+   left: 50%;
+   margin-left: -15%;
+   min-height: 50px;
+   min-width: 200px;
+   z-index: 10;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #d6ffff;
+   border-radius: 10px;
+   animation: move 5s 1 linear;
+   text-align: center;
+   padding: 15px;
+   p{
+      color: rgb(42, 83, 94);
+      margin: 0;
+   }
+}
 .logout{
    position: absolute;
    min-height: 50px;
