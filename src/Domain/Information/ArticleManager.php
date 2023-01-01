@@ -19,26 +19,12 @@ final class ArticleManager
 
     public function create(FormRequest $request): void
     {
-        $article = Article::create(
-            $this->validated($request, 'image', 'articles')
-        );
-
-        $article->status = ArticleStatus::DRAFT;
-
-        $this->addUser($article); // костыльно
-
-        $article->tags()->sync($request->tags);
+        $this->createOrStore($request, ArticleStatus::DRAFT);
     }
 
     public function store(FormRequest $request): void
     {
-        $article = Article::create(
-            $this->validated($request, 'image', 'articles')
-        );
-
-        $this->addUser($article); // костыльно
-
-        $article->tags()->sync($request->tags);
+        $this->createOrStore($request, ArticleStatus::NEW);
     }
 
     public function update(FormRequest $request, Article $article): void
@@ -112,5 +98,18 @@ final class ArticleManager
         $article->user_id = auth()->id();
 
         $article->update();
+    }
+
+    private function createOrStore(FormRequest $request, ArticleStatus $status): void
+    {
+        $article = Article::create(
+            $this->validated($request, 'image', 'articles')
+        );
+
+        $article->status = $status;
+
+        $this->addUser($article); // костыльно
+
+        $article->tags()->sync($request->tags);
     }
 }
