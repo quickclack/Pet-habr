@@ -3,6 +3,7 @@
         padding: 15px 0 0 15px;
         background-color: rgb(255, 255, 255);
         margin-bottom: 3px;
+        display: flex;
         p{
             margin: 0;
         }
@@ -13,6 +14,9 @@
         p {
             margin: 0 10px;
             color:rgb(165 162 162)
+        }
+        &-blok{
+            margin-left: 10px;
         }
     }
     &__menu{

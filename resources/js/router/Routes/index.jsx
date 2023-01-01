@@ -11,7 +11,7 @@ import { PublicRoute } from "../PublicRoute/Index"
 import { useSelector, useDispatch } from "react-redux";
 import { getLinksCategoriesAll } from "../../store/categories"
 import { Search } from '../../pages/Search';
-import { UserSettingsProfile } from '../../pages/UserSettings/Profile';
+import {UserSettingsProfile }from '../../pages/UserProfile/Settings';
 import ArticlesFiltersTags from '../../pages/ArticlesFiltersTags';
 import { ArticleCreate } from '../../pages/UserProfile/ArticleCreate';
 import UserProfile from '../../pages/UserProfile'
@@ -47,7 +47,11 @@ const Router = () => {
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
                             <Route exact path='/article/create' element={<ArticleCreate/>}/>
                             <Route exact path='/users/:nameUser' element={<UserProfile/>}>
-                                <Route exact path='articles' element={<UserProfileArticles/>}/>
+                                <Route exact path='articles' element={<UserProfileArticles/>}>
+                                    <Route exact path='drafts' element={<UserProfileArticles/>}/>
+                                    <Route exact path='moderation' element={<UserProfileArticles/>}/>
+                                    <Route exact path='rejected' element={<UserProfileArticles/>}/>
+                                </Route>
                                 <Route exact path='comments' element={<UserProfileComments/>}/>
                                 <Route exact path='bookmarks' element={<UserProfileBookmarks/>}/>
                                 <Route exact path='profile' element={<UserProfileProfile/>}/>

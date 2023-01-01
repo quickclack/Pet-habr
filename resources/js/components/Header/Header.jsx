@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 // import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from "react-router-dom";
-import { getIsAuth, logOutUserAction, getToken, getUserNickName, getUserRoles } from "../../store/userAuth";
+import { getIsAuth, logOutUserAction, getToken, getUserAvatar,
+     getUserNickName, getUserRoles } from "../../store/userAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from '@mui/material/Box';
@@ -15,12 +16,14 @@ import MenuItem from '@mui/material/MenuItem';
 
 import imgAvatar from "../../../image/git.png"
 import VievMessage from '../VievMessage'
+import { avatarURL } from '../../utils/API'
 
 export const Header = () => {
     const authed = useSelector(getIsAuth);
     const token = useSelector(getToken);
     const roles = useSelector(getUserRoles);
     const nickName = useSelector(getUserNickName)
+    const userAvatar = useSelector(getUserAvatar)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -88,7 +91,7 @@ export const Header = () => {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Remy Sharp" src={imgAvatar} />
+                                        <Avatar alt="Remy Sharp" src={`${avatarURL}${userAvatar}`} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu

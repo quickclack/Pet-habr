@@ -36,6 +36,17 @@ export const getUserRoles = (state) => {
    return (state.auth.user.roles === "Administrator" || state.auth.user.roles === "Moderator")
 };
 export const getUserAmount = (state) => {
-     console.log(state.auth)
+   //   console.log(state.auth)
    return state.auth.amount 
+};
+
+export const getProfileArticles = (state) => {
+   // console.log(state.auth)
+   return state.auth.profileArticles 
+};
+
+export const getUserAvatar = (state) => {
+   // console.log(state.auth)
+   return state.auth.user.avatar
+ 
 };

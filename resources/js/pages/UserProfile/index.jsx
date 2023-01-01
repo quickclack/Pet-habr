@@ -8,6 +8,8 @@ import imgAvatar from "../../../image/git.png"
 import Avatar from '@mui/material/Avatar';
 import './profile.scss';
 import LabTabs from "../../components/ui/Tabs"
+import { avatarURL } from '../../utils/API'
+
 function UserProfile() {
   const param = useParams()
   let location = useLocation();
@@ -26,12 +28,14 @@ function UserProfile() {
   return (
       <>
         <div className="profile__container">
-          {user.image ? <Avatar alt="Remy Sharp" src={user.image}/> :<Avatar alt="Remy Sharp" src={imgAvatar} />}
-          <div className="profile__header">
-            <h3 className=""> {user.nickName}</h3>
-            <p className=""> { "only"} </p>
-          </div> 
-          <p> {user.roles ? user.roles : "Пользователь"} </p>
+          {user.avatar ? <Avatar alt="Remy Sharp" src={`${avatarURL}${user.avatar}`}/> :<Avatar alt="Remy Sharp" src={imgAvatar} />}
+          <div className="profile__header-blok">
+            <div className="profile__header">
+              <h3 className=""> {user.nickName}</h3>
+              <p className=""> { "only"} </p>
+            </div> 
+            <p> {user.roles ? user.roles : "Пользователь"} </p>
+          </div>
         </div>
         {link[3] === "article"? "" : <div className="profile__menu">
           <LabTabs link={link[3]} nickName={user.nickName}/>
