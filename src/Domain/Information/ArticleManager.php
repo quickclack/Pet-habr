@@ -17,6 +17,19 @@ final class ArticleManager
 {
     use HasValidated, AuthorizesRequests;
 
+    public function create(FormRequest $request): void
+    {
+        $article = Article::create(
+            $this->validated($request, 'image', 'articles')
+        );
+
+        $article->status = ArticleStatus::DRAFT;
+
+        $this->addUser($article); // костыльно
+
+        $article->tags()->sync($request->tags);
+    }
+
     public function store(FormRequest $request): void
     {
         $article = Article::create(
@@ -35,13 +48,18 @@ final class ArticleManager
         $article->tags()->sync($request->tags);
     }
 
+    public function publish(Article $article): void
+    {
+        $article->status = ArticleStatus::NEW;
+
+        $article->save();
+    }
+
     public function updateInProfile(FormRequest $request, int $id): void
     {
         $article = Article::findOrFail($id);
 
         $this->authorize('update-article', $article);
-
-        $article->status = ArticleStatus::NEW;
 
         $article->update($this->validated($request, 'image', 'articles'));
     }
@@ -78,6 +96,13 @@ final class ArticleManager
         $article = $builder->getArticleById($id);
 
         $article->status = ArticleStatus::REJECTED;
+
+        $article->save();
+    }
+
+    public function withdraw(Article $article): void
+    {
+        $article->status = ArticleStatus::DRAFT;
 
         $article->save();
     }
