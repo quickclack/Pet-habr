@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileCollection;
 use App\Http\Resources\Api\Profile\Article\ArticleProfileResource;
+use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\User\Queries\UserBuilder;
 use Illuminate\Http\JsonResponse;
@@ -54,7 +55,14 @@ class UserArticleController extends Controller
 
     public function create(ArticleRequest $request): JsonResponse
     {
-        article()->store($request);
+        article()->create($request);
+
+        return $this->message('Статья сохранена в черновик');
+    }
+
+    public function publish(Article $article): JsonResponse
+    {
+        article()->publish($article);
 
         return $this->message('Статья отправлена на модерацию');
     }
@@ -71,5 +79,16 @@ class UserArticleController extends Controller
         article()->destroyInProfile($id);
 
         return $this->deleteSuccess('Статья');
+    }
+
+    public function withdraw(Article $article): JsonResponse
+    {
+        if ($article->status == ArticleStatus::NEW) {
+            throw new \Exception('Невозможно снять статью которая на модерации');
+        }
+
+        article()->withdraw($article);
+
+        return $this->message('Статья снята с публикации и сохранена в черновик');
     }
 }

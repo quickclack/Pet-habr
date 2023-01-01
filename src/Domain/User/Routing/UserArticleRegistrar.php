@@ -18,6 +18,10 @@ class UserArticleRegistrar implements RouteRegistrar
 
                 Route::post('/profile/article/create', 'create');
 
+                Route::post('/profile/article/{article}/publish', 'publish');
+
+                Route::post('/profile/article/{article}/withdraw', 'withdraw');
+
                 Route::post('/profile/articles', 'getAll');
 
                 Route::put('/profile/article/{article:id}/update', 'update');
