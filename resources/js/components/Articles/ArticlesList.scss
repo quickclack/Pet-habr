@@ -3,6 +3,12 @@
    padding: 15px;
    min-height: 400px;
    position: relative;
+   &__avatar{
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      background-image: url(../../../../public/storage/avatars/sgtM0FnMF1PnZjpxWGgfuo7lOfOhzAsIU71OVbLD.jpg);
+   }
    &__header{
       display: flex;
       align-items: center;

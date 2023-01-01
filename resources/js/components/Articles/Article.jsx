@@ -9,6 +9,7 @@ import   MyConfirm   from "../ui/confirm/MyConfirm"
 import   ButtonArticle   from "../ui/Buttons/ButtonArticle"
 import Avatar from '@mui/material/Avatar';
 import imgAvatar from "../../../image/git.png"
+import { avatarURL } from '../../utils/API'
 
 function Article({item, num}) {
   const [modal, setModal] = useState(false);
@@ -29,9 +30,7 @@ function Article({item, num}) {
       title: "Удалить",
       action:() =>setModal(true)}
   ]
-  useEffect(()=>{ 
-    
-  },[])
+  
 
   async function  deleteArticle() { 
     console.log("deleteArticle")
@@ -43,17 +42,15 @@ function Article({item, num}) {
     <div className="article" >
       <div className="article__header ">
     
-        {item.avatar !== null ? <Avatar  src={`/public/storage/${item.avatar}`}
-      
-      
-    
-      
-      /> : <Avatar alt="Remy Sharp" src={imgAvatar} />}
+        {item.avatar !== null 
+          ? <Avatar  src={`${avatarURL }${item.avatar}`} />
+          : <Avatar alt="Remy Sharp" src={imgAvatar} />
+        }
         <h4> &emsp;{item.user_name}</h4>
         <h5> &emsp;{item.created_at}&ensp;</h5>
       </div>
       <div className='article__title'>
-        <Link to={`/article/${item.id}`} className="nav-btn">
+        <Link to={profileArticles ? `/users/${params.nameUser}/article/${item.id}` : `/article/${item.id}`} className="nav-btn">
           <h4>{item.title} {item.id}</h4> 
         </Link>
       </div>

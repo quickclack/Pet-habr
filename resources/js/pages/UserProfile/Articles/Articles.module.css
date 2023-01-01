@@ -1,0 +1,25 @@
+.article__menu__container{
+   background-color: rgb(255, 255, 255);
+   margin-top: 2px;
+}
+.article__menu__select {
+   width: 180px;
+   display: block;
+   height: calc(2.25rem + 2px);
+   margin-bottom: 5px;
+   padding: 0.375rem 0.75rem;
+   font-family: inherit;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 1.5;
+   background-color: #fff;
+   background-clip: padding-box;
+   border: 0 solid var(--color-secondary);
+}
+.article__menu__select:focus-visible{
+   outline: none;
+}
+.article__menu__title{
+   margin-left: 15px;
+}
+

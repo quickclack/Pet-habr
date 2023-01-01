@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import './profile.scss';
 import {ErrorField} from "../../../components/ErrorField";
-import { getToken, getDbUpdatingUserData, getUser, setErrorAction, getErrors} from "../../../store/userAuth"
+import { getToken, getDbUpdatingUserData, getUser, 
+    setErrorAction, getErrors, UserInfoTrunk} from "../../../store/userAuth"
 import Avatar from '@mui/material/Avatar';
 import imgAvatar from "../../../../image/git.png"
 import ProfileMessage from '../../../components/VievMessage/ProfileMessage'
-
+import { avatarURL } from '../../../utils/API'
 export const UserSettingsProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,18 +17,30 @@ export const UserSettingsProfile = () => {
     const [user, setUser] = useState({
         firstName: userDB.firstName || '',
         lastName:userDB.lastName || '',
-        describe:userDB.describe || '',
+        description:userDB.description || '',
         sex:userDB.sex || 'female',
         avatar: userDB.avatar || ''
     });
+
     const errorList = useSelector(getErrors);
     const token = useSelector(getToken)
-      
+    useEffect(()=> {
+        dispatch( UserInfoTrunk( token ));
+        setUser({
+            firstName: userDB.firstName || '',
+            lastName:userDB.lastName || '',
+            description:userDB.description || '',
+            sex:userDB.sex || 'female',
+            avatar: userDB.avatar || ''
+        })
+        
+    },[]) 
+  
     function clearForm() {
         setUser({
             firstName:'',
             lastName:'',
-            describe:'',
+            description:'',
             sex:'female',
             avatar: ''
         })
@@ -48,6 +61,7 @@ export const UserSettingsProfile = () => {
             // navigate("/confirm_email");
             // clearForm();
         }
+        dispatch( UserInfoTrunk( token ))
     }
 
     return (
@@ -77,8 +91,8 @@ export const UserSettingsProfile = () => {
                                 <div className="text-field">
                                     <label className="text-field__label" >Опишите себя</label>
                                     <input className="text-field__input gy-5" id="describe" type="text" placeholder="Ваша специализация"
-                                           value={user.describe}
-                                           onChange={e => setUser({...user, describe:e.target.value })}
+                                           value={user.description}
+                                           onChange={e => setUser({...user, description:e.target.value })}
                                            required
                                     />
                                     <p className="profile-page_p_describe">Укажите свою специализацию. Например: Фронтенд разработчик</p>
@@ -92,7 +106,7 @@ export const UserSettingsProfile = () => {
                                             ? <Avatar alt="Remy Sharp" src={imgAvatar} sx={{ width: 80, height: 80 }}/>
                                             : typeof user.avatar === 'object'
                                                 ? <Avatar alt="Remy Sharp" src={URL.createObjectURL(user.avatar)} sx={{ width: 80, height: 80 }}/> 
-                                                : <Avatar alt="Remy Sharp" src={`${user.avatar}`} sx={{ width: 80, height: 80 }}/> 
+                                                : <Avatar alt="Remy Sharp" src={`${avatarURL}${user.avatar}`} sx={{ width: 80, height: 80 }}/> 
                                                 
                                         }
                                     </div>

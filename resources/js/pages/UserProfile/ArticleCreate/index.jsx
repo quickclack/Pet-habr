@@ -15,7 +15,7 @@ export const ArticleCreate = () => {
    const editTrue = Object.entries(params).length !== 0
    const articleDb = useSelector(getArticle)
   
-   console.log ("articleDb - ", articleDb)
+   console.log ("articleDb - ", editTrue)
    const [article, setArticle] = useState({
       title: '', 
       description: '', 
@@ -26,11 +26,19 @@ export const ArticleCreate = () => {
    const [message, setMessage] = useState('');
    
    useEffect(()=> {
+      setArticle({
+         title: '', 
+         description: '', 
+         category_id: '1',
+         tag_id: [],
+         image:''
+      })
       console.log("getDbTagsAll")
       dispatch( getDbTagsAll() );
-      dispatch(getDbArticle({ url: `/api/article/${articleId}`, token }));
+      
       window.scroll(0, 0);
       if (editTrue) {
+         dispatch(getDbArticle({ url: `/api/article/${articleId}`, token }));
          setArticle({
             title: articleDb.title,  
             description: articleDb.description, 

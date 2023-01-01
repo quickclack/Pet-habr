@@ -44,3 +44,9 @@ export const getProfileArticles = (state) => {
    // console.log(state.auth)
    return state.auth.profileArticles 
 };
+
+export const getUserAvatar = (state) => {
+   // console.log(state.auth)
+   return state.auth.user.avatar
+ 
+};

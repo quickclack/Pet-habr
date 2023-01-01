@@ -47,7 +47,11 @@ const Router = () => {
                             <Route exact path='/auth/settigs/profile' element={<UserSettingsProfile/>}/>
                             <Route exact path='/article/create' element={<ArticleCreate/>}/>
                             <Route exact path='/users/:nameUser' element={<UserProfile/>}>
-                                <Route exact path='articles' element={<UserProfileArticles/>}/>
+                                <Route exact path='articles' element={<UserProfileArticles/>}>
+                                    <Route exact path='drafts' element={<UserProfileArticles/>}/>
+                                    <Route exact path='moderation' element={<UserProfileArticles/>}/>
+                                    <Route exact path='rejected' element={<UserProfileArticles/>}/>
+                                </Route>
                                 <Route exact path='comments' element={<UserProfileComments/>}/>
                                 <Route exact path='bookmarks' element={<UserProfileBookmarks/>}/>
                                 <Route exact path='profile' element={<UserProfileProfile/>}/>
