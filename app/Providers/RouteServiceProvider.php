@@ -15,6 +15,7 @@ use Domain\User\Routing\CommentRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
 use Domain\User\Routing\SocialiteRegistrar;
 use Domain\User\Routing\UserArticleRegistrar;
+use Domain\User\Routing\UserCommentRegistrar;
 use Domain\User\Routing\UserRegistrar;
 use Domain\User\Routing\VerifyEmailRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -50,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
         LikeRegistrar::class,
         BookmarkRegistrar::class,
         UserArticleRegistrar::class,
+        UserCommentRegistrar::class,
     ];
 
     /**
