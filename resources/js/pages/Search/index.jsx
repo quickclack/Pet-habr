@@ -68,7 +68,7 @@ export const Search = () => {
   async function searchHandler(event) {
     console.log("searchHandler - " + search)
     event.preventDefault();
-    await dispatch( getDbArticlesAll(`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}`));
+    await dispatch( getDbArticlesAll({url:`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}`}));
     await dispatch(setArticlesPagesUrl(`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}&`))
     
     setArticlesVisible(true)
@@ -114,7 +114,7 @@ export const Search = () => {
             </RadioGroup>
           </FormControl>
           <div className="row">
-            <div class="col-sm">
+            <div className="col-sm">
               <FormGroup>
                 <FormLabel id="demo-radio-buttons-group-label">Тэги</FormLabel>
                   {tags.map((option)=>
@@ -129,7 +129,7 @@ export const Search = () => {
                   )}
               </FormGroup> 
             </div>
-            <div class="col-sm">
+            <div className="col-sm">
               <FormGroup>
                 <FormLabel id="demo-radio-buttons-group-label">Категории</FormLabel>
                   {categories.map((option)=>

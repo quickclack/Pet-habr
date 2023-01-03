@@ -9,16 +9,14 @@ import ArticlePagination from './ArticlePagination'
 function ArticlesList() {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
-  
-  console.log('articles - ', articles)
+   // console.log('articles - ', articles)
     
   return (
     <>
       {
         articles.length > 0 ? articles.map((item, key) =>(
-         <Article key={key} item={item} num={key}/>
-        )) : <h2>Статей нет</h2>
-      
+         <Article key={item.id} item={item} num={key}/>
+        )) : <div className='articles__block-null'><h2>Статей нет</h2></div>
       } 
       <ArticlePagination />
     </>

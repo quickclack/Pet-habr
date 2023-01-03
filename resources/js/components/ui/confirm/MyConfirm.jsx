@@ -1,9 +1,6 @@
 import React from 'react';
 import  './MyConfirm.scss'
 const MyConfirm = ({children, visible, setVisible, setYes  }) => {
-
-   
-
     return (
         <div className={ visible ? "confirm__container confirm__active": "confirm__container" } >
             <div className="confirm__window" >
