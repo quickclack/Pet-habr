@@ -46,6 +46,11 @@ class AdminRegistrar implements RouteRegistrar
 
                 Route::resource('/users', UserController::class)
                     ->names('admin.users');
+
+                Route::controller(UserController::class)->group(function () {
+                    Route::get('/users/banned', 'show')
+                        ->name('admin.users.banned');
+                });
             });
         });
     }

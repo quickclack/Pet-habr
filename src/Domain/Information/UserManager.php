@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Information;
 
+use Carbon\Carbon;
 use Domain\User\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,17 @@ final class UserManager
     {
         $user->roles()->attach($request->get('role'));
 
-        $user->is_banned = $request->boolean('banned');
+        if ($request->boolean('banned')) {
+            $user->banned()->create([
+                'user_id' => $user->getKey(),
+                'banned' => true,
+                'banned_start' => Carbon::now(),
+                'banned_end' => Carbon::now()->addDays(12)
+            ]);
 
-        $user->save();
+        } else {
+            $user->banned()->delete();
+        }
     }
 
     public function destroy(User $user): void

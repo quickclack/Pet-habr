@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\View\ViewModels\User\UserEditViewModel;
 use App\View\ViewModels\User\UserIndexViewModel;
+use App\View\ViewModels\User\UserShowViewModel;
 use Domain\User\Models\User;
 use Domain\User\Queries\UserBuilder;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +17,12 @@ class UserController extends Controller
     {
         return (new UserIndexViewModel($builder))
             ->view('admin.users.index');
+    }
+
+    public function show(): UserShowViewModel
+    {
+        return (new UserShowViewModel())
+            ->view('admin.users.banned');
     }
 
     public function edit(User $user): UserEditViewModel

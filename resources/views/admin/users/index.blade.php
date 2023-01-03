@@ -3,6 +3,11 @@
 @section('title')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Список Пользователей</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a href="{{ route('admin.users.banned') }}" class="btn btn-sm btn-outline-secondary">Заблокированные пользователи</a>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -33,7 +38,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('d-m-Y') }}</td>
                         <td>{{ $user->getRole() ?? '--' }}</td>
-                        <td>{{ $user->is_banned ? 'true' : 'false' }}</td>
+                        <td>{{ isset($user->banned->banned) ? 'true' : 'false' }}</td>
 
                         <td class="d-flex justify-content-end">
                             <a href="{{ route('admin.users.edit', ['user' => $user->id]) }}"

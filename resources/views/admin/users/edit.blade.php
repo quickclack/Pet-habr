@@ -18,7 +18,7 @@
                        type="checkbox"
                        id="banned"
                        name="banned"
-                       @if($user->is_banned) checked @endif/>
+                       @if(isset($user->banned->banned)) checked @endif/>
             </div>
 
             @if(auth('sanctum')->user()->getRole() == 'Administrator')

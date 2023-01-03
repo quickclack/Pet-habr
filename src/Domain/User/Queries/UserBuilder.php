@@ -31,7 +31,7 @@ final class UserBuilder implements QueryBuilder
     public function getAllUsers(): Collection
     {
         return $this->getBuilder()
-            ->with('roles')
+            ->with(['roles', 'banned'])
             ->whereRelation('roles', 'name', '!=', 'Administrator')
             ->get();
     }
