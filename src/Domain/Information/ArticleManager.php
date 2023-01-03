@@ -47,6 +47,8 @@ final class ArticleManager
 
         $this->authorize('update-article', $article);
 
+        $article->status = ArticleStatus::NEW;
+
         $article->update($this->validated($request, 'image', 'articles'));
     }
 

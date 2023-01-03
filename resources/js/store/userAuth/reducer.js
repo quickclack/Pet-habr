@@ -4,7 +4,9 @@ import {
     LOGOUT_USER, 
     SET_ERROR, 
     AMOUNT_IN_USER, 
-    PROFILE_ARTICLES
+    PROFILE_ARTICLES,
+    PROFILE_ARTICLES_STATUS,
+    PROFILE_USER_PROFILE_NULL
 } from "./actions"
 
 const initialState = {
@@ -17,7 +19,8 @@ const initialState = {
     },
     errors: null,
     amount:{},
-    profileArticles: false
+    profileArticles: false,
+    profileArticlesStatus: ''
 }
 
 export const userAuthReducer = (state = initialState, {type, payload})=> {
@@ -58,6 +61,20 @@ export const userAuthReducer = (state = initialState, {type, payload})=> {
                 profileArticles: payload
             }
         }
+        case(PROFILE_ARTICLES_STATUS):{
+            return {
+                ...state,
+                profileArticlesStatus: payload
+            }
+        }
+        case(PROFILE_USER_PROFILE_NULL):{
+            return {
+                ...state,
+                profileArticlesStatus:'',
+                profileArticles:false
+            }
+        }
+
         default : {
             return state
         }

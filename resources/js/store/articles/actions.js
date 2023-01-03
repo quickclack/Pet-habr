@@ -201,7 +201,7 @@ export const getDbArticlesUserProfile = ({url, token}) => async (dispatch) => {
         console.log(e.message);
     }
 }
-
+// удаление статьи в профиле 
 export const getDbArticleDelete = ({articleId, token}) => async (dispatch) => {
     console.log("getDbArticleDelete")
     try{
@@ -286,6 +286,26 @@ export const getDbBookmarksArticle = ({token}) => async (dispatch) => {
             .then(({data})=>{
                 console.log("getDbBookmarksArticle respons - ", data)
                 dispatch(setArticlesAll(data));
+            })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+// снятие статьи с публикации перенос в черновики
+export const getDbArticleStatus = ({url, token}) => async (dispatch) => {
+    console.log("getDbArticleDraft")
+    try{
+        const config = {
+            method: 'post',
+            url: url,
+            headers: { 
+                Accept: 'application/json', 
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const articles = await axios(config)
+            .then(({data})=>{
+                console.log("getDbArticleDraft resp - ",  data)
             })
     } catch (e) {
         console.log(e.message);

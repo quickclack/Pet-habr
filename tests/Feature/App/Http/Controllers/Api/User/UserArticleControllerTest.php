@@ -122,7 +122,7 @@ class UserArticleControllerTest extends TestCase
         $this->assertDatabaseHas('articles', [
             'id' => $article->getKey(),
             'user_id' => $user->getKey(),
-            'status' => ArticleStatus::APPROVED
+            'status' => ArticleStatus::NEW
         ]);
     }
 
