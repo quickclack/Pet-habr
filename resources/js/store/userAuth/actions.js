@@ -5,8 +5,8 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_ERROR = "SET_ERROR";
 export const AMOUNT_IN_USER = "AMOUNT_IN_USER";
 export const PROFILE_ARTICLES = "PROFILE_ARTICLES"
-
-
+export const PROFILE_ARTICLES_STATUS = 'PROFILE_ARTICLES_STATUS'
+export const PROFILE_USER_PROFILE_NULL = 'PROFILE_USER_PROFILE_NULL'
 export const setErrorAction = (error) => ({
     type: SET_ERROR,
     payload: error
@@ -22,8 +22,19 @@ export const setAmountInUser = (amount) => ({
     type: AMOUNT_IN_USER,
     payload: amount
 })
+//признак просмотра статей в профиле
 export const setProfileArticles = (payload) => ({
     type: PROFILE_ARTICLES,
+    payload: payload
+})
+//статус просмотра статей в профиле
+export const setProfileArticlesStatus = (payload) => ({
+    type: PROFILE_ARTICLES_STATUS,
+    payload: payload
+})
+//обнуление статусов в профиле
+export const setUserProfileNull = (payload) => ({
+    type: PROFILE_USER_PROFILE_NULL,
     payload: payload
 })
 

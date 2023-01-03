@@ -7,15 +7,16 @@ import { getDbTagsAll, getTagsAll } from "../../../store/tags"
 import { getDbArticleCreate, getArticle, getDbArticle } from "../../../store/articles"
 import { getToken } from "../../../store/userAuth"
 import VievMessage from '../../../components/VievMessage'
+import { avatarURL } from '../../../utils/API'
 
 export const ArticleCreate = () => {
    const params = useParams();
    const dispatch = useDispatch(); 
-   const articleId = params.articleId
+   const articleId = params.articleId || ''
    const editTrue = Object.entries(params).length !== 0
    const articleDb = useSelector(getArticle)
   
-   console.log ("articleDb - ", editTrue)
+   console.log ("articleDb - ", params)
    const [article, setArticle] = useState({
       title: '', 
       description: '', 
@@ -42,8 +43,8 @@ export const ArticleCreate = () => {
          setArticle({
             title: articleDb.title,  
             description: articleDb.description, 
-            category_id:articleDb.category.id ||'', 
-            image:'',
+            category_id: articleDb.category.id || '', 
+            image: articleDb.image || '',
             tag_id: articleDb.tags.map((tag)=> tag.id),
          })
       }
@@ -65,7 +66,6 @@ export const ArticleCreate = () => {
       }));
       setMessage(res)
       setTimeout(()=>setMessage(''), 5000)
-
    }
    const articleUbdate = async (event) =>{
       event.preventDefault();
@@ -78,7 +78,6 @@ export const ArticleCreate = () => {
       }));
       setMessage(res)
       setTimeout(()=>setMessage(''), 5000)
-
    }
 
    const setTags = (e)=>{
@@ -119,6 +118,18 @@ export const ArticleCreate = () => {
                      </textarea>
                      
                   </div>
+                  <div className="mb-3 w-100">
+                     <label className="text-field__label">Изображение</label>
+                     {article.image === '' || article.image === undefined  
+                        ? ''
+                        : typeof article.image === 'object'
+                           ? <img src={URL.createObjectURL(article.image)} width="100%"/> 
+                           : <img src={`${avatarURL}${article.image}`} width="100%"/>}
+                     <input  className="article__edit-page-img" 
+                        type="file"
+                        onChange={e => setArticle({...article, image:e.target.files[0] })}
+                     />
+                  </div>
                   <div className="col-5">
                      <label className="text-field__label" >Категория</label>
                      <select  className="text-field__select"
@@ -147,20 +158,13 @@ export const ArticleCreate = () => {
                            <option key={option.id} 
                               value={option.id} 
                               onClick={e => setTags(e)}
-                              // {article.tag_id.forEach(tag => tag === option.id ? selected : '')}
                            >
                               {option.title}
                            </option>
                         )}
                      </select>
                   </div>
-                  <div className="mb-3 w-50">
-                     <label className="text-field__label">Изображение</label>
-                     <input  className="article__edit-page-img" 
-                        type="file"
-                        onChange={e => setArticle({...article, image:e.target.files[0] })}
-                     />
-                  </div>
+                 
 
                   <div className="row justify-content-center">
                      <input className="btn profile-btn" type="submit" value="Загрузить статью"/>
