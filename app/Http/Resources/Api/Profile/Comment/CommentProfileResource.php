@@ -11,8 +11,8 @@ class CommentProfileResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'article_id' => $this->article_id ?? $this->getArticleId($this->parent_id),
-            'article_title' => $this->article->title ?? $this->getArticleTitle($this->parent_id),
+            'article_id' => $this->article_id ?? $this->getArticleFields('id', $this->parent_id),
+            'article_title' => $this->article->title ?? $this->getArticleFields('title', $this->parent_id),
             'comment' => $this->comment,
             'created_at' => $this->setDate($this->created_at),
             'user_avatar' => $this->user->avatar,
@@ -20,23 +20,16 @@ class CommentProfileResource extends JsonResource
         ];
     }
 
-    private function getArticleId(int $id): int
+    private function getArticleFields(string $flag, int $id): int|string
     {
         $comment = Comment::query()
             ->select('article_id')
             ->where('id', $id)
             ->first();
 
-        return $comment->article_id;
-    }
-
-    private function getArticleTitle(int $id): string
-    {
-        $comment = Comment::query()
-            ->select('article_id')
-            ->where('id', $id)
-            ->first();
-
-        return $comment->article->title;
+        return match ($flag) {
+            'id' => $comment->article_id,
+            'title' => $comment->article->title
+        };
     }
 }
