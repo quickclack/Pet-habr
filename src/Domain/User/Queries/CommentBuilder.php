@@ -36,6 +36,6 @@ final class CommentBuilder implements QueryBuilder
        return $this->getBuilder()
            ->with(['article', 'user'])
            ->where('user_id', auth('sanctum')->id())
-           ->paginate(5);
+           ->paginate(40);
    }
 }
