@@ -90,119 +90,114 @@ function Comments({id}) {
             <small className="text-muted">Здесь пока нет ни одного комментария, вы можете стать первым!</small>
          </div>
          :  comments.map((item, key) =>(
-         <div key = { item.id } className="row my-3">
-            <div className="comments__header">
-               <h4> {item.user_name}</h4>
-               <h5> &emsp;{item.created_at}&ensp;</h5>
-            </div>
-            
-            <span>
-               {`${item.comment}`}
-            </span>
-
-            <div className='comments__icons__container  '>
-               <div className="article-stats-icons__block">
-                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
-                     title={item.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
-                     onClick={ isAuth ? 
-                        ()=>commentLike({commentId:item.id, key})
-                        : ()=>{}}
-                  >
-                     <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
-                  </div>
-                  <div className="article-stats-icons__elem">
-                     { item.likes || 0}
-                  </div>
+            <div key = { item.id } className="row my-3">
+               <div className="comments__header">
+                  <h4> {item.user_name}</h4>
+                  <h5> &emsp;{item.created_at}&ensp;</h5>
                </div>
-               {   item.user_id !== userId &&  !authed ?
+               <span>
+                  {`${item.comment}`}
+               </span>
+               <div className='comments__icons__container  '>
                   <div className="article-stats-icons__block">
-                     <div className="comments__icons__elem-answer"
-                        onClick={()=>{
-                           openCommentAnswer({key})
-                        }}
+                     <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
+                        title={item.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
+                        onClick={ isAuth ? 
+                           ()=>commentLike({commentId:item.id, key})
+                           : ()=>{}}
                      >
-                        Ответить
+                        <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
+                     </div>
+                     <div className="article-stats-icons__elem">
+                        { item.likes || 0}
                      </div>
                   </div>
-                  : ''
-               }   
-               <div className="article-stats-icons__block ">
-                  <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
-                     title="Добавить в закладки"
-                     onClick={ isAuth ? ()=>commentsBookmark(): ()=>{}}
-                  >
-                     <BookmarkIcon 
-                        sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
-                     />
-                  </div>
-                  <div className="article-stats-icons__elem">
-                     0
-                  </div>
-               </div>
-               { item.user_id == userId ? 
-                  <>
+                  { item.user_id !== userId &&  !authed ?
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
                            onClick={()=>{
-                              openCommentEdit({key})
+                              openCommentAnswer({key})
                            }}
-                           >
-                           Редактировать
+                        >
+                           Ответить
                         </div>
                      </div>
-                     <div className='comments__ansver-close' title="Удалить комментарий"
-                        onClick={()=>{
-                           deleteComment(item.id)
-                        }}
+                     : ''
+                  }   
+                  <div className="article-stats-icons__block ">
+                     <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
+                        title="Добавить в закладки"
+                        onClick={ isAuth ? ()=>commentsBookmark(): ()=>{}}
                      >
-                        <CloseIcon/>
+                        <BookmarkIcon 
+                           sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
+                        />
                      </div>
-                  </>
-                  : '' 
-               }
-               
-
-            </div>
-            { item.ansverVisible ?
-               <ComentEdit 
-                  title = { `Ответить @${item.user_name}` } 
-                  close = { ()=>{commentCommentAnswerClose({key})} }  
-                  commenValue = { '' }
-                  commentId = { item.id }
-                  sendComment = { ()=>{sendCommentAnswer({key})} }
-                  name = {'answer' }
-                  articleId ={ null }
-               />
-               : ''
-            }
-            { item.editVisible ?
-               <ComentEdit 
-                  title = { 'Редактировать' } 
-                  close = { ()=>{commentCommentEditClose({key})} } 
-                  commenValue = { item.comment }
-                  commentId = { item.id }
-                  sendComment = { ()=>{ sendCommentEdit({key})} }
-                  name = {'edit'}
-               />
-               : ''
-            }
-            { item.replies_comment ? 
-               <div className="col mx-5">
-                  {item.replies_comment.map((it, index) => (
-                     // <div>gggggg</div>
-                     <CommentsComment 
-                        key = { it.id } 
-                        comment = { it } 
-                        articleId = { id } 
-                        index = { index }
-                        parent = { key }
-                     />
-                  ))}
-                 
+                     <div className="article-stats-icons__elem">
+                        0
+                     </div>
+                  </div>
+                  { item.user_id == userId ? 
+                     <>
+                        <div className="article-stats-icons__block">
+                           <div className="comments__icons__elem-answer"
+                              onClick={()=>{
+                                 openCommentEdit({key})
+                              }}
+                              >
+                              Редактировать
+                           </div>
+                        </div>
+                        <div className='comments__ansver-close' title="Удалить комментарий"
+                           onClick={()=>{
+                              deleteComment(item.id)
+                           }}
+                        >
+                           <CloseIcon/>
+                        </div>
+                     </>
+                     : '' 
+                  }
                </div>
-               : ''
-            }
-         </div> 
+               { item.ansverVisible ?
+                  <ComentEdit 
+                     title = { `Ответить @${item.user_name}` } 
+                     close = { ()=>{commentCommentAnswerClose({key})} }  
+                     commenValue = { '' }
+                     commentId = { item.id }
+                     sendComment = { ()=>{sendCommentAnswer({key})} }
+                     name = {'answer' }
+                     articleId ={ null }
+                  />
+                  : ''
+               }
+               { item.editVisible ?
+                  <ComentEdit 
+                     title = { 'Редактировать' } 
+                     close = { ()=>{commentCommentEditClose({key})} } 
+                     commenValue = { item.comment }
+                     commentId = { item.id }
+                     sendComment = { ()=>{ sendCommentEdit({key})} }
+                     name = {'edit'}
+                  />
+                  : ''
+               }
+               { item.replies_comment ? 
+                  <div className="col mx-5">
+                     {item.replies_comment.map((it, index) => (
+                        // <div>gggggg</div>
+                        <CommentsComment 
+                           key = { it.id } 
+                           comment = { it } 
+                           articleId = { id } 
+                           index = { index }
+                           parent = { key }
+                        />
+                     ))}
+                  </div>
+                  : ''
+               }
+            </div> 
          ))
       }
       <div className="d-flex justify-content-center">
@@ -211,8 +206,6 @@ function Comments({id}) {
             <CachedIcon className={commentsLoad ? "comments_load":''} />
          </div>
       </div>
-      
-     
    </>
    );
 }

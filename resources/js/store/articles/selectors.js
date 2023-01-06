@@ -26,5 +26,5 @@ export const getArticlePassing = (state) => {
 
 export const getArticlesPagesUrl = (state) => {
     // console.log('state.articles',state.articles.pagesUrl)
- return state.articles.pagesUrl || '' 
+    return state.articles.pagesUrl || '' 
 };

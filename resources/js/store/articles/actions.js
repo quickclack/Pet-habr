@@ -10,6 +10,7 @@ export const SET_ARTICLE_COUNT_COMMENTS = 'SET_ARTICLE_COUNT_COMMENTS'
 export const SET_ARTICLE_LIKE_AMOUNT = 'SET_ARTICLE_LIKE_AMOUNT'
 export const SET_ARTICLE_BOOKMARK_TOOGLE = 'SET_ARTICLE_BOOKMARK_TOOGLE'
 export const SET_ARTICLES_ID_BOOKMARK_TOOGLE = 'SET_ARTICLES_ID_BOOKMARK_TOOGLE'
+export const SET_LINKS_PAGINATION = 'SET_LINKS_PAGINATION'
 export const setArticlesAll = (payload) => ({
     type: SET_ARTICLES_ALL,
     payload: payload
@@ -54,6 +55,10 @@ export const setArticleBookmarkToogle = (payload) => ({
 
 export const setArticlesIdBookmarkToogle = (payload) => ({
     type: SET_ARTICLES_ID_BOOKMARK_TOOGLE,
+    payload: payload
+})
+export const setLinksPagination = (payload) => ({
+    type: SET_LINKS_PAGINATION,
     payload: payload
 })
 

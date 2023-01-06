@@ -7,6 +7,8 @@ export const AMOUNT_IN_USER = "AMOUNT_IN_USER";
 export const PROFILE_ARTICLES = "PROFILE_ARTICLES"
 export const PROFILE_ARTICLES_STATUS = 'PROFILE_ARTICLES_STATUS'
 export const PROFILE_USER_PROFILE_NULL = 'PROFILE_USER_PROFILE_NULL'
+export const PROFILE_COMMENTS_BROWSE = 'PROFILE_COMMENTS_BROWSE'
+
 export const setErrorAction = (error) => ({
     type: SET_ERROR,
     payload: error
@@ -35,6 +37,11 @@ export const setProfileArticlesStatus = (payload) => ({
 //обнуление статусов в профиле
 export const setUserProfileNull = (payload) => ({
     type: PROFILE_USER_PROFILE_NULL,
+    payload: payload
+})
+//изменение признака просмотра коментариев в профиле
+export const setProfileCommentsBrowse = (payload) => ({
+    type: PROFILE_COMMENTS_BROWSE,
     payload: payload
 })
 

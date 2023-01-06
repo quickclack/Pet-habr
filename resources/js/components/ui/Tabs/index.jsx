@@ -50,7 +50,7 @@ export default function LabTabs({link, nickName }) {
       <Box sx={{ width: '100%', typography: 'body1' }}>
          <Tabs value={value} onChange={handleChange} >
             {settings.map((setting, key) => (
-               <Tab key={key} label={`${setting.label}  ${setting.amount}`}  value={setting.value} onClick={setting.action}/>
+               <Tab key={key} label={`${setting.label} ${setting.amount}`}  value={setting.value} onClick={setting.action}/>
             ))}
          </Tabs>
       </Box>
