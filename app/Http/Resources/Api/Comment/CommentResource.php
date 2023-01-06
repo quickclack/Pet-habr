@@ -31,7 +31,7 @@ class CommentResource extends JsonResource
                         'likes' => $item->likes()->count(),
                         'auth_liked' => $this->getBoolean($item->likes()),
                         'user_name' => $item->user->nickName,
-                        'avatar' => $this->user->avatar ?? null,
+                        'avatar' => $item->user->avatar ?? null,
                         'parent_id' => $this->id,
                         'created_at' => $this->setDate($item->created_at)
                     ])->toArray();

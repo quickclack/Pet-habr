@@ -16,7 +16,7 @@ class CommentProfileResource extends JsonResource
             'comment' => $this->comment,
             'created_at' => $this->setDate($this->created_at),
             'user_avatar' => $this->user->avatar,
-            'user_nick_name' => $this->user->nickName,
+            'user_name' => $this->user->nickName,
         ];
     }
 
