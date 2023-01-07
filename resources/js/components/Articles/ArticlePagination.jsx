@@ -12,7 +12,6 @@ function ArticlePagination() {
   const param = useSelector(getArticlesPagesUrl)
   const token = useSelector(getToken)
   const profileCommentsBrowse = useSelector(getProfileCommentsBrowse)
-  console.log('pagination - ', paginationArray)
    
   const paginate = (page) =>{
     let curent = currentPage
@@ -37,7 +36,6 @@ function ArticlePagination() {
       }
     }
     if (profileCommentsBrowse) {
-      console.log('паги комментарии')
       dispatch(getDbCommentsProfilePage({param, page: curent, token}))
     } else { dispatch(getDbArticlesPage({param, page: curent, token})) }
   }

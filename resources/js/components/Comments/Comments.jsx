@@ -14,6 +14,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import CloseIcon from '@mui/icons-material/Close';
 import ComentEdit from "./ComentEdit"
 import CommentsComment from "./CommentsComment"
+import CommentHeader from "./CommentHeader"
 function Comments({id}) {
    const commentsLoad = useSelector(getCommentsLoad)
    const dispatch = useDispatch(); 
@@ -91,11 +92,8 @@ function Comments({id}) {
          </div>
          :  comments.map((item, key) =>(
             <div key = { item.id } className="row my-3">
-               <div className="comments__header">
-                  <h4> {item.user_name}</h4>
-                  <h5> &emsp;{item.created_at}&ensp;</h5>
-               </div>
-               <span>
+               <CommentHeader comment={item}/>
+               <span >
                   {`${item.comment}`}
                </span>
                <div className='comments__icons__container  '>

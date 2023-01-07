@@ -6,6 +6,10 @@ import { getDbCommentsProfile, getCommentsProfile}  from "../../../store/comment
 import { getToken, setProfileCommentsBrowse} from "../../../store/userAuth"
 import Loader from "../../../components/ui/Loader/Loader"
 import ArticlePagination from '../../../components/Articles/ArticlePagination'
+import cl from './Comments.module.css';
+import Avatar from '@mui/material/Avatar';
+import { avatarURL } from '../../../utils/API'
+import {Link} from "react-router-dom"
 
 function UserProfileComments() {
   const [loading, setLoading] = useState(true)
@@ -21,21 +25,45 @@ function UserProfileComments() {
     return ()=>{dispatch(setProfileCommentsBrowse(false))}
   },[])
 
+
+
   return (
     <>
       { loading  ? <Loader/> :
         <>
-            {comentsProfile.length > 0 ?
-                 comentsProfile.map(comment =>
-                    <div className="pages-header">
-
-                    </div>
-                    )
-
-                :<div className="pages-header">
+          {comentsProfile ?
+            comentsProfile.length > 0 ?
+              comentsProfile.map(comment =>
+                <div className={cl.comments__container} key={comment.id}>
+                  <div  className={cl.comments__article__title}>
+                    <h2>{comment.article_title}</h2>
+                  </div>
+                  <div className={cl.comments__user__info}>
+                    <Avatar  src={`${avatarURL }${comment.user_avatar}`} sx={{ width: 25, height: 25 }}/>
+                    <h4> &emsp;{comment.user_nick_name}</h4>
+                    <h5> &emsp;{comment.created_at}&ensp;</h5>
+                  </div>
+                  <div>
+                    {comment.comment}
+                  </div>
+                  <div className="article-stats-icons__block">
+                    <Link to={`/article/${comment.article_id}/comments#comment_${comment.id}` || '/'}>
+                      <div className="comments__icons__elem-answer"
+                        
+                      > Посмотреть
+                      </div>
+                    </Link>
+                  </div>
 
                 </div>
-            }
+              )
+              :<div className={cl.comments__container}>
+
+              </div>
+              :<div className={cl.comments__container}>
+
+              </div>
+          }
           <ArticlePagination />
         </>
       }
@@ -46,9 +74,5 @@ function UserProfileComments() {
 
 export default UserProfileComments;
 
-// article_id    :    33
-// comment    :    "dfgdfgdfgert44retrtertdgfdfg"
-// created_at    :    "3 недели назад"
-// id    :    66
-// user_avatar    :    "avatars/HDLoOpbzSvLUMjaSQZbNIeU5Iwg2hg2nsH4Lo1AG.jpg"
-// user_nick_name    :    "Admin22"
+
+

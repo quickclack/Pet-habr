@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDbArticle, getArticle, getDbArticleStatus, getDbArticlesUserProfile, getDbArticleDelete } from "../../store/articles"
 import { getToken, getUserNickName, } from "../../store/userAuth"
@@ -25,22 +25,36 @@ function ArticleId() {
   const mainCommentVisible = useSelector(getMainCommentVisible);
   const commentsParam = params.comments === 'comments'
   const articleId = parseInt(params.articleId);
-  console.log("params - ", params )
   const token = useSelector(getToken)
   let article = useSelector(getArticle);
   let userName = useSelector(getUserNickName)
   const navigate = useNavigate();
-  console.log('article - ', article )
-  console.log('article - ', Object.entries(article).length !== 0 )
+  let location = useLocation();
   
-  useEffect(()=>{ 
-    dispatch(getDbArticle({ url: `/api/article/${articleId}` , token}));
-    window.scroll(0, 0);
-    setLoading(false)
+  // console.log('article - ', Object.entries(article).length !== 0 )
+  
+  const uu = async() => {
+    await dispatch(getDbArticle({ url: `/api/article/${articleId}` , token}));
+    await setLoading(false)
+    if (location.hash !== "") {
+      setTimeout (() => {
+        const id = location.hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView();
+          setTimeout(() => { 
+            window.scrollBy(0, -100)
+          },400)
+        }
+      }, 1000)
+    } else {window.scroll(0, 0)}
+  }
+
+  useEffect( ()=>{ 
+    uu()
   },[])
 
   const buttons =[
-    
     { link:`/users/${params.nameUser}/article/${articleId}/edit`,
       title: "Редактировать",
       action:()=>{}},
@@ -49,7 +63,6 @@ function ArticleId() {
       action:() =>setModal(true)}
   ]
 
-  
   async function  deleteArticle() { 
     console.log("deleteArticle")
     await dispatch(getDbArticleDelete({ articleId : articleId, token}));
@@ -177,7 +190,6 @@ function ArticleId() {
         }
         </> : ''
       }
-      
     </>
   );
 }

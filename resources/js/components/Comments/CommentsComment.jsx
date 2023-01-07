@@ -9,7 +9,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import CloseIcon from '@mui/icons-material/Close';
 import ComentEdit from "./ComentEdit"
-
+import CommentHeader from "./CommentHeader"
 function CommentsComment({comment, articleId, index, parent }) {
    const dispatch = useDispatch(); 
    const authed = useSelector(getIsAuth);
@@ -75,15 +75,10 @@ function CommentsComment({comment, articleId, index, parent }) {
       {/* <div className="h3">Ответ @ { comment.id }</div> */}
      
          <div className="row my-3">
-            <div className="comments__header">
-               <h4> {comment.user_name}</h4>
-               <h5> &emsp;{comment.created_at}&ensp;</h5>
-            </div>
-            
-            <span>
+            <CommentHeader comment={comment}/>
+            <span >
                {comment.comment}
             </span>
-
             <div className='comments__icons__container  '>
                <div className="article-stats-icons__block">
                   <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} 

@@ -59,7 +59,6 @@ export const setCommentsProfile = (payload) => ({
 })
 //запрос комментариев для статьи
 export const getDbCommentsArticle = (id) => async (dispatch) => {
-    console.log("getDbCommentsArticle -" , id)
     try{
         const config = {
             method: 'post',
@@ -68,7 +67,6 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
         };
         const comments = await axios(config)
             .then(({data})=>{
-                console.log("getDbCommentsArticle respons - ", data)
                 dispatch(setCommentsArticle(data.comments));
                 dispatch(setArticleCountComments(data.comments.length))
             })
@@ -79,7 +77,6 @@ export const getDbCommentsArticle = (id) => async (dispatch) => {
 
 //добавление комментария к статье или комментарию
 export const createDbCommentArticle = ({comment, articleId, token, commentId}) => async (dispatch) => {
-    console.log("createDbCommentsArticle -" ,{comment, articleId, token, commentId} )
     try{
         const config = {
             method: 'post',
@@ -97,18 +94,16 @@ export const createDbCommentArticle = ({comment, articleId, token, commentId}) =
         if (commentId) config.data.parent_id = commentId
         await axios(config)
             .then(({data})=>{
-                console.log("createDbCommentsArticle - ", data)
+                
             })
         return true
     } catch (e) {
-        console.log(e.response.data.message);
         dispatch(setErrorAction(e.response.data.message))
         return false
     }
 }
 
 export const updateDbCommentArticle = ({comment, commentId, token}) => async (dispatch) => {
-    console.log("updateDbCommentsArticle -" + comment + " - " + commentId)
     try{
         const config = {
             method: 'put',
@@ -123,18 +118,16 @@ export const updateDbCommentArticle = ({comment, commentId, token}) => async (di
         };
         await axios(config)
             .then(({data})=>{
-                console.log("updateDbCommentsArticleResp - ", data)
+                
             })
         return true
     } catch (e) {
-        console.log(e.response.data.message);
         dispatch(setErrorAction(e.response.data.message))
         return false
     }
 }
 
 export const deleteDbCommentArticle = ({ commentId, token}) => async (dispatch) => {
-    console.log("deleteDbCommentArticle -" + commentId)
     try{
         const config = {
             method: 'delete',
@@ -156,7 +149,6 @@ export const deleteDbCommentArticle = ({ commentId, token}) => async (dispatch) 
 }
 
 export const getDbCommentLike = ({ token, commentId, key, parent }) => async (dispatch) => {
-    console.log("getDbCommentLike")
     try{
         const config = {
             method: 'post',
@@ -180,7 +172,6 @@ export const getDbCommentLike = ({ token, commentId, key, parent }) => async (di
 }
 //запрос комментариев для вывода в профиле
 export const getDbCommentsProfile = ({ token }) => async (dispatch) => {
-    console.log("getDbCommentsProfile")
     try{
         const config = {
             method: 'post',
@@ -192,7 +183,6 @@ export const getDbCommentsProfile = ({ token }) => async (dispatch) => {
         };
         const articles = await axios(config)
             .then(({data})=>{
-                console.log('getDbCommentsProfile res- ', data)
                 dispatch(setLinksPagination(data.meta))
                 dispatch(setCommentsProfile(data.data.comments))
             })
@@ -213,8 +203,8 @@ export const getDbCommentsProfilePage = ({param, page, token}) => async (dispatc
         };
         const articles = await axios(config)
             .then(({data})=>{
+                dispatch(setCommentsProfile(data.data.comments))
                 dispatch(setLinksPagination(data.meta))
-                dispatch(setCommentsProfile(data.comments))
             })
     } catch (e) {
         console.log(e.message);
