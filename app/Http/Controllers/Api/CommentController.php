@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 use App\Http\Resources\Api\Comment\CommentCollection;
+use Domain\Interactive\NotificationManager;
 use Domain\User\Actions\Contracts\CreateCommentContract;
 use Domain\User\DTO\NewCommentDto;
 use Domain\User\Models\Comment;
@@ -28,6 +29,8 @@ class CommentController extends Controller
         $comment = $contract(NewCommentDto::formRequest($request));
 
         $this->addReplyToComment($request, $comment);
+
+        NotificationManager::sendToModerator($comment);
 
         return $this->addSuccess('Комментарий');
     }
