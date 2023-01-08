@@ -17,6 +17,8 @@ class ArticleProfileResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'user_name' => $this->user->nickName,
+            'avatar' => $this->user->avatar,
             'image' => $this->image,
             'views' => $this->views,
             'likes' => $this->likes()->count(),
