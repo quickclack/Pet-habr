@@ -13,6 +13,8 @@ class NotificationResource extends JsonResource
             'theme' => $this->notificationType->title,
             'message' => $this->when(request('notification'), fn() => $this->message),
             'date' => $this->created_at->format('d.m.Y'),
+            'time' => $this->created_at->format('h:m'),
+            'reads' => $this->reads ? 'Прочитано' : 'Не прочитано',
         ];
     }
 }
