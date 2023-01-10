@@ -3,6 +3,7 @@
 namespace Domain\User\Models;
 
 use Domain\Information\Models\Article;
+use Domain\Interactive\Models\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -61,6 +62,11 @@ class User extends Authenticatable
     public function banned(): HasOne
     {
         return $this->hasOne(Banned::class);
+    }
+
+    public function notification(): HasMany
+    {
+        return $this->hasMany(Notification::class);
     }
 
     public function getRole(): ?string

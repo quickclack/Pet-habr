@@ -7,6 +7,7 @@ namespace Domain\Information;
 use App\Jobs\ArticleApprovalJob;
 use Domain\Information\Models\Article;
 use Domain\Information\Queries\ArticleBuilder;
+use Domain\Interactive\NotificationManager;
 use Domain\User\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
@@ -86,6 +87,8 @@ final class ArticleManager
         $article->status = ArticleStatus::REJECTED;
 
         $article->save();
+
+        NotificationManager::sendToUserRejected($article);
     }
 
     public function withdraw(Article $article): void

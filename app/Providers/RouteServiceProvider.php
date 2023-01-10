@@ -10,6 +10,7 @@ use Domain\Information\Routing\CategoryRegistrar;
 use Domain\Information\Routing\TagRegistrar;
 use Domain\Interactive\Routing\BookmarkRegistrar;
 use Domain\Interactive\Routing\LikeRegistrar;
+use Domain\Interactive\Routing\NotificationRegistrar;
 use Domain\User\Routing\AuthRegistrar;
 use Domain\User\Routing\CommentRegistrar;
 use Domain\User\Routing\ProfileRegistrar;
@@ -52,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
         BookmarkRegistrar::class,
         UserArticleRegistrar::class,
         UserCommentRegistrar::class,
+        NotificationRegistrar::class,
     ];
 
     /**
@@ -76,7 +78,7 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    protected function mapRoutes(Registrar $router, array $registrars)
+    protected function mapRoutes(Registrar $router, array $registrars): void
     {
         foreach ($registrars as $registrar) {
             if (!class_exists($registrar) || !is_subclass_of($registrar, RouteRegistrar::class)) {
