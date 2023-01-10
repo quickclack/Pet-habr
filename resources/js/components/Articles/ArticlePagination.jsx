@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getPaginationLinks, getDbArticlesPage, getArticlesPagesUrl } from "../../store/articles"
-import { getToken } from "../../store/userAuth"
+import { getToken, getProfileCommentsBrowse } from "../../store/userAuth"
+import { getDbCommentsProfilePage } from "../../store/comments"
 import './ArticlesList.scss'
 
 function ArticlePagination() {
@@ -10,7 +11,7 @@ function ArticlePagination() {
   const paginationArray = useSelector(getPaginationLinks).slice(1, -1);
   const param = useSelector(getArticlesPagesUrl)
   const token = useSelector(getToken)
-  // console.log('pagination - ', paginationArray)
+  const profileCommentsBrowse = useSelector(getProfileCommentsBrowse)
    
   const paginate = (page) =>{
     let curent = currentPage
@@ -34,7 +35,9 @@ function ArticlePagination() {
       curent = page 
       }
     }
-    dispatch( getDbArticlesPage({param, page: curent, token}) );
+    if (profileCommentsBrowse) {
+      dispatch(getDbCommentsProfilePage({param, page: curent, token}))
+    } else { dispatch(getDbArticlesPage({param, page: curent, token})) }
   }
    
   return (

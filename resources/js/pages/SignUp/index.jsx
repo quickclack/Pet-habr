@@ -70,8 +70,8 @@ export const SignUp = () => {
           <div className="login-page-text">Регистрация</div>
           <div className="form">
             <div className="text-field">
-              <label className="text-field__label" >Имя</label>
-              <input className="text-field__input" id="name" type="text" placeholder="Ваше имя"
+              <label className="text-field__label" >Ник</label>
+              <input className="text-field__input" id="name" type="text" placeholder="Придумайте ник"
                 value={name}
                 onChange={nameSubmitHandler}
                 required

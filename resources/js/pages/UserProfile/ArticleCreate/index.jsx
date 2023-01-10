@@ -17,24 +17,10 @@ export const ArticleCreate = () => {
    const articleDb = useSelector(getArticle)
   
    console.log ("articleDb - ", params)
-   const [article, setArticle] = useState({
-      title: '', 
-      description: '', 
-      category_id: '1',
-      tag_id: [],
-      image:''
-   })
+   const [article, setArticle] = useState({})
    const [message, setMessage] = useState('');
    
    useEffect(()=> {
-      setArticle({
-         title: '', 
-         description: '', 
-         category_id: '1',
-         tag_id: [],
-         image:''
-      })
-      console.log("getDbTagsAll")
       dispatch( getDbTagsAll() );
       
       window.scroll(0, 0);
@@ -47,10 +33,17 @@ export const ArticleCreate = () => {
             image: articleDb.image || '',
             tag_id: articleDb.tags.map((tag)=> tag.id),
          })
+      } else {
+         setArticle({
+            title: '', 
+            description: '', 
+            category_id: '1',
+            tag_id: [],
+            image:''
+         })
       }
    },[articleId]) 
 
-   console.log ("article - ", article)
    const categories = useSelector(getCategoriesAll)
    const tags = useSelector(getTagsAll)
    const token = useSelector(getToken )

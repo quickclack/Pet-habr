@@ -18,14 +18,19 @@
    &__header{
       display: flex;
       align-items: center;
+      margin-bottom: 10px;
       h4{
          font-weight:600;
+         margin: 0 0 0 10px;
       }
       h4,h5{
          font-size: 15px;
       }
       h5{
          color: #777; 
+      }
+      &.hash {
+         background-color: #b8e3ee;
       }
    }
    &__icons{

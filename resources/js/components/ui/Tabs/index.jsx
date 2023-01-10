@@ -43,6 +43,9 @@ export default function LabTabs({link, nickName }) {
       {label:'Закладки', value: 'bookmarks', 
          action:() => userProfileTransfer(`/users/${nickName}/bookmarks`),
          amount: amount.amount_bookmarks ? amount.amount_bookmarks : ''},
+      {label:'Уведомления', value: 'notifications', 
+         action:() => userProfileTransfer(`/users/${nickName}/notifications`),
+         amount: amount.amount_notifications ? amount.amount_notifications : ''},
    ]
    
 
@@ -50,7 +53,7 @@ export default function LabTabs({link, nickName }) {
       <Box sx={{ width: '100%', typography: 'body1' }}>
          <Tabs value={value} onChange={handleChange} >
             {settings.map((setting, key) => (
-               <Tab key={key} label={`${setting.label}  ${setting.amount}`}  value={setting.value} onClick={setting.action}/>
+               <Tab key={key} label={`${setting.label} ${setting.amount}`}  value={setting.value} onClick={setting.action}/>
             ))}
          </Tabs>
       </Box>

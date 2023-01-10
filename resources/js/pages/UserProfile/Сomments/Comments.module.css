@@ -1,0 +1,25 @@
+.comments__container{
+   background-color: rgb(255, 255, 255);
+   margin-top: 2px;
+   padding: 15px;
+}
+.comments__article__title{
+   border-bottom: 2px solid rgb(219, 219, 219);
+}
+.comments__user__info{
+   margin-top: 10px;
+   display: flex;
+   align-items: center;
+   margin-bottom: 15px;
+}   
+.comments__user__info      h4{
+         font-weight:600;
+      }
+.comments__user__info      h4,h5{
+         font-size: 16px;
+         margin-bottom: 0;
+      }
+.comments__user__info      h5{
+        color: #777; 
+      }
+

@@ -17,12 +17,12 @@ function Article({item, num}) {
   const [modalPublish, setModalPublish] = useState(false);
   const params = useParams();
   const dispatch = useDispatch(); 
-  // console.log("params - ", params)
+ 
   const token = useSelector(getToken)
   const userAvatar = useSelector(getUserAvatar)
   const profileArticles = useSelector(getProfileArticles)
   const profileArticlesStatus = useSelector(getProfileArticlesStatus)
-  
+  console.log("params - ", profileArticlesStatus)
   const buttons =[
     { link:`/users/${params.nameUser}/article/${item.id}${profileArticlesStatus}`,
       title: "Читать далее",
@@ -56,11 +56,9 @@ function Article({item, num}) {
   return (
     <div className="article" >
       <div className="article__header ">
-        {profileArticles
+        {profileArticles & profileArticlesStatus
           ? <Avatar  src={`${avatarURL }${userAvatar}`}/>
-          : item.avatar !== null 
-            ? <Avatar  src={`${avatarURL }${item.avatar}`} />
-            : <Avatar alt="Remy Sharp" src={imgAvatar} />
+          : <Avatar  src={`${avatarURL }${item.avatar}`} />
         }
         <h4> &emsp;{item.user_name}</h4>
         <h5> &emsp;{item.created_at}&ensp;</h5>

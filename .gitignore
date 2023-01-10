@@ -6,6 +6,7 @@
 /vendor
 .env
 .env.testing
+.env.example.doker
 .env.backup
 .env.production
 .phpunit.result.cache

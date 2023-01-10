@@ -1,3 +1,4 @@
+import { StarRateTwoTone } from "@mui/icons-material";
 import {
     SET_ARTICLES_ALL, 
     SET_ARTICLE, SET_ARTICLES_NULL, 
@@ -7,7 +8,8 @@ import {
     SET_ARTICLE_COUNT_COMMENTS,
     SET_ARTICLE_LIKE_AMOUNT,
     SET_ARTICLE_BOOKMARK_TOOGLE,
-    SET_ARTICLES_ID_BOOKMARK_TOOGLE
+    SET_ARTICLES_ID_BOOKMARK_TOOGLE,
+    SET_LINKS_PAGINATION
 } from "./actions";
 
 
@@ -80,7 +82,6 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
             }
         }
         case SET_ARTICLE_BOOKMARK_TOOGLE: {
-            console.log('TOOGLE -', )
             return {
                 ...state,
                 article: {...state.article, count_bookmarks: payload, auth_bookmarks: !state.article.auth_bookmarks
@@ -96,7 +97,15 @@ export const articlesReducer = (state = initialState, { type, payload }) => {
                 articles: {...arr}
             }
         }
-
+        case SET_LINKS_PAGINATION: {
+            const arr = {...state.articles}
+           // arr.meta = payload
+            console.log('links: payload', payload)
+            return {
+                ...state,  
+               articles: {...state.articles, meta: payload}
+            }
+        }
         default:{
             return state;
         }

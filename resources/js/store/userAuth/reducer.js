@@ -6,7 +6,8 @@ import {
     AMOUNT_IN_USER, 
     PROFILE_ARTICLES,
     PROFILE_ARTICLES_STATUS,
-    PROFILE_USER_PROFILE_NULL
+    PROFILE_USER_PROFILE_NULL,
+    PROFILE_COMMENTS_BROWSE
 } from "./actions"
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
     errors: null,
     amount:{},
     profileArticles: false,
-    profileArticlesStatus: ''
+    profileArticlesStatus: '',
+    profileCommets: false,
 }
 
 export const userAuthReducer = (state = initialState, {type, payload})=> {
@@ -72,6 +74,12 @@ export const userAuthReducer = (state = initialState, {type, payload})=> {
                 ...state,
                 profileArticlesStatus:'',
                 profileArticles:false
+            }
+        }
+        case PROFILE_COMMENTS_BROWSE:{
+            return {
+                ...state,
+                profileCommets: payload
             }
         }
 
