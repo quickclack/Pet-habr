@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('description');
 
             $table->integer('views')
-                ->default(1);
+                ->default(0);
 
             $table->foreignIdFor(User::class)
                 ->nullable()
@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->integer('status')
                 ->index()
-                ->default(0);
+                ->default(1);
 
             $table->timestamps();
         });
