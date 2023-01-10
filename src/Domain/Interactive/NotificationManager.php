@@ -9,6 +9,7 @@ use Domain\Interactive\Models\Notification;
 use Domain\User\Models\Comment;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Support\Enums\NotificationType;
 
 final class NotificationManager
 {
@@ -19,12 +20,13 @@ final class NotificationManager
             ->get();
 
         if (strpos($comment->comment, '@moderator') !== false) {
-            foreach ($users as $user) {
+            $users->each(function ($user) use ($comment) {
                 Notification::create([
                     'user_id' => $user->id,
+                    'notification_type_id' => NotificationType::Services,
                     'message' => $comment->comment
                 ]);
-            }
+            });
         }
     }
 
@@ -32,6 +34,7 @@ final class NotificationManager
     {
         Notification::create([
             'user_id' => $article->user_id,
+            'notification_types_id' => NotificationType::Systems,
             'message' => "Статья $article->title была отклонена"
         ]);
     }

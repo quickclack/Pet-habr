@@ -6,6 +6,8 @@ use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Support\Enums\NotificationType as NotificationEnum;
 
 class Notification extends Model
 {
@@ -13,16 +15,23 @@ class Notification extends Model
 
     protected $fillable = [
         'user_id',
+        'notification_type_id',
         'message',
         'reads'
     ];
 
     protected $casts = [
-        'reads' => 'boolean'
+        'reads' => 'boolean',
+        'notification_type_id' => NotificationEnum::class,
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function notificationType(): HasOne
+    {
+        return $this->hasOne(NotificationType::class, 'id', 'notification_type_id');
     }
 }
