@@ -36,7 +36,7 @@ function Comments({id}) {
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch(getDbCommentsArticle(id))
+      await dispatch(getDbCommentsArticle({id, token}))
       dispatch(setCommentsLoad(false))
    }
 
@@ -81,7 +81,9 @@ function Comments({id}) {
       await dispatch (getDbCommentLike({token,  commentId, key}))
       setUserLike(!userLike)
    }
-   
+   async function commentsBookmark(){
+
+   }
    return (
    <>
       <div className="h3">Комментарии { comments.length }</div>
@@ -122,7 +124,7 @@ function Comments({id}) {
                      </div>
                      : ''
                   }   
-                  <div className="article-stats-icons__block ">
+                  {/* <div className="article-stats-icons__block ">
                      <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
                         title="Добавить в закладки"
                         onClick={ isAuth ? ()=>commentsBookmark(): ()=>{}}
@@ -134,7 +136,7 @@ function Comments({id}) {
                      <div className="article-stats-icons__elem">
                         0
                      </div>
-                  </div>
+                  </div> */}
                   { item.user_id == userId ? 
                      <>
                         <div className="article-stats-icons__block">

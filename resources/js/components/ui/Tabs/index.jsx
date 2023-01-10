@@ -43,6 +43,9 @@ export default function LabTabs({link, nickName }) {
       {label:'Закладки', value: 'bookmarks', 
          action:() => userProfileTransfer(`/users/${nickName}/bookmarks`),
          amount: amount.amount_bookmarks ? amount.amount_bookmarks : ''},
+      {label:'Уведомления', value: 'notifications', 
+         action:() => userProfileTransfer(`/users/${nickName}/notifications`),
+         amount: amount.amount_notifications ? amount.amount_notifications : ''},
    ]
    
 

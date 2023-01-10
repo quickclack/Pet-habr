@@ -19,13 +19,13 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
 
             $table->foreignIdFor(User::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

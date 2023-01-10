@@ -25,7 +25,7 @@ function MainComment({articleId}) {
          return
       } else {
          dispatch(setCommentsLoad)
-         dispatch( getDbCommentsArticle(articleId) )
+         dispatch( getDbCommentsArticle({id:articleId,token }) )
          dispatch(setCommentsLoad)
          setComment('')
          dispatch(setErrorAction(null))

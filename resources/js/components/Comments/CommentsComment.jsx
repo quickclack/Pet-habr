@@ -23,7 +23,7 @@ function CommentsComment({comment, articleId, index, parent }) {
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch( getDbCommentsArticle(articleId) )
+      await dispatch( getDbCommentsArticle({id, token}) )
       dispatch(setCommentsLoad(false))
    }
 
@@ -105,7 +105,7 @@ function CommentsComment({comment, articleId, index, parent }) {
                   </div>
                   : ''
                }   
-               <div className="article-stats-icons__block ">
+               {/* <div className="article-stats-icons__block ">
                   <div className={`article-stats-icons__elem ${ !authed ? "hover" :""} `} title="Добавить в закладки">
                      <BookmarkIcon 
                         sx={{ color: `${ bookmark ? '#6e8c96': '#bbcdd6' }`, fontSize: 23}} 
@@ -114,7 +114,7 @@ function CommentsComment({comment, articleId, index, parent }) {
                   <div className="article-stats-icons__elem">
                      0
                   </div>
-               </div>
+               </div> */}
                { comment.user_id == userId ? 
                   <>
                      <div className="article-stats-icons__block">

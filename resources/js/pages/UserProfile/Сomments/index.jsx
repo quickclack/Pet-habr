@@ -40,7 +40,7 @@ function UserProfileComments() {
                   </div>
                   <div className={cl.comments__user__info}>
                     <Avatar  src={`${avatarURL }${comment.user_avatar}`} sx={{ width: 25, height: 25 }}/>
-                    <h4> &emsp;{comment.user_nick_name}</h4>
+                    <h4> &emsp;{comment.user_name}</h4>
                     <h5> &emsp;{comment.created_at}&ensp;</h5>
                   </div>
                   <div>

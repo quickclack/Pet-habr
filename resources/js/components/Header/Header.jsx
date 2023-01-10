@@ -58,6 +58,7 @@ export const Header = () => {
         {title:'Комментарии', action: () => userProfileTransfer(`/users/${nickName}/comments`)},
         {title:'Диалоги', action: handleCloseUserMenu},
         {title:'Закладки', action: () => userProfileTransfer(`/users/${nickName}/bookmarks`)},
+        {title: 'Уведомления', action: () => userProfileTransfer(`/users/${nickName}/notifications`)},
         {title:'Как стать автором', action: handleCloseUserMenu},
         {title:'Настройки профиля', action: () => userProfileTransfer("/auth/settigs/profile")},
         {title:'Выход', action: logOutUser}

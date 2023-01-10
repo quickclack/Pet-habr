@@ -131,7 +131,7 @@ function ArticleId() {
               ? ''
               :  article.image
                 ? <div className='articleId__description'>
-                    <img src={`${avatarURL}/${article.image}`}/>
+                    <img src={`${avatarURL}/${article.image}`}  width="100%"/>
                   </div>
                 : ''
             }

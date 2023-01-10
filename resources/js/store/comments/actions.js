@@ -58,12 +58,15 @@ export const setCommentsProfile = (payload) => ({
     payload: payload
 })
 //запрос комментариев для статьи
-export const getDbCommentsArticle = (id) => async (dispatch) => {
+export const getDbCommentsArticle = ({id,token}) => async (dispatch) => {
     try{
         const config = {
             method: 'post',
             url: `/api/comments/${id}`,
-            headers: { }
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            },
         };
         const comments = await axios(config)
             .then(({data})=>{
