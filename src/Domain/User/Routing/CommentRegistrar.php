@@ -15,13 +15,13 @@ class CommentRegistrar implements RouteRegistrar
             Route::post('/comments/{article:id}', [CommentController::class, 'getCommentsOnArticle']);
 
             Route::post('/comment/create', [CommentController::class, 'store'])
-                ->middleware('auth:sanctum');
+                ->middleware(['auth:sanctum', 'banned']);
 
             Route::put('/comment/{comment:id}/update', [CommentController::class, 'update'])
-                ->middleware('auth:sanctum');
+                ->middleware(['auth:sanctum', 'banned']);
 
             Route::delete('/comment/{comment:id}/delete', [CommentController::class, 'destroy'])
-                ->middleware('auth:sanctum');
+                ->middleware(['auth:sanctum', 'banned']);
         });
     }
 }

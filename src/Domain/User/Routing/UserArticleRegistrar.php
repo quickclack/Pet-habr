@@ -16,17 +16,22 @@ class UserArticleRegistrar implements RouteRegistrar
 
                 Route::post('/profile/amount', 'getAmount');
 
-                Route::post('/profile/article/create', 'create');
+                Route::post('/profile/article/create', 'create')
+                    ->middleware('banned');
 
-                Route::post('/profile/article/{article}/publish', 'publish');
+                Route::post('/profile/article/{article}/publish', 'publish')
+                    ->middleware('banned');
 
-                Route::post('/profile/article/{article}/withdraw', 'withdraw');
+                Route::post('/profile/article/{article}/withdraw', 'withdraw')
+                    ->middleware('banned');
 
                 Route::post('/profile/articles', 'getAll');
 
-                Route::put('/profile/article/{article:id}/update', 'update');
+                Route::put('/profile/article/{article:id}/update', 'update')
+                    ->middleware('banned');
 
-                Route::delete('/profile/article/{article:id}/delete', 'destroy');
+                Route::delete('/profile/article/{article:id}/delete', 'destroy')
+                    ->middleware('banned');
 
                 Route::post('/profile/article/{article:id}', 'getById');
             });
