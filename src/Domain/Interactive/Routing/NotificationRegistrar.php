@@ -15,7 +15,7 @@ class NotificationRegistrar implements RouteRegistrar
             Route::controller(NotificationController::class)->group(function () {
 
                 Route::post('/profile/notifications', 'getAll');
-                Route::post('/profile/notification/{notification}', 'getAll');
+                Route::post('/profile/notification/{notification}', 'getById');
             });
         });
     }

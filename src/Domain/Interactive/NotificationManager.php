@@ -34,8 +34,19 @@ final class NotificationManager
     {
         Notification::create([
             'user_id' => $article->user_id,
-            'notification_types_id' => NotificationType::Systems,
+            'notification_type_id' => NotificationType::Systems,
             'message' => "Статья $article->title была отклонена"
+        ]);
+    }
+
+    public static function sendToUserBanned(User $user): void
+    {
+        $bannedEnd = $user->banned->banned_end->format('d-m-Y');
+
+        Notification::create([
+            'user_id' => $user->getKey(),
+            'notification_type_id' => NotificationType::Systems,
+            'message' => "Ваш аккаунт заблокирован за нарушение, до $bannedEnd"
         ]);
     }
 }

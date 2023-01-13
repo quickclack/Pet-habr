@@ -50,6 +50,7 @@ class UserArticleController extends Controller
                 ->count(),
             'amount_comments' => $user->comments()->count(),
             'amount_bookmarks' => $user->bookmarks()->count(),
+            'amount_notifications' => $user->notification()->count(),
         ]);
     }
 

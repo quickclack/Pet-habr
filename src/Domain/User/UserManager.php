@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Information;
+namespace Domain\User;
 
 use Carbon\Carbon;
+use Domain\Interactive\NotificationManager;
 use Domain\User\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,8 @@ final class UserManager
                 'banned_start' => Carbon::now(),
                 'banned_end' => Carbon::now()->addDays(12)
             ]);
+
+            NotificationManager::sendToUserBanned($user);
 
         } else {
             $user->banned()->delete();
