@@ -6,7 +6,7 @@ import { getIsAuth, logOutUserAction, getToken } from "../../store/userAuth";
 import { getDbCategoriesAll, getCategoriesAll, getLinksCategoriesAll} from "../../store/categories"
 
 function up() {
-    var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+    const top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
     if(top > 0) {
         window.scrollBy(0,((top+100)/-10));
         t = setTimeout('up()',20);
