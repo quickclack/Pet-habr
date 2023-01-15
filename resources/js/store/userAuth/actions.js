@@ -120,6 +120,7 @@ export const logInUserTrunk = (user) => async (dispatch) => {
                 userIn.password = user.password
             }
             dispatch(logInUser(userIn));
+            console.log('data', data);
             setTimeout(()=> dispatch(UserInfoTrunk(data.access_token)),100)
             dispatch(setErrorAction(null))
             return false
@@ -138,18 +139,18 @@ export const logOutUserAction =(token) => async (dispatch) => {
         const config = {
             method: 'post',
             url: '/api/auth/logout',
-            headers: { 
-              Accept: 'application/json', 
-              Authorization: `Bearer ${token}`, 
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${token}`,
             },
-            
+
         };
         const logout = await axios(config)
         .then(({data})=>{
             console.log('data', data)
             dispatch(logOutUser());
             dispatch(setErrorAction(null))
-            return data.message 
+            return data.message
         })
         return logout
     } catch (e) {
@@ -188,8 +189,8 @@ export const UserInfoTrunk = (token) => async (dispatch) => {
         const config = {
             method: 'post',
             url: '/api/user/info',
-            headers: { 
-                Accept: 'application/json', 
+            headers: {
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         };
@@ -212,8 +213,8 @@ export const getDbAmountInfoTrunk = (token) => async (dispatch) => {
         const config = {
             method: 'post',
             url: '/api/profile/amount',
-            headers: { 
-                Accept: 'application/json', 
+            headers: {
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         };
@@ -243,8 +244,8 @@ export const getDbUpdatingUserData = ({ token, user}) => async (dispatch) => {
         const config = {
             method: 'post',
             url: '/api/profile/update',
-            headers: { 
-                Accept: 'application/json', 
+            headers: {
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`,
             },
             data:data
@@ -252,7 +253,7 @@ export const getDbUpdatingUserData = ({ token, user}) => async (dispatch) => {
         const res =  await axios(config)
         .then(({data})=>{
             console.log("data resp- ", data.message)
-            
+
             return data.message
         })
         return res

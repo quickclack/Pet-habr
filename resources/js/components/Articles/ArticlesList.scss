@@ -3,6 +3,7 @@
    padding: 15px;
    min-height: 400px;
    position: relative;
+   margin-bottom: 6px;
    &__avatar{
       width: 30px;
       height: 30px;
@@ -36,6 +37,7 @@
       }
    }
    &__description{
+      height: 170px;
       max-height: 290px;
       overflow-y: hidden;
    }

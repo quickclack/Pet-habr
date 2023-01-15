@@ -9,8 +9,8 @@ class Admin
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check()) {
-            $role = auth()->user()->getRole();
+        if (auth('sanctum')->check()) {
+            $role = auth('sanctum')->user()->getRole();
 
             if ($role == 'Administrator' || $role == 'Moderator') {
                 return $next($request);

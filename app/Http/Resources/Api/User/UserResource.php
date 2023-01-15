@@ -17,7 +17,8 @@ class UserResource extends JsonResource
             'description' => $this->description,
             'avatar' => $this->avatar ?? null,
             'roles' => $this->getRole(),
-            'email' => $this->email
+            'email' => $this->email,
+            'banned' => isset($this->banned->banned) ? true : false,
         ];
     }
 }
