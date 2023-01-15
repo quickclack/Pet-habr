@@ -6,7 +6,7 @@ import { getDbCommentsProfile, getCommentsProfile}  from "../../../store/comment
 import { getToken, setProfileCommentsBrowse} from "../../../store/userAuth"
 import Loader from "../../../components/ui/Loader/Loader"
 import ArticlePagination from '../../../components/Articles/ArticlePagination'
-import cl from './Comments.module.css';
+import cl from './Notification.module.css';
 import Avatar from '@mui/material/Avatar';
 import { avatarURL } from '../../../utils/API'
 import {Link} from "react-router-dom"
