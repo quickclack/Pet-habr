@@ -24,7 +24,9 @@ final class NotificationManager
                 Notification::create([
                     'user_id' => $user->id,
                     'notification_type_id' => NotificationType::Services,
-                    'message' => $comment->comment
+                    'message' => $comment->comment,
+                    'article_id' => request('article_id') ?? self::getFields((int) request('parent_id')),
+                    'comment_id' => request('parent_id')
                 ]);
             });
         }
@@ -48,5 +50,15 @@ final class NotificationManager
             'notification_type_id' => NotificationType::Systems,
             'message' => "Ваш аккаунт заблокирован за нарушение, до $bannedEnd"
         ]);
+    }
+
+    private static function getFields(int $id): int
+    {
+        $comment = Comment::query()
+            ->select('article_id')
+            ->where('id', $id)
+            ->first();
+
+        return $comment->article_id;
     }
 }
