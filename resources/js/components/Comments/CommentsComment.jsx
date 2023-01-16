@@ -23,7 +23,7 @@ function CommentsComment({comment, articleId, index, parent }) {
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch( getDbCommentsArticle({articleId, token}) )
+      await dispatch( getDbCommentsArticle({id:articleId, token}) )
       dispatch(setCommentsLoad(false))
    }
 
