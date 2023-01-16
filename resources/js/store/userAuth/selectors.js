@@ -57,3 +57,7 @@ export const getProfileCommentsBrowse = (state) => {
    // console.log(state.auth)
    return state.auth.profileCommets 
 };
+export const getUserBan = (state) => {
+   // console.log(state.auth)
+   return state.auth.user.banned 
+};

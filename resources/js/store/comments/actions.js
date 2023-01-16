@@ -110,7 +110,7 @@ export const updateDbCommentArticle = ({comment, commentId, token}) => async (di
     try{
         const config = {
             method: 'put',
-            url: `/api/comment/${commentId}/update`,
+            url: `/api/comment/${+commentId}/update`,
             headers: {
                 Accept: 'application/json',
                 Authorization: `Bearer ${token}`

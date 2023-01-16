@@ -8,7 +8,7 @@ import toShareH from "../../../image/to_share_h.png"
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { getToken, getIsAuth, getUserNickName } from "../../store/userAuth"
+import { getToken, getIsAuth, getUserNickName, getUserBan } from "../../store/userAuth"
 import { getDbArticleLike, getDbArticle, getDbArticleBookmarks} from "../../store/articles"
 
 function ArticleStatsIcons({articleIdSign, item, num}) {
@@ -18,6 +18,7 @@ function ArticleStatsIcons({articleIdSign, item, num}) {
    const handleMouseOver = () => {
       setIsBooped(true);
    };
+   const banned = useSelector(getUserBan)
    const dispatch = useDispatch(); 
    const token = useSelector(getToken)
    const isAuth = !useSelector(getIsAuth)
@@ -45,8 +46,10 @@ function ArticleStatsIcons({articleIdSign, item, num}) {
       <>
          <div className="article-stats-icons">
             <div className="article-stats-icons__block">
-               <div className={`article-stats-icons__elem ${articleIdSign && isAuth? "hover": ""}`} title={item.rating == undefined ? "Рейтинг" :"Всего голосов"}
-                  onClick={articleIdSign && isAuth ? ()=>articleLike(): ()=>{}}
+               <div className={`article-stats-icons__elem ${articleIdSign && isAuth? "hover": ""}`} 
+                  title={banned ? "Вы не можете ставить лайки - у Вас бан." :
+                     item.rating == undefined ? "Рейтинг" :"Всего голосов"}
+                  onClick={articleIdSign && isAuth && !banned  ? ()=>articleLike(): ()=>{}}
                >
                   <AutoAwesomeIcon sx={{ color: `${ item.auth_liked ? '#6e8c96': '#bbcdd6' }` }}/>
                </div>

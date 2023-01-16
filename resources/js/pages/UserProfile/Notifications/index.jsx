@@ -1,9 +1,9 @@
 import React, { useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
-import  ArticleId  from '../../../components/Articles/ArticleId'
+
+import Notification from '../../../components/Notification/Notification'
 import { useDispatch, useSelector } from "react-redux";
 import { getToken, } from "../../../store/userAuth"
-import { getDbArticle } from "../../../store/articles"
 import Loader from "../../../components/ui/Loader/Loader"
 import { getNotificationsProfile, getDbNotifications  } from "../../../store/notifications"
 function UserProfileNotifications() {
@@ -15,15 +15,14 @@ function UserProfileNotifications() {
       dispatch(getDbNotifications({token}))
       setLoading(false)
    },[])
-
+   console.log('notifications -',notifications)
    return (
       <>
          { loading  ? <Loader/> 
             : notifications.length > 0 
-               ? notifications.map(notification =>
-                  <div className='' key={notification.id}> {notification.theme}
+               ? notifications.map((notification, key) =>
+                  <Notification key={notification.id} notification={notification} num={key}/>
                   
-                  </div>
                )
                :<div className='articles__block-null'><h2>Уведомлений нет</h2></div>
 

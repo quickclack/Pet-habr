@@ -19,7 +19,7 @@ function UserProfileComments() {
     console.log("comentsProfile - ", comentsProfile)
   useEffect(()=> {
     console.log("UserProfileComments user profile")
-    getDbNotifications
+    dispatch(getDbCommentsProfile({token}) );
     dispatch(setProfileCommentsBrowse(true))
     setLoading(false)
     return ()=>{dispatch(setProfileCommentsBrowse(false))}

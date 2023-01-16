@@ -5,12 +5,15 @@ import { getArticlesAll} from "../../store/articles"
 import Article from './Article.jsx';
 import './ArticlesList.scss'
 import ArticlePagination from './ArticlePagination'
-
+import { getToken, UserInfoTrunk } from "../../store/userAuth";
 function ArticlesList() {
   const dispatch = useDispatch(); 
   const articles =  useSelector(getArticlesAll);
    // console.log('articles - ', articles)
-    
+  const token = useSelector(getToken);
+  useEffect(()=>{
+    dispatch(UserInfoTrunk (token) )
+  },[])
   return (
     <>
       {

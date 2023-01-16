@@ -11,7 +11,7 @@ class NotificationResource extends JsonResource
         return [
             'id' => $this->id,
             'article_id' => $this->article_id,
-            'comment_id' => $this->comment_id
+            'comment_id' => $this->comment_id,
             'theme' => $this->notificationType->title,
             'message' => $this->when(request('notification'), fn() => $this->message),
             'date' => $this->created_at->format('d.m.Y'),

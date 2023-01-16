@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import './Comments.scss'
 import { useDispatch, useSelector } from "react-redux";
 import {createDbCommentArticle, setCommentsLoad, getDbCommentsArticle} from "../../store/comments"
-import { getIsAuth,  getToken, getErrors, setErrorAction } from "../../store/userAuth";
+import { getIsAuth,  getToken, getErrors, setErrorAction, getUserBan } from "../../store/userAuth";
 import  ErrorMessage  from "../VievMessage/ErrorMessage"
 function MainComment({articleId}) {
    const [comment, setComment] = useState('')
-   
+   const banned = useSelector(getUserBan)
    const authed = useSelector(getIsAuth);
    const dispatch = useDispatch();
    const token = useSelector(getToken)
@@ -59,8 +59,9 @@ function MainComment({articleId}) {
                         onChange={commentSubmitHandler}>
                      </textarea>
                   </div>
-                  { comment =='' ? <input className="mainComment-btn" type="button" value="Отправить" title="Введите комментарий"/>:
-                  <input className="mainComment-btn active" type="submit" value="Отправить"/>}
+                  { comment =='' ? <input className="mainComment-btn" type="button" value="Отправить" title="Введите комментарий"/>
+                     : banned ? <input className="mainComment-btn" type="button" value="Отправить" title="Вы не можете оставлять комментарии - у Вас бан."/>
+                        : <input className="mainComment-btn active" type="submit" value="Отправить"/>}
                </form>
             </div>
          }
