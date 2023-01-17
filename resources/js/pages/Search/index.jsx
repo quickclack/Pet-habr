@@ -70,7 +70,6 @@ export const Search = () => {
     event.preventDefault();
     await dispatch( getDbArticlesAll({url:`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}`}));
     await dispatch(setArticlesPagesUrl(`/api/articles?search=${search}&sort=${serchSort}&filters[tags]=${checkedTags}&filters[category]=${checkedCategories}&`))
-    
     setArticlesVisible(true)
   }
 

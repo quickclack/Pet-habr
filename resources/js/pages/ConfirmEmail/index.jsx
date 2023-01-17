@@ -10,14 +10,10 @@ import {ErrorField} from "../../components/ErrorField";
 
 export const ConfirmEmail = () => {
   const email = useSelector(getUserEmail);
- 
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
-
   const errorList = useSelector(getErrors);
   
- 
-
   async function resendingUserEmail(event) {
     console.log("resending")
     event.preventDefault();

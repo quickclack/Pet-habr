@@ -9,6 +9,7 @@ import { categoriesReducer } from "./categories";
 import { commentsReducer } from "./comments"
 import { tagsReducer } from "./tags"
 import { bookmarksReducer } from "./bookmarks"
+import { notificationsReducer } from "./notifications"
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
    comments: commentsReducer,
    tags: tagsReducer,
    bookmarks: bookmarksReducer,
+   notifications: notificationsReducer,
  });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

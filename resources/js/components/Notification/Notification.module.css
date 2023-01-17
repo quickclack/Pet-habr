@@ -1,0 +1,17 @@
+.notification__container{
+   background-color: rgb(255, 255, 255);
+   margin-top: 5px;
+   padding: 15px;
+}
+.notification__container{
+   background-color: rgb(255, 255, 255);
+   margin-top: 5px;
+   padding: 15px;
+}
+.reads{
+   background-color: rgb(238, 84, 84);
+}
+.text:hover{
+   cursor: pointer;
+}
+

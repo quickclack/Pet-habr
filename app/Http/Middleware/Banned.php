@@ -12,9 +12,7 @@ class Banned
         $user = auth('sanctum')->user();
 
         if (isset($user->banned->banned)) {
-            return response()->json([
-                'message' => 'Ваш аккаунт заблокирован'
-            ]);
+            throw new \Exception('Ваш аккаунт заблокирован');
         }
 
         return $next($request);

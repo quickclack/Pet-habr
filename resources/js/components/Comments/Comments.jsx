@@ -5,7 +5,7 @@ import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbComm
    updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, 
    setCommentsArticle, setCommentsVisibleStatus,
    setOpenCommentAnswer, setOpenCommentEdit, getDbCommentLike } from "../../store/comments"
-import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
+import { getUserId, getToken, getIsAuth, getUserBan, getUserRoles } from "../../store/userAuth"
 import CachedIcon from '@mui/icons-material/Cached';
 import './Comments.scss'
 
@@ -23,11 +23,12 @@ function Comments({id}) {
    const comments =  useSelector(getCommentsArticle);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
+   const userRoles = useSelector(getUserRoles)
    console.log('comments - ', comments)
    const [userLike, setUserLike] = useState(false); 
    const  [bookmark, setBookmark] = useState(false);
    console.log('comments - ', comments)
-   
+   const banned = useSelector(getUserBan)
    useEffect(()=>{
       dispatch(setCommentsArticle(''))
       updatingСomments()
@@ -102,7 +103,7 @@ function Comments({id}) {
                   <div className="article-stats-icons__block">
                      <div className={`article-stats-icons__elem ${ isAuth ? "hover" :""} `} 
                         title={item.likes == 0 ? "Комментарий не оценивали" :"Всего голосов"}
-                        onClick={ isAuth ? 
+                        onClick={ isAuth && !banned ? 
                            ()=>commentLike({commentId:item.id, key})
                            : ()=>{}}
                      >
@@ -112,10 +113,11 @@ function Comments({id}) {
                         { item.likes || 0}
                      </div>
                   </div>
-                  { item.user_id !== userId &&  !authed ?
-                     <div className="article-stats-icons__block">
+                  { item.user_id !== userId &&  !authed   ?
+                     <div className="article-stats-icons__block" >
                         <div className="comments__icons__elem-answer"
-                           onClick={()=>{
+                           title={banned ? "Вы не можете отвечать на комментарии - у Вас бан" : ""}
+                           onClick={banned ? ()=>{}  : ()=>{
                               openCommentAnswer({key})
                            }}
                         >
@@ -137,19 +139,21 @@ function Comments({id}) {
                         0
                      </div>
                   </div> */}
-                  { item.user_id == userId ? 
+                  { item.user_id == userId || userRoles ? 
                      <>
                         <div className="article-stats-icons__block">
                            <div className="comments__icons__elem-answer"
-                              onClick={()=>{
+                              title={banned ? "Вы не можете редактировать комментарии - у Вас бан" : ""}
+                              onClick={banned ? ()=>{}  :()=>{
                                  openCommentEdit({key})
                               }}
                               >
                               Редактировать
                            </div>
                         </div>
-                        <div className='comments__ansver-close' title="Удалить комментарий"
-                           onClick={()=>{
+                        <div className='comments__ansver-close' 
+                          title={banned ? "Вы не можете удалять комментарии - у Вас бан.":"Удалить комментарий"}
+                           onClick={banned ? ()=>{}  :()=>{
                               deleteComment(item.id)
                            }}
                         >

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDbCommentsArticle, getCommentsArticle, getCommentsLoad, deleteDbCommentArticle,
    updateDbCommentArticle, setMainCommentVisible, setCommentsLoad, getDbCommentLike,
    setCommentsArticle, setCommentsVisibleStatus, setOpenCommentCommentsAnswer} from "../../store/comments"
-import { getUserId, getToken, getIsAuth } from "../../store/userAuth"
+import { getUserId, getToken, getIsAuth, getUserBan, getUserRoles} from "../../store/userAuth"
 import './Comments.scss'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import BookmarkIcon from '@mui/icons-material/Bookmark'
@@ -15,15 +15,15 @@ function CommentsComment({comment, articleId, index, parent }) {
    const authed = useSelector(getIsAuth);
    const userId =  useSelector(getUserId)
    const token = useSelector(getToken)
-    
+   const banned = useSelector(getUserBan)
    const [userLike, setUserLike] = useState(false);
    const  [bookmark, setBookmark] = useState(false);
    console.log("CommentsComment authed - ", authed)
-   
+   const userRoles = useSelector(getUserRoles)
    const updatingСomments = async () =>{
       dispatch(setCommentsLoad(true))
       // setTimeout(() => setCommentsLoad(prev => !prev), 1000)
-      await dispatch( getDbCommentsArticle({id, token}) )
+      await dispatch( getDbCommentsArticle({id:articleId, token}) )
       dispatch(setCommentsLoad(false))
    }
 
@@ -96,7 +96,8 @@ function CommentsComment({comment, articleId, index, parent }) {
                {   comment.user_id !== userId &&  !authed ?
                   <div className="article-stats-icons__block">
                      <div className="comments__icons__elem-answer"
-                        onClick={()=>{
+                        title={banned ? "Вы не можете отвечать на комментарии - у Вас бан" : ""}
+                        onClick={banned ? ()=>{}  :()=>{
                            openCommentAnswer({ parent_id: comment.parent_id, index, parent})
                         }}
                      >
@@ -115,19 +116,21 @@ function CommentsComment({comment, articleId, index, parent }) {
                      0
                   </div>
                </div> */}
-               { comment.user_id == userId ? 
+               { comment.user_id == userId || userRoles? 
                   <>
                      <div className="article-stats-icons__block">
                         <div className="comments__icons__elem-answer"
-                           onClick={()=>{
+                           title={banned ? "Вы не можете редактировать комментарии - у Вас бан" : ""}
+                           onClick={banned ? ()=>{}  :()=>{
                               openCommentEdit({ comment: comment.comment, index, parent})
                            }}
                            >
                            Редактировать
                         </div>
                      </div>
-                     <div className='comments__ansver-close' title="Удалить комментарий"
-                        onClick={()=>{
+                     <div className='comments__ansver-close' 
+                        title={banned ? "Вы не можете удалять комментарии - у Вас бан.":"Удалить комментарий"}
+                        onClick={banned ? ()=>{}  :()=>{
                            deleteComment(comment.id)
                         }}
                      >

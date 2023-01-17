@@ -5,6 +5,7 @@ import './signUp.scss';
 import { signUpUserTrunk, signUpUserServicesTrunk, setErrorAction } from "../../store/userAuth";
 import {ErrorField} from "../../components/ErrorField";
 import {getErrors} from "../../store/userAuth/selectors";
+import { getArticlePassing} from "../../store/articles";
 export const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ export const SignUp = () => {
   const [confirmation, setConfirmation] = useState("");
   const errorList = useSelector(getErrors);
   const dispatch = useDispatch();
+  const articlePassing = useSelector(getArticlePassing);
   const navigate = useNavigate();
   useEffect(()=>{
     dispatch(setErrorAction('') )
@@ -46,7 +48,7 @@ export const SignUp = () => {
       return
     } else {
       clearForm();
-      navigate("/articles/all");
+      articlePassing === "" ? navigate("/articles/all"): navigate(articlePassing);
     }
   }
 

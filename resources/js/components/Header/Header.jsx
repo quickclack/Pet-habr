@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from "react-router-dom";
 import { getIsAuth, logOutUserAction, getToken, getUserAvatar,
-     getUserNickName, getUserRoles } from "../../store/userAuth";
+     getUserNickName, getUserRoles, UserInfoTrunk } from "../../store/userAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from '@mui/material/Box';
@@ -52,7 +52,9 @@ export const Header = () => {
             navigate(url)
         }, 1)
     }
-
+    useEffect(()=>{
+        dispatch(UserInfoTrunk (token) )
+      },[])
     const settings = [
         {title:'Статьи', action: () => userProfileTransfer(`/users/${nickName}/articles`)},
         {title:'Комментарии', action: () => userProfileTransfer(`/users/${nickName}/comments`)},

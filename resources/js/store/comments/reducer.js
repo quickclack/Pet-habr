@@ -21,9 +21,7 @@ const initialState = {
 
 const addVisibleStatus = (comments) => {
     const arr = [...comments]
-    console.log("SET_COMMENTS_ARTICLE - arr", arr)
     arr.forEach((comment)=>{
-    console.log("SET_COMMENTS_ARTICLE - comment", comment)
     comment.ansverVisible = false
     comment.editVisible = false
     if ("replies_comment" in comment) {
