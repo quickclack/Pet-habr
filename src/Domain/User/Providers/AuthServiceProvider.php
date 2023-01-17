@@ -39,7 +39,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('delete-comment', function (User $user, Comment $comment) {
-            return auth()->id() === $user->getKey() && $comment->user_id === $user->getKey();
+            return auth()->id() === $user->getKey()
+                && $comment->user_id === $user->getKey()
+                || $user->roles->containsStrict('id', 1)
+                || $user->roles->containsStrict('id', 2);
         });
 
         Gate::define('update-article', function (User $user, Article $article) {
@@ -47,7 +50,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('delete-article', function (User $user, Article $article) {
-            return auth()->id() === $user->getKey() && $article->user_id === $user->getKey();
+            return auth()->id() === $user->getKey()
+                && $article->user_id === $user->getKey()
+                || $user->roles->containsStrict('id', 1)
+                || $user->roles->containsStrict('id', 2);
         });
     }
 }

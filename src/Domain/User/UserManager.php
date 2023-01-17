@@ -13,7 +13,9 @@ final class UserManager
 {
     public function update(Request $request, User $user): void
     {
-        $user->roles()->attach($request->get('role'));
+        $user->roles()->update([
+            'role_id' => $request->get('role')
+        ]);
 
         if ($request->boolean('banned')) {
             $user->banned()->create([
