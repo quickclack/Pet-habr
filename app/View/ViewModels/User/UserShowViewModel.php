@@ -11,6 +11,7 @@ class UserShowViewModel extends ViewModel
     public function banned(): LengthAwarePaginator
     {
         return Banned::query()
+            ->with('user')
             ->paginate(10);
     }
 }
