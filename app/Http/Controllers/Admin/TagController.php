@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 class TagController extends Controller
 {
     public function __construct(
-        protected TagBuilder $builder
+        protected readonly TagBuilder $builder
     ){
     }
 
@@ -33,7 +33,7 @@ class TagController extends Controller
 
     public function store(TagRequest $request, Tag $tag): RedirectResponse
     {
-        tag()->store($request, $tag);
+        tag()->store(request: $request, tag: $tag);
 
         flash()->success('Тег успешно добавлена');
 
@@ -48,7 +48,7 @@ class TagController extends Controller
 
     public function update(TagRequest $request, Tag $tag): RedirectResponse
     {
-        tag()->update($request, $tag);
+        tag()->update(request: $request, tag: $tag);
 
         flash()->success('Изменения сохранены');
 
@@ -57,7 +57,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag): RedirectResponse
     {
-        tag()->destroy($tag);
+        tag()->destroy(tag: $tag);
 
         flash()->success('Тег успешно удален');
 

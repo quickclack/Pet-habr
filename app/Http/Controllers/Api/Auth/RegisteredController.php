@@ -12,7 +12,7 @@ class RegisteredController extends Controller
 {
     public function store(RegisteredRequest $request, RegisteredContract $contract): JsonResponse
     {
-        $user = $contract(NewUserDto::formRequest($request));
+        $user = $contract(NewUserDto::formRequest(request: $request));
 
         return $this->getToken(
             $user->createToken('auth_token')->plainTextToken

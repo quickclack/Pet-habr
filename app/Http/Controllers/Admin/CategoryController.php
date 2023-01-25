@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 class CategoryController extends Controller
 {
     public function __construct(
-        protected CategoryBuilder $builder
+        protected readonly CategoryBuilder $builder
     ){
     }
 
@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request, Category $category): RedirectResponse
     {
-        category()->store($request, $category);
+        category()->store(request: $request, category: $category);
 
         flash()->success('Категория успешно добавлена');
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        category()->update($request, $category);
+        category()->update(request: $request, category: $category);
 
         flash()->success('Изменения сохранены');
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
-        category()->destroy($category);
+        category()->destroy(category: $category);
 
         flash()->success('Категория успешно удалена');
 

@@ -18,9 +18,9 @@ use Illuminate\Http\RedirectResponse;
 class ArticleController extends Controller
 {
     public function __construct(
-        protected ArticleBuilder $articleBuilder,
-        protected CategoryBuilder $categoryBuilder,
-        protected TagBuilder $tagBuilder
+        protected readonly ArticleBuilder $articleBuilder,
+        protected readonly CategoryBuilder $categoryBuilder,
+        protected readonly TagBuilder $tagBuilder
     ){
     }
 
@@ -65,7 +65,7 @@ class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article): RedirectResponse
     {
-        article()->update($request, $article);
+        article()->update(request: $request, article: $article);
 
         flash()->success('Статья успешно обновлена');
 
@@ -74,7 +74,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        article()->destroy($article);
+        article()->destroy(article: $article);
 
         flash()->success('Статья успешно удалена');
 
@@ -83,7 +83,7 @@ class ArticleController extends Controller
 
     public function approve(int $id): RedirectResponse
     {
-        article()->approve($this->articleBuilder, $id);
+        article()->approve(builder: $this->articleBuilder, id: $id);
 
         flash()->success('Статья подтверждена');
 
@@ -92,7 +92,7 @@ class ArticleController extends Controller
 
     public function reject(int $id): RedirectResponse
     {
-        article()->reject($this->articleBuilder, $id);
+        article()->reject(builder: $this->articleBuilder, id: $id);
 
         flash()->success('Статья отклонена');
 

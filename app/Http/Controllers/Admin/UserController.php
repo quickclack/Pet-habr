@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user): RedirectResponse
     {
-        user()->update($request, $user);
+        user()->update(request: $request, user: $user);
 
         flash()->success('Пользователь успешно обновлен');
 
@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        user()->destroy($user);
+        user()->destroy(user: $user);
 
         flash()->success('Пользователь успешно обновлен');
 

@@ -15,13 +15,13 @@ class ReestablishController extends Controller
     {
         $password = Str::random(15);
 
-        $user = $builder->getUserByEmail($request->email);
+        $user = $builder->getUserByEmail(email: $request->email);
 
         $user->forceFill([
             'password' => bcrypt($password)
         ]);
 
-        dispatch(new SendNewPasswordJob($user, $password));
+        dispatch(new SendNewPasswordJob(user: $user, password: $password));
 
         $user->save();
 

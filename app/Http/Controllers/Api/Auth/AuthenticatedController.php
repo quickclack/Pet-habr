@@ -13,7 +13,7 @@ class AuthenticatedController extends Controller
     {
         $request->authenticate();
 
-        $user = $builder->getUserByEmail($request->email);
+        $user = $builder->getUserByEmail(email: $request->email);
 
         return $this->getToken(
             $user->createToken('auth_token')->plainTextToken
