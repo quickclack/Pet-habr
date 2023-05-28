@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Information\Queries;
 
 use App\Contracts\QueryBuilder;
-use Illuminate\Database\Eloquent\Collection;
 use Support\Enums\ArticleStatus;
 use Domain\Information\Models\Article;
-use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class ArticleBuilder implements QueryBuilder

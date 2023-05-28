@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
+use Domain\Information\Models\Tag;
+use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\TagRequest;
+use Domain\Information\Queries\TagBuilder;
 use App\View\ViewModels\Tag\TagEditViewModel;
 use App\View\ViewModels\Tag\TagIndexViewModel;
-use Domain\Information\Models\Tag;
-use Domain\Information\Queries\TagBuilder;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View as ViewContract;
 
 class TagController extends Controller
 {
@@ -26,9 +27,9 @@ class TagController extends Controller
             ->view('admin.tag.index');
     }
 
-    public function create(): Application|Factory|View
+    public function create(): ViewContract
     {
-        return view('admin.tag.create');
+        return View::make('admin.tag.create');
     }
 
     public function store(TagRequest $request, Tag $tag): RedirectResponse

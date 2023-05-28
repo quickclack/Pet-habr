@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\View as ViewContract;
 
 class IndexController extends Controller
 {
-    public function __invoke(): Application|Factory|View
+    public function __invoke(): ViewContract
     {
-        return view('admin.index');
+        return View::make('admin.index');
     }
 }

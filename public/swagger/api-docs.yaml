@@ -38,7 +38,7 @@ paths:
             type: string
             example: 'Repeat your password'
       responses:
-        200:
+        201:
           description: Success
           content:
             application/json:
@@ -50,6 +50,8 @@ paths:
                   token_type:
                     type: string
                     example: 'Bearer'
+        400:
+          $ref: '#/components/responses/ValidationError'
 
   /api/auth/login:
     post:
@@ -84,14 +86,7 @@ paths:
                     type: string
                     example: 'Bearer'
         403:
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                properties:
-                  email:
-                    type: string
-                    example: 'Неверное имя пользователя или пароль.'
+          $ref: '#/components/responses/ForbiddenError'
 
   /api/auth/logout:
     post:
@@ -115,6 +110,8 @@ paths:
                   message:
                     type: string
                     example: 'Вы вышли'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
 
 # -------------------------------- USER --------------------------------
   /api/user/info:
@@ -166,12 +163,180 @@ paths:
                   banned:
                     type: boolean
                     example: false
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
         404:
-          description: Not found
+          $ref: '#/components/responses/NotFoundError'
+
+# -------------------------------- USER --------------------------------
+  /api/profile/comments:
+    post:
+      tags: [ 'Profile' ]
+      description: Get user comments
+      parameters:
+        - name: access_token
+          in: header
+          required: true
+          schema:
+            type: string
+            example: '1|aseefbb&3112sd,frkrr2'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  comments:
+                    type: array
+                    example: [
+                      'id': 1,
+                      article_id: 2,
+                      article_title: 'Some article title',
+                      comment: 'Some user comment',
+                      created_at: '5 минут назад',
+                      user_avatar: 'jhon-doe.jpg',
+                      user_name: 'Jhon'
+                    ]
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /api/profile/amount:
+    post:
+      tags: [ 'Profile' ]
+      description: Get amount users actions
+      parameters:
+        - name: access_token
+          in: header
+          required: true
+          schema:
+            type: string
+            example: '1|aseefbb&3112sd,frkrr2'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  amount_articles:
+                    type: integer
+                    example: 13
+                  amount_comments:
+                    type: integer
+                    example: 3
+                  amount_bookmarks:
+                    type: integer
+                    example: 5
+                  amount_notifications:
+                    type: integer
+                    example: 3
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /api/profile/article/create:
+    post:
+      tags: [ 'Profile' ]
+      description: Create user article
+      parameters:
+        - name: title
+          in: query
+          required: true
+          description: Article title
+          schema:
+            type: string
+            example: 'Some article title'
+        - name: description
+          in: query
+          required: true
+          description: Article description
+          schema:
+            type: string
+            example: 'Some article description'
+        - name: category_id
+          in: query
+          required: true
+          description: Category id
+          schema:
+            type: integer
+            example: 1
+        - name: image
+          in: query
+          required: false
+          description: Article image
+          schema:
+            type: string
+            example: 'article1.jpg'
+      responses:
+        200:
+          description: Success
           content:
             application/json:
               schema:
                 properties:
                   message:
                     type: string
-                    example: 'Not found'
+                    example: 'Статья сохранена в черновик'
+        400:
+          $ref: '#/components/responses/ValidationError'
+        402:
+          $ref: '#/components/responses/BannedError'
+
+# -------------------------------- COMPONENTS --------------------------------
+components:
+  responses:
+    NotFoundError:
+      description: 'Not found'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: 'Not found'
+
+    UnauthorizedError:
+      description: 'User is unauthorized'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: 'Unauthenticated.'
+    ValidationError:
+      description: 'Validation Error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Поле field обязательно для заполнения.'
+        errors:
+          schema:
+            type: object
+            properties:
+              field:
+                type: array
+                example: [ 'Поле field обязательно для заполнения.' ]
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              email:
+                type: string
+                example: 'Неверное имя пользователя или пароль.'
+    BannedError:
+      description: User is banned
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: 'Ваш аккаунт заблокирован'

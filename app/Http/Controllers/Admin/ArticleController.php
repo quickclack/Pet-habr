@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
-use App\View\ViewModels\Article\ArticleCreateViewModel;
-use App\View\ViewModels\Article\ArticleEditViewModel;
-use App\View\ViewModels\Article\ArticleIndexViewModel;
-use App\View\ViewModels\Article\ArticleShowViewModel;
-use App\View\ViewModels\Article\ArticleTrashViewModel;
+use Illuminate\Http\RedirectResponse;
 use Domain\Information\Models\Article;
+use Domain\Information\Queries\TagBuilder;
 use Domain\Information\Queries\ArticleBuilder;
 use Domain\Information\Queries\CategoryBuilder;
-use Domain\Information\Queries\TagBuilder;
-use Illuminate\Http\RedirectResponse;
+use App\View\ViewModels\Article\ArticleEditViewModel;
+use App\View\ViewModels\Article\ArticleShowViewModel;
+use App\View\ViewModels\Article\ArticleIndexViewModel;
+use App\View\ViewModels\Article\ArticleTrashViewModel;
+use App\View\ViewModels\Article\ArticleCreateViewModel;
 
 class ArticleController extends Controller
 {

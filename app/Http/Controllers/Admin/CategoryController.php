@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Domain\Information\Models\Category;
 use App\Http\Requests\Admin\CategoryRequest;
+use Domain\Information\Queries\CategoryBuilder;
+use Illuminate\Contracts\View\View as ViewContract;
 use App\View\ViewModels\Category\CategoryEditViewModel;
 use App\View\ViewModels\Category\CategoryIndexViewModel;
-use Domain\Information\Models\Category;
-use Domain\Information\Queries\CategoryBuilder;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -26,9 +27,9 @@ class CategoryController extends Controller
             ->view('admin.category.index');
     }
 
-    public function create(): Application|Factory|View
+    public function create(): ViewContract
     {
-        return view('admin.category.create');
+        return View::make('admin.category.create');
     }
 
     public function store(CategoryRequest $request, Category $category): RedirectResponse
