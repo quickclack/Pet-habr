@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b77dfdef791064085636d85be1e94a1f",
+    "content-hash": "8672b1789e56a0b6aed77f3ac8ea501d",
     "packages": [
         {
             "name": "brick/math",
@@ -3247,6 +3247,59 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.11.8"
             },
             "time": "2022-07-28T14:25:11+00:00"
+        },
+        {
+            "name": "quickclack/database-filler",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/quickclack/database-filler.git",
+                "reference": "0410f9e196283353cebc13959403b98ec911871a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/quickclack/database-filler/zipball/0410f9e196283353cebc13959403b98ec911871a",
+                "reference": "0410f9e196283353cebc13959403b98ec911871a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0.2|^8.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Quickclack\\Fillers\\Providers\\ArtisanCommandServiceProvider",
+                        "Quickclack\\Fillers\\Providers\\MigrationsServiceProvider"
+                    ]
+                },
+                "branch_alias": {
+                    "dev-master": "1.0.0"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Quickclack\\Fillers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "quickclack",
+                    "email": "amakarov@kazanworkout.ru",
+                    "homepage": "https://github.com/quickclack"
+                }
+            ],
+            "description": "This package for creating and running fillers on laravel projects",
+            "support": {
+                "issues": "https://github.com/quickclack/database-filler/issues",
+                "source": "https://github.com/quickclack/database-filler/tree/master"
+            },
+            "time": "2023-06-02T08:36:48+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -8875,7 +8928,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "quickclack/database-filler": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
